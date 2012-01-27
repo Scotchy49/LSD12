@@ -5,7 +5,7 @@
 # H. Toussaint (hto@info.fundp.ac.be), 14/06/05
 
 
-all:
+all: distclean
 	bison -dty *.y
 	flex *.l
 	gcc -ggdb -c *.c

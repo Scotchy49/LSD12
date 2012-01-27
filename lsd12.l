@@ -8,16 +8,18 @@ int num_line = 1;
 %option noyywrap
 
 id 			[a-zA-Z][0-9a-zA-Z]*
-blank		[\t]+
+blank		[ \t]
 nbr         (0|[1-9][0-9]*)
 
 %%
 
 ";"		{return SEMICOLON;}
 ":"		{return COLON;}
+","		{return COMMA;}
 "{"		{return LCB;}
 "}"		{return RCB;}
 
+":="	{return ASSIGN;}
 "+"		{return PLUS;}
 "-"		{return MINUS;}
 "/"		{return DIV;}
@@ -41,6 +43,9 @@ nbr         (0|[1-9][0-9]*)
 "return"	{return RETURN;}
 "var"		{return VAR;}
 "if"		{return IF;}
+"fi"		{return FI;}
+"then"		{return THEN;}
+"else"		{return ELSE;}
 "while"		{return WHILE;}
 "do"		{return DO;}
 "od"		{return OD;}
@@ -61,6 +66,9 @@ nbr         (0|[1-9][0-9]*)
 "to"		{return TO;}
 "from"		{return FROM;}
 
+"true"		{return BOOL_TRUE;}
+"false"		{return BOOL_FALSE;}
+
 {nbr} { 
 	yylval.intVal = atoi(yytext); 
 	return CONSTANT; 
@@ -73,7 +81,10 @@ nbr         (0|[1-9][0-9]*)
 }
 
 {blank}	{}
-"\n"	{++num_line;}
+"\n"	{
+			++num_line; 
+			return NEW_LINE;
+		}
 
 . {
 	fprintf(stderr, "KO\n");

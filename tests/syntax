@@ -1,0 +1,12 @@
+program x;
+  function main(): void;
+    var
+      a int;
+      b bool;
+      function fct1( a: int, b: bool) : void;
+        forward;
+    begin
+      a := fct1();
+      write a;
+    end;
+end;
