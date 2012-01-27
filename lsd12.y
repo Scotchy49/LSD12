@@ -11,7 +11,7 @@
 	void* pVal;
 }
 
-%token SEMICOLON COLON LCB RCB PROGRAM FUNCTION BEGIN_BLOCK END_BLOCK FORWARD RETURN VAR IF THEN ELSE FI WHILE DO OD VOID INT BOOLEAN ISET WRITE READ ADD_ISET REMOVE_ISET TO FROM CONSTANT BOOL_TRUE BOOL_FALSE COMMA ID NEW_LINE
+%token SEMICOLON COLON LCB RCB PROGRAM FUNCTION BEGIN_BLOCK END_BLOCK FORWARD RETURN VAR IF THEN ELSE FI WHILE DO OD VOID INT BOOLEAN ISET WRITE READ ADD_ISET REMOVE_ISET TO FROM CONSTANT BOOL_TRUE BOOL_FALSE COMMA NEW_LINE ID
 
 %left AND OR
 %left NOT
@@ -35,6 +35,7 @@ Program : PROGRAM ID SEMICOLON
 Instruction : SEMICOLON
 			| RExpr SEMICOLON
 			| LExpr ASSIGN RExpr SEMICOLON
+			| IF LP RExpr RP THEN InstructionList FI SEMICOLON
 			| IF LP RExpr RP THEN InstructionList ELSE InstructionList FI SEMICOLON
 			| WHILE LP RExpr RP DO InstructionList OD SEMICOLON
 			| WRITE RExpr SEMICOLON
@@ -53,11 +54,12 @@ TypeDecl : INT
 		 | ISET
 	;
 
-Function : ID LP FunctionParams RP COLON FuncType SEMICOLON 
+Function : FUNCTION ID LP FunctionParams RP COLON FuncType SEMICOLON 
 		 	  ImplementOrForward
 	;
 
 ImplementOrForward: FunctionBody | FORWARD SEMICOLON
+	;
 
 FuncType : INT
 		 | BOOLEAN
@@ -67,7 +69,7 @@ FuncType : INT
 FunctionParams : VarDecl
 	;
 
-VarDecl : ID TypeDecl
+VarDecl : ID COLON TypeDecl SEMICOLON
 	;
 
 FunctionBody : DeclBloc
@@ -84,8 +86,6 @@ DeclBloc : VAR FunctionDeclList
 	;
 
 CodeBloc : BEGIN_BLOCK InstructionList END_BLOCK SEMICOLON
-
-LExpr	: ID
 	;
 
 RExpr 	: CONSTANT
@@ -111,6 +111,9 @@ RExpr 	: CONSTANT
 		| LP BoolExpr RP
 	;
 
+LExpr	: ID
+	;
+
 FunctionCall: ID LP RExpr RP
 	;
 
@@ -122,8 +125,6 @@ IntExpr	: CONSTANT
 		| MIN_ISET LExpr
 		| MAX_ISET LExpr
 		| SIZE_ISET LExpr
-		| LExpr
-		| FunctionCall
 		| LP IntExpr RP
 	;
 
@@ -136,8 +137,6 @@ BoolExpr: BOOL_FALSE
 		| IntExpr LT IntExpr
 		| IntExpr LTE IntExpr
 		| IntExpr IN LExpr
-		| LExpr
-		| FunctionCall
 		| LP BoolExpr RP
 	;
 
@@ -150,5 +149,6 @@ int yyerror() {
 }
 
 int main() {
+	yydebug = 1;
 	yyparse();
 }

@@ -8,7 +8,7 @@
 all: distclean
 	bison -dty *.y
 	flex *.l
-	gcc -ggdb -c *.c
+	gcc -ggdb -DYYDEBUG=1 -c *.c
 	gcc -ggdb -o lsd12 *.o
 
 clean:

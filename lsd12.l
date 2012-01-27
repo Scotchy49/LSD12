@@ -77,13 +77,12 @@ nbr         (0|[1-9][0-9]*)
 {id} {
 	yylval.strVal=(char*)calloc(strlen(yytext)+1,sizeof(char));
     strcpy(yylval.strVal,yytext);
-    return VAR;
+    return ID;
 }
 
 {blank}	{}
 "\n"	{
 			++num_line; 
-			return NEW_LINE;
 		}
 
 . {
