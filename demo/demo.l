@@ -36,25 +36,27 @@ blank     [ \t]+
 ","          {return COMMA;}
 "mod"        {return MODULO;}
 
-{var}        {
+{var}       {
                 yylval.sval=(char*)calloc(strlen(yytext)+1,sizeof(char));
-		strcpy(yylval.sval,yytext);
-		return VAR;
-             }
+                strcpy(yylval.sval,yytext);
+                return VAR;
+            }
 
-{nbr}        {
+{nbr}       {
                 yylval.ival=atoi(yytext);
-		return NB;
-             }
+                return NB;
+            }
 
-"\n"         {++num_lines;}
+"\n"        {
+                ++num_lines;
+            }
 
-{blank}      {/*On passe*/}
+{blank}     {/*On passe*/}
 
-.            {
+.           {
                 fprintf(stderr,"KO\n");
                 printf("ERROR : invalid '%s' in line %d\n",yytext, num_lines);
                 exit(0);
-             }
+            }
 
 %%
