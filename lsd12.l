@@ -10,14 +10,13 @@ int num_line = 1;
 id 			[a-zA-Z][0-9a-zA-Z]*
 blank		[ \t]
 nbr         (0|[1-9][0-9]*)
+comment		"{"(.*?)"}"
 
 %%
 
 ";"		{return SEMICOLON;}
 ":"		{return COLON;}
 ","		{return COMMA;}
-"{"		{return LCB;}
-"}"		{return RCB;}
 
 ":="	{return ASSIGN;}
 "+"		{return PLUS;}
@@ -84,6 +83,8 @@ nbr         (0|[1-9][0-9]*)
 "\n"	{
 			++num_line; 
 		}
+
+{comment} {}
 
 . {
 	fprintf(stderr, "KO\n");

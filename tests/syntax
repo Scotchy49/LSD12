@@ -1,8 +1,21 @@
 program x;
-  function main(a:int;): void;
+  {this is a comment}
+  function main(): void;
     var
-      a: int;
-      b: bool;
-    begin
-    end;
+      a int;
+      b bool;
+      function fct1(var a: int, b: bool) : void;
+        forward;
+      function fct0() : int;
+        var
+          a int;
+        begin
+          read a;
+          return a;
+        end;
+      begin
+        a := fct0();
+        b := a <= 0;
+        write a;
+      end;
 end;

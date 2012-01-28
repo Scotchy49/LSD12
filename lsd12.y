@@ -58,7 +58,8 @@ Function : FUNCTION ID LP FunctionParams RP COLON FuncType SEMICOLON
 		 	  ImplementOrForward
 	;
 
-ImplementOrForward: FunctionBody | FORWARD SEMICOLON
+ImplementOrForward: FunctionBody 
+				  | FORWARD SEMICOLON
 	;
 
 FuncType : INT
@@ -66,10 +67,19 @@ FuncType : INT
 		 | VOID
 	;
 
-FunctionParams : VarDecl
+FunctionParams : /* nothing */
+			   | ParamDeclList
 	;
 
-VarDecl : ID COLON TypeDecl SEMICOLON
+ParamDecl : ID COLON TypeDecl
+		  | VAR ID COLON TypeDecl
+	;
+
+ParamDeclList : ParamDecl
+			  | ParamDeclList COMMA ParamDecl
+	;
+
+VarDecl : ID TypeDecl SEMICOLON
 	;
 
 FunctionBody : DeclBloc
@@ -88,7 +98,40 @@ DeclBloc : VAR FunctionDeclList
 CodeBloc : BEGIN_BLOCK InstructionList END_BLOCK SEMICOLON
 	;
 
-RExpr 	: CONSTANT
+LExpr	: ID
+	;
+
+CallParams : /**/
+		   | RExpr
+		   | CallParams COMMA RExpr
+	;
+
+FunctionCall : ID LP CallParams RP
+	;
+
+RExpr :   LExpr
+		| FunctionCall
+		| CONSTANT
+		| RExpr PLUS RExpr
+		| RExpr MINUS RExpr
+		| RExpr TIMES RExpr
+		| RExpr DIV RExpr
+		| MIN_ISET LExpr
+		| MAX_ISET LExpr
+		| SIZE_ISET LExpr
+		| LP RExpr RP
+		| BOOL_FALSE
+		| BOOL_TRUE
+		| RExpr AND RExpr
+		| RExpr OR RExpr
+		| NOT RExpr
+		| RExpr EQ RExpr
+		| RExpr LT RExpr
+		| RExpr LTE RExpr
+		| RExpr IN RExpr
+	;
+
+IntExpr : CONSTANT
 		| IntExpr PLUS IntExpr
 		| IntExpr MINUS IntExpr
 		| IntExpr TIMES IntExpr
@@ -99,45 +142,6 @@ RExpr 	: CONSTANT
 		| LExpr
 		| FunctionCall
 		| LP IntExpr RP
-		| BOOL_FALSE
-		| BOOL_TRUE
-		| BoolExpr AND BoolExpr
-		| BoolExpr OR BoolExpr
-		| NOT BoolExpr
-		| IntExpr EQ IntExpr
-		| IntExpr LT IntExpr
-		| IntExpr LTE IntExpr
-		| IntExpr IN LExpr
-		| LP BoolExpr RP
-	;
-
-LExpr	: ID
-	;
-
-FunctionCall: ID LP RExpr RP
-	;
-
-IntExpr	: CONSTANT
-		| IntExpr PLUS IntExpr
-		| IntExpr MINUS IntExpr
-		| IntExpr TIMES IntExpr
-		| IntExpr DIV IntExpr
-		| MIN_ISET LExpr
-		| MAX_ISET LExpr
-		| SIZE_ISET LExpr
-		| LP IntExpr RP
-	;
-
-BoolExpr: BOOL_FALSE
-		| BOOL_TRUE
-		| BoolExpr AND BoolExpr
-		| BoolExpr OR BoolExpr
-		| NOT BoolExpr
-		| IntExpr EQ IntExpr
-		| IntExpr LT IntExpr
-		| IntExpr LTE IntExpr
-		| IntExpr IN LExpr
-		| LP BoolExpr RP
 	;
 
 %%

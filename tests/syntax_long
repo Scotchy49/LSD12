@@ -1,0 +1,46 @@
+program example;
+  function main() : void;
+    var
+      { declaration de variables + fonctions }
+      a bool;
+      b int;
+      ensA iset;
+      ensB iset;
+
+      { Verifie que ensA et ensB sont identiques }
+      function equals() : bool;
+        forward;
+
+      { Initialise ens avec des valeurs saisies par l'utilisateur }
+      function buildEns( var ens : iset ) : void;
+        var
+          x int;
+        begin
+          read x;
+          while( !(x = 0) ) do
+            add x to ens;
+            read x;
+            od;
+        end;
+
+      { Definition complete de equals }
+      function equals( ens1 : iset, ens2 : iset ): bool;
+        var
+          equal bool;
+        begin
+          equal := #ens1 = #ens2;
+          while( equal && 0 < ens1 && 0 < ens2 ) do
+            equal := min ens1 = min ens2;
+            od;
+          return equal;
+        end;
+    begin
+      buildEns( ensA );
+      buildEns( ensB );
+      if( equals() ) then
+        write 1;
+      else
+        write 0;
+      fi;
+    end;
+end;
