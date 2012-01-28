@@ -37,7 +37,7 @@ program example;
     begin
       buildEns( ensA );
       buildEns( ensB );
-      if( equals() ) then
+      if( equals(ensA, ensB) ) then
         write 1;
       else
         write 0;

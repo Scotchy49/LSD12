@@ -33,15 +33,15 @@ Program : PROGRAM ID SEMICOLON
 	;
 
 Instruction : SEMICOLON
-			| RExpr SEMICOLON
+			| RExpr SEMICOLON															
 			| LExpr ASSIGN RExpr SEMICOLON
 			| IF LP RExpr RP THEN InstructionList FI SEMICOLON
 			| IF LP RExpr RP THEN InstructionList ELSE InstructionList FI SEMICOLON
 			| WHILE LP RExpr RP DO InstructionList OD SEMICOLON
 			| WRITE RExpr SEMICOLON
 			| READ RExpr SEMICOLON
-			| ADD_ISET IntExpr TO LExpr SEMICOLON
-			| REMOVE_ISET IntExpr FROM LExpr SEMICOLON
+			| ADD_ISET RExpr TO LExpr SEMICOLON
+			| REMOVE_ISET RExpr FROM LExpr SEMICOLON
 			| RETURN RExpr
 	;
 
@@ -98,6 +98,9 @@ DeclBloc : VAR FunctionDeclList
 CodeBloc : BEGIN_BLOCK InstructionList END_BLOCK SEMICOLON
 	;
 
+FunctionCall : ID LP CallParams RP
+	;
+
 LExpr	: ID
 	;
 
@@ -106,10 +109,8 @@ CallParams : /**/
 		   | CallParams COMMA RExpr
 	;
 
-FunctionCall : ID LP CallParams RP
-	;
-
 RExpr :   LExpr
+		| LP RExpr RP
 		| FunctionCall
 		| CONSTANT
 		| RExpr PLUS RExpr
@@ -119,7 +120,6 @@ RExpr :   LExpr
 		| MIN_ISET LExpr
 		| MAX_ISET LExpr
 		| SIZE_ISET LExpr
-		| LP RExpr RP
 		| BOOL_FALSE
 		| BOOL_TRUE
 		| RExpr AND RExpr
@@ -130,20 +130,6 @@ RExpr :   LExpr
 		| RExpr LTE RExpr
 		| RExpr IN RExpr
 	;
-
-IntExpr : CONSTANT
-		| IntExpr PLUS IntExpr
-		| IntExpr MINUS IntExpr
-		| IntExpr TIMES IntExpr
-		| IntExpr DIV IntExpr
-		| MIN_ISET LExpr
-		| MAX_ISET LExpr
-		| SIZE_ISET LExpr
-		| LExpr
-		| FunctionCall
-		| LP IntExpr RP
-	;
-
 %%
 
 int yyerror() {
