@@ -4,4 +4,5 @@ Acamedic compiler project for a pascal-like language.
 
 Full language specification is in statement/spec.pdf
 
-27/01/2012: Lexical analyser first spit
+27/01/2012: Lexical analyser 
+29/01/2012: Grammatical analyzer and AST tree generation.
