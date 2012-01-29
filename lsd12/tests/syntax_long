@@ -31,6 +31,8 @@ program example;
           equal := #ens1 = #ens2;
           while( equal && 0 < ens1 && 0 < ens2 ) do
             equal := min ens1 = min ens2;
+            remove min ens1 from ens1;
+            remove min ens2 from ens2;
             od;
           return equal;
         end;

@@ -1,11 +1,4 @@
-# Makefile
-#
-# part of the DEMO compiler
-#
-# H. Toussaint (hto@info.fundp.ac.be), 14/06/05
-
-
-all: distclean
+all:
 	bison -dty *.y
 	flex *.l
 	gcc -ggdb -DYYDEBUG=1 -c *.c

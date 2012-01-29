@@ -1,4 +1,7 @@
 *.o
-lsd12
-lex.yy.c
-y.tab.*
+lsd12/lsd12
+lsd12/lex.yy.c
+lsd12/y.tab.*
+lsd12/.DS_Store
+lsd12/.cproject
+lsd12/.project
