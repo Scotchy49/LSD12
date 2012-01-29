@@ -8,7 +8,7 @@ program example;
       ensB iset;
 
       { Verifie que ensA et ensB sont identiques }
-      function equals() : bool;
+      function equals(ens1:iset,ens2:iset) : bool;
         forward;
 
       { Initialise ens avec des valeurs saisies par l'utilisateur }

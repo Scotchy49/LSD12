@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ast.h"
+#include "sym.h"
 
 AST_TREE root = 0;
 
@@ -24,7 +25,7 @@ AST_TREE root = 0;
 %left MIN_ISET MAX_ISET SIZE_ISET
 %left LP RP
 
-%type <ast> Program Function Instruction InstructionList TypeDecl FuncType FunctionParams ParamDecl VarDecl FunctionBody DeclBloc CodeBloc FunctionCall LExpr CallParams RExpr
+%type <ast> Program Function Instruction InstructionList TypeDecl FuncType FunctionParams ParamDecl VarDecl DeclBloc CodeBloc FunctionCall LExpr CallParams RExpr
 %type <strVal> ID
 %type <intVal> CONSTANT
 %%
@@ -33,7 +34,7 @@ Program : PROGRAM ID SEMICOLON Function END_BLOCK SEMICOLON { root = createNode(
 	;
 
 Instruction : SEMICOLON 																{/*no side effect*/}
-			| RExpr SEMICOLON															{/*no side effect*/}
+			| RExpr SEMICOLON															{$$=$1;}
 			| LExpr ASSIGN RExpr SEMICOLON 												{$$=createNode(OP_ASSIGN, 2, $1, $3);}
 			| IF LP RExpr RP THEN InstructionList FI SEMICOLON 							{$$=createNode(OP_IF, 2, $3, $6);}
 			| IF LP RExpr RP THEN InstructionList ELSE InstructionList FI SEMICOLON 	{$$=createNode(OP_IF_ELSE, 3, $3, $6, $8);}
@@ -54,7 +55,7 @@ TypeDecl : INT  		{$$=createIntConstant(OP_VAR_TYPE, TYPE_INT);}
 		 | ISET 		{$$=createIntConstant(OP_VAR_TYPE, TYPE_ISET);}
 	;
 
-Function : FUNCTION ID LP FunctionParams RP COLON FuncType SEMICOLON FunctionBody 		{$$=createNode(OP_FUNCTION, 4, createLiteral(OP_ID, $2), $4, $7, $9);}
+Function : FUNCTION ID LP FunctionParams RP COLON FuncType SEMICOLON DeclBloc CodeBloc	{$$=createNode(OP_FUNCTION, 5, createLiteral(OP_ID, $2), $4, $7, $9, $10);}
 		 | FUNCTION ID LP FunctionParams RP COLON FuncType SEMICOLON FORWARD SEMICOLON 	{$$=createNode(OP_FUNCTION_FORWARD, 3, createLiteral(OP_ID, $2), $4, $7);}
 	;
 
@@ -74,20 +75,16 @@ ParamDecl : ID COLON TypeDecl
 		  		{$$=createNode(OP_FUNCTION_PARAM, 3, createIntConstant(OP_FUNCTION_PARAM_VAR, 1), createLiteral(OP_ID, $2), $4);}
 	;
 
-VarDecl : ID TypeDecl SEMICOLON 	{$$=createNode(OP_FUNCTION_IMPL_VAR_DECL, 2, createLiteral(OP_ID, $1), $2);}
+VarDecl : ID TypeDecl SEMICOLON 	{$$=createNode(OP_FUNCTION_VAR_DECL, 2, createLiteral(OP_ID, $1), $2);}
 	;
 
-FunctionBody : DeclBloc CodeBloc 	{$$=createNode(OP_FUNCTION_IMPL, 2, $1, $2);}
-    ;
-
-
-DeclBloc : VAR VarDecl		{$$=createNode(OP_FUNCTION_IMPL_DECLBLOCK, 1, $2);}
-		 | VAR Function		{$$=createNode(OP_FUNCTION_IMPL_DECLBLOCK, 1, $2);}
+DeclBloc : VAR VarDecl		{$$=createNode(OP_FUNCTION_DECLBLOCK, 1, $2);}
+		 | VAR Function		{$$=createNode(OP_FUNCTION_DECLBLOCK, 1, $2);}
 		 | DeclBloc VarDecl {$$=addChildNode($1, $2);}
 		 | DeclBloc Function {$$=addChildNode($1, $2);}
 	;
 
-CodeBloc : BEGIN_BLOCK InstructionList END_BLOCK SEMICOLON 	{$$=createNode(OP_FUNCTION_IMPL_BODY, 1, $2);}
+CodeBloc : BEGIN_BLOCK InstructionList END_BLOCK SEMICOLON 	{$$=createNode(OP_FUNCTION_BODY, 1, $2);}
 	;
 
 FunctionCall : ID LP CallParams RP 	{$$=createNode(OP_FUNCTION_CALL, 2, createLiteral(OP_ID,$1), $3);}
@@ -134,10 +131,12 @@ void printTree(AST_TREE node, int depth) {
 	if( node != NULL ) {
 		int i;
 		for( i = 0; i < depth; ++i ) 
-			printf("%s", " ");
-		printf("%s\n", humanReadableNode(node));
+			printf("%s", "|  ");
+		char * nodeStr = humanReadableNode(node);
+		printf("%s\n", nodeStr);
+		free(nodeStr);
 		for( i = 0; i < node->op_count; ++i ) {
-			printTree(node->operands[i], depth+2);
+			printTree(node->operands[i], depth+1);
 		}
 	}
 }
@@ -145,4 +144,8 @@ void printTree(AST_TREE node, int depth) {
 int main() {
 	yyparse();
 	printTree(root, 0);
+	
+	
+	freeTree(root);
+	return 0;
 }

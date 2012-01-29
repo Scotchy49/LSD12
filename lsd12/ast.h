@@ -35,11 +35,10 @@ typedef enum {
 	OP_FUNCTION_PARAM_VAR,
 	OP_FUNCTION_FORWARD,
 	
-	OP_FUNCTION_IMPL,
-	OP_FUNCTION_IMPL_DECLBLOCK,
-	OP_FUNCTION_IMPL_VAR_DECL,
-	OP_FUNCTION_IMPL_FUNCTION_DECL,
-	OP_FUNCTION_IMPL_BODY,
+	OP_FUNCTION_DECLBLOCK,
+	OP_FUNCTION_VAR_DECL,
+	OP_FUNCTION_FUNCTION_DECL,
+	OP_FUNCTION_BODY,
 	
 	OP_FUNCTION_CALL,
 	OP_FUNCTION_CALL_PARAMS,
@@ -88,8 +87,7 @@ char *getVarTypeName(int val) {
 		return "iset";
 	}
 }
-
-char *getNodeTypeName(AST_TREE node) {
+char *humanReadableNode(AST_TREE node) {
 	char *str = malloc(sizeof(char)*255);
 	OP_TYPE type = node->type;
 	switch(type) {
@@ -118,7 +116,7 @@ char *getNodeTypeName(AST_TREE node) {
 		sprintf( str, "OP_INSTRUCTION");
 		return str;
 	case OP_INSTRUCTION_LIST:
-		sprintf( str, "OP_INSTRUCTION_LIST");
+		sprintf( str, "OP_INSTRUCTION_LIST (%d)", node->op_count);
 		return str;
 	case OP_ASSIGN:
 		sprintf( str, "OP_ASSIGN");
@@ -168,30 +166,24 @@ char *getNodeTypeName(AST_TREE node) {
 	case OP_FUNCTION_FORWARD:
 		sprintf( str, "OP_FUNCTION_FORWARD");
 		return str;
-
-	case OP_FUNCTION_IMPL:
-		sprintf( str, "OP_FUNCTION_IMPL");
+	case OP_FUNCTION_DECLBLOCK:
+		sprintf( str, "OP_FUNCTION_DECLBLOCK");
 		return str;
-	case OP_FUNCTION_IMPL_DECLBLOCK:
-		sprintf( str, "OP_FUNCTION_IMPL_DECLBLOCK");
+	case OP_FUNCTION_VAR_DECL:
+		sprintf( str, "OP_FUNCTION_VAR_DECL");
 		return str;
-	case OP_FUNCTION_IMPL_VAR_DECL:
-		sprintf( str, "OP_FUNCTION_IMPL_VAR_DECL");
+	case OP_FUNCTION_FUNCTION_DECL:
+		sprintf( str, "OP_FUNCTION_FUNCTION_DECL");
 		return str;
-	case OP_FUNCTION_IMPL_FUNCTION_DECL:
-		sprintf( str, "OP_FUNCTION_IMPL_FUNCTION_DECL");
+	case OP_FUNCTION_BODY:
+		sprintf( str, "OP_FUNCTION_BODY");
 		return str;
-	case OP_FUNCTION_IMPL_BODY:
-		sprintf( str, "OP_FUNCTION_IMPL_BODY");
-		return str;
-
 	case OP_FUNCTION_CALL:
 		sprintf( str, "OP_FUNCTION_CALL");
 		return str;
 	case OP_FUNCTION_CALL_PARAMS:
 		sprintf( str, "OP_FUNCTION_CALL_PARAMS");
 		return str;
-
 	case OP_PLUS:
 		sprintf( str, "OP_PLUS");
 		return str;
@@ -235,16 +227,10 @@ char *getNodeTypeName(AST_TREE node) {
 		sprintf( str, "OP_IN");
 		return str;
 	default: {
-			char *str = malloc(sizeof(char)*255);
 			sprintf(str, "%d", type);
 			return str;
 		}
 	}
-}
-
-char *humanReadableNode(AST_TREE node) {
-	char *nodeName = getNodeTypeName(node);
-	return nodeName;
 }
 
 AST_TREE createLiteral(OP_TYPE type, char* literal) {
@@ -252,6 +238,7 @@ AST_TREE createLiteral(OP_TYPE type, char* literal) {
 	newNode->type = type;
 	newNode->op_count = 0;
 	newNode->strVal = literal;
+	newNode->operands = NULL;
 	return newNode;
 }
 
@@ -259,16 +246,21 @@ AST_TREE createIntConstant( OP_TYPE type, int value ) {
 	AST_TREE newNode = malloc(sizeof(AST_NODE));
 	newNode->type = type;
 	newNode->op_count = 0;
+
 	newNode->intVal = value;
+
+	newNode->strVal = NULL;
+	newNode->operands = NULL;
 	return newNode;
 }
 
 AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
 	AST_TREE newNode = malloc(sizeof(AST_NODE));
 	newNode->type = type;
-	newNode->op_count = opCount;
+	newNode->strVal = NULL;
 
-	newNode->operands = calloc(opCount, sizeof(AST_NODE));
+	newNode->op_count = opCount;
+	newNode->operands = calloc(opCount, sizeof *newNode->operands);
 	int i;
 	va_list ap;
 	va_start(ap, opCount);
@@ -280,9 +272,20 @@ AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
 
 AST_TREE addChildNode( AST_TREE parent, AST_TREE child ) {
 	parent->op_count++;
-	parent->operands = realloc(parent->operands, sizeof(AST_NODE)*parent->op_count);
+	parent->operands = realloc(parent->operands, sizeof *parent->operands * (parent->op_count));
 	parent->operands[parent->op_count-1] = child;
 	return parent;
+}
+
+void freeTree( AST_TREE tree ) {
+	if( tree != NULL ) {
+		free(tree->strVal);
+		int i;
+		for( i = 0; i < tree->op_count; ++i ) {
+			freeTree(tree->operands[i]);
+		}
+	}
+	free(tree);
 }
 
 #endif
