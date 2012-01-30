@@ -72,10 +72,12 @@ typedef struct ast_node {
     char *strVal;
 
     struct ast_node *next;
+    struct symbol_list *symbols;
 } AST_NODE, *AST_TREE;
 
 char *getVarTypeName(int val);
 char *humanReadableNode(AST_TREE node);
+AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand);
 AST_TREE createLiteral(OP_TYPE type, char* literal);
 AST_TREE createIntConstant( OP_TYPE type, int value );
 AST_TREE createNode( OP_TYPE type, int opCount, ... );

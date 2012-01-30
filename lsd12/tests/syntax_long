@@ -15,6 +15,12 @@ program example;
       function buildEns( var ens : iset ) : void;
         var
           x int;
+          
+          function tt() : void;
+          var
+            ttv int;
+          begin
+          end;
         begin
           read x;
           while( !(x = 0) ) do

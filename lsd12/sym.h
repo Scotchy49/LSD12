@@ -8,27 +8,27 @@
 #ifndef SYM_H_
 #define SYM_H_
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "ast.h"
+
+typedef struct symbol_list {
+    char *id;
+    int type;
+
+    int pos;        // relative position
+    int depth;      // relative depth
+
+    int isFunction;
+    struct symbol_list *paramList;
+
+    struct symbol_list *next;
+} *SYMLIST;
+
 /*
+ * pre: symbol is initialized
+ * post: puts symbol at the start of the list
+ */
+SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol );
 
-typedef struct symbol {
-	char *id;
-	int type;
-};
-
-typedef struct function_symbol {
-	char* functionId;
-	int returnType;
-
-	struct function_symbol **innerFunctions;
-	struct symbol **variables;
-};
-
-SYM_TREE createSymTree( AST_TREE node ) {
-
-}*/
-
+SYMLIST fillSymbols( AST_TREE root, SYMLIST accessible, int depth );
 
 #endif /* SYM_H_ */

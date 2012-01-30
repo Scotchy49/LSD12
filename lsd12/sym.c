@@ -1,69 +1,111 @@
 
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include "sym.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "ast.h"
+#include "sym.h"
 
-//SYMBOL createSymbolList() {
-//    SYMBOL s = NULL;
-//    return s;
-//}
+SYMLIST appendSymbol( SYMLIST list, SYMLIST symbol ) {
+    SYMLIST tmp = list;
+    while(tmp->next) {
+        tmp = tmp->next;
+    }
 
-//SYMBOL addSymbol( char *symbol, int type, int depth, SYMBOL prev ) {
-//    SYMBOL s = malloc(sizeof *s);
-//    s->id = symbol;
-//    s->type = type;
-//    s->depth = depth;
-//    s->prev = prev;
-//    return s;
-//}
+    tmp->next = symbol;
+    return list;
+}
 
-//SYMBOL pushSymbols( SYMBOL prev, SYMBOL next ) {
-//    next->prev = prev;
-//    return next;
-//}
+/*
+ * pre: symbol is initialized
+ * post: puts symbol at the start of the list
+ */
+SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol ) {
+    symbol->next = list;
+    return symbol;
+}
 
-//AST_TREE getChild( int type, AST_TREE root ) {
-//    int i;
-//    for( i = 0; i < root->op_count; ++i ) {
-//        if( root->operands[i]->type == type )
-//            return root->operands[i];
-//    }
-//}
+SYMLIST createSymbol(char *id, int type) {
+    SYMLIST s = malloc(sizeof *s);
+    s->id = id;
+    s->pos = 0;
+    s->depth = 0;
+    s->next = NULL;
+    return s;
+}
 
-//SYMBOL getSymbol( AST_TREE root, int depth, SYMBOL s ) {
-//    /*
-//    if( root->type == OP_FUNCTION ) {
-//        char *id = getChild(OP_ID, root)->strVal;
-//        VAR_TYPE type = getChild(OP_FUNCTION_TYPE, root)->intVal;
-//        // todo handle parameters
-//        s = addSymbol(id, type, depth, s);
-//        AST_TREE params = getChild(OP_FUNCTION_PARAMS, root);
-//        SYMBOL paramSymbols = getSymbol( params, depth, s );
-//        if( paramSymbols != NULL )
-//            s = pushSymbols( s, paramSymbols );
+SYMLIST getFunctionSymbol(AST_TREE node) {
+    char *id = getNodeOperand(node, OP_ID)->strVal;
+    int type = getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
+    // todo: handle params
 
-//        AST_TREE childs = getChild(OP_FUNCTION_DECLBLOCK, root);
-//        int i;
-//        for( i = 0; i < childs->op_count; ++i ) {
-//            getSymbol( childs->operands[i], depth + 1, s );
-//        }
-//    } else if( root->type == OP_FUNCTION_PARAMS ) {
-//        int i;
-//        for( i = 0; i < root->op_count; ++i ) {
-//            AST_TREE param = root->operands[i];
-//            s = pushSymbols(s, getSymbol(param, depth, s));
-//        }
-//    } else if( root->type == OP_FUNCTION_PARAM || root->type == OP_FUNCTION_VAR_DECL ) {
-//        char *id = getChild(OP_ID, root)->strVal;
-//        VAR_TYPE type = getChild(OP_VAR_TYPE, root)->intVal;
-//        s = addSymbol(id, type, depth, s);
-//    } else if( root->type == OP_FUNCTION_FORWARD ) {
-//        char *id = getChild(OP_ID, root)->strVal;
-//        VAR_TYPE type = getChild(OP_FUNCTION_TYPE, root)->intVal;
-//        s = addSymbol(id, type, depth, s);
-//    }
-//    root->symbols = s;
-//    return s;
-//    */
-//    return NULL;
-//}
+    return createSymbol(id, type);
+}
+
+SYMLIST getVarSymbol(AST_TREE node) {
+
+    char *id = getNodeOperand(node, OP_ID)->strVal;
+    int type = getNodeOperand(node, OP_VAR_TYPE)->intVal;
+
+    return createSymbol(id, type);
+}
+
+SYMLIST getSymbols(AST_TREE node, SYMLIST accessible, int depth ) {
+    int i;
+    SYMLIST s = accessible;
+
+    if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
+        SYMLIST fctSym = getFunctionSymbol(node);
+        s = prependSymbol(s, fctSym);
+        printf("fct %s d: %d q: %d\n", fctSym->id, depth, 0);
+    } else if (node->type == OP_FUNCTION_VAR_DECL) {
+        SYMLIST varSym = getVarSymbol(node);
+        printf("symbol %s d: %d q: %d\n", varSym->id, depth, 0);
+        s = prependSymbol(s, varSym);
+    } else if( node->type == OP_FUNCTION_DECLBLOCK ) {
+        /*AST_TREE vars = node->operands[0];
+        while(vars) {
+            s = getSymbols(vars, s, depth);
+            vars = vars->next;
+        }*/
+    }
+
+    return s;
+}
+
+char *printSymbols(SYMLIST s) {
+    while(s) {
+        printf("%s -> ", s->id);
+        s = s->next;
+    }
+    printf("\n");
+}
+
+/*
+ * fills root and its children with the symbols list
+ * accessible represents the upward symbols (with depth = depth-1)
+ * Returns the symbols accessible for root's siblings (downwards)
+ */
+SYMLIST fillSymbols( AST_TREE root, SYMLIST accessible, int depth ) {
+    SYMLIST s = accessible;
+    int i;
+
+    // propagation verticale
+    while(root) {
+        s = getSymbols(root, s, depth);
+        printf("for %s : ", humanReadableNode(root));
+        printSymbols(s);
+        root->symbols = s;
+
+        // propagation horizontale
+        for( i = 0; i < root->op_count; ++i ) {
+            AST_TREE subNode = root->operands[i];
+            if( subNode ) {
+                fillSymbols(subNode, s, depth+1);
+            }
+        }
+
+        root = root->next;
+    }
+
+
+    return s;
+}

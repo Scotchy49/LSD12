@@ -212,6 +212,17 @@ AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
     return newNode;
 }
 
+AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand) {
+    int i;
+    for( i=0; i < node->op_count; ++i ) {
+        if( node->operands[i]->type == operand )
+            return node->operands[i];
+    }
+}
+
+/*
+ * puts child at the end of parent
+ */
 AST_TREE addChildNode( AST_TREE parent, AST_TREE child ) {
     AST_TREE end = parent;
     if( end->next != NULL )

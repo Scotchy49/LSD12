@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "y.tab.h"
 #include "ast.h"
+#include "sym.h"
 
 AST_TREE root = 0;
 
@@ -38,9 +39,14 @@ void printTree(AST_TREE node, int depth) {
     }
 }
 
+extern int yydebug;
+
 int main() {
+    yydebug = 1;
     yyparse();
     printTree(root, 0);
+
+    fillSymbols(getNodeOperand(root, OP_FUNCTION), NULL, 0);
 
     freeTree(root);
     return 0;
