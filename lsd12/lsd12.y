@@ -83,8 +83,8 @@ DeclBloc : VAR DeclList     {$$ = createNode(OP_FUNCTION_DECLBLOCK, 1, $2);}
 
 DeclList : VarDecl           {$$ = $1;}
         |  Function          {$$ = $1; }
-        |  DeclList VarDecl  {$$ = addChildNode($1, $2);}
-        |  DeclList Function {$$ = addChildNode($1, $2);}
+        |  VarDecl DeclList  {$$ = addChildNode($1, $2);}
+        |  Function DeclList {$$ = addChildNode($1, $2);}
     ;
 
 

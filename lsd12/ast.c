@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include "ast.h"
+#include "sym.h"
 
 
 char *getVarTypeName(int val) {
@@ -30,192 +31,194 @@ char *humanReadableNode(AST_TREE node) {
     switch(type) {
     case OP_REXPR:
         sprintf( str, "OP_REXPR");
-        return str;
+        break;
     case OP_ID:
         sprintf( str, "OP_ID (%s)", node->strVal);
-        return str;
+        break;
     case OP_LEXPR:
         sprintf( str, "OP_LEXPR (%s)", node->strVal);
-        return str;
+        break;
     case OP_CONSTANT_INT:
         sprintf( str, "OP_CONSTANT_INT (%d)", node->intVal);
-        return str;
+        break;
     case OP_CONSTANT_BOOL:
         sprintf( str, "OP_CONSTANT_BOOL (%d)", node->intVal);
-        return str;
+        break;
     case OP_VAR_TYPE:
         sprintf( str, "OP_VAR_TYPE (%s)", getVarTypeName(node->intVal));
-        return str;
+        break;
     case OP_PROGRAM:
         sprintf( str, "OP_PROGRAM");
-        return str;
+        break;
     case OP_INSTRUCTION:
         sprintf( str, "OP_INSTRUCTION");
-        return str;
+        break;
     case OP_INSTRUCTION_LIST:
         sprintf( str, "OP_INSTRUCTION_LIST (%d)", node->op_count);
-        return str;
+        break;
     case OP_ASSIGN:
         sprintf( str, "OP_ASSIGN");
-        return str;
+        break;
     case OP_IF:
         sprintf( str, "OP_IF");
-        return str;
+        break;
     case OP_IF_ELSE:
         sprintf( str, "OP_IF_ELSE");
-        return str;
+        break;
     case OP_WHILE:
         sprintf( str, "OP_WHILE");
-        return str;
+        break;
     case OP_WRITE:
         sprintf( str, "OP_WRITE");
-        return str;
+        break;
     case OP_READ:
         sprintf( str, "OP_READ");
-        return str;
+        break;
     case OP_ADD_ISET:
         sprintf( str, "OP_ADD_ISET");
-        return str;
+        break;
     case OP_REMOVE_ISET:
         sprintf( str, "OP_REMOVE_ISET");
-        return str;
+        break;
     case OP_RETURN:
         sprintf( str, "OP_RETURN");
-        return str;
+        break;
     case OP_FUNCTION:
         sprintf( str, "OP_FUNCTION");
-        return str;
+        break;
     case OP_FUNCTION_PROTOTYPE:
         sprintf( str, "OP_FUNCTION_PROTOTYPE");
-        return str;
+        break;
     case OP_FUNCTION_TYPE:
         sprintf( str, "OP_FUNCTION_TYPE (%s)", getVarTypeName(node->intVal));
-        return str;
+        break;
     case OP_FUNCTION_PARAM:
         sprintf( str, "OP_FUNCTION_PARAM");
-        return str;
+        break;
     case OP_FUNCTION_PARAMS:
         sprintf( str, "OP_FUNCTION_PARAMS");
-        return str;
+        break;
     case OP_FUNCTION_PARAM_VAR:
         sprintf( str, "OP_FUNCTION_PARAM_VAR (%d)", node->intVal);
-        return str;
+        break;
     case OP_FUNCTION_FORWARD:
         sprintf( str, "OP_FUNCTION_FORWARD");
-        return str;
+        break;
     case OP_FUNCTION_DECLBLOCK:
         sprintf( str, "OP_FUNCTION_DECLBLOCK");
-        return str;
+        break;
     case OP_FUNCTION_VAR_DECL:
         sprintf( str, "OP_FUNCTION_VAR_DECL");
-        return str;
+        break;
     case OP_FUNCTION_FUNCTION_DECL:
         sprintf( str, "OP_FUNCTION_FUNCTION_DECL");
-        return str;
+        break;
     case OP_FUNCTION_BODY:
         sprintf( str, "OP_FUNCTION_BODY");
-        return str;
+        break;
     case OP_FUNCTION_CALL:
         sprintf( str, "OP_FUNCTION_CALL");
-        return str;
+        break;
     case OP_FUNCTION_CALL_PARAM:
         sprintf( str, "OP_FUNCTION_CALL_PARAM");
-        return str;
+        break;
     case OP_FUNCTION_CALL_PARAMS:
         sprintf( str, "OP_FUNCTION_CALL_PARAMS");
-        return str;
+        break;
     case OP_PLUS:
         sprintf( str, "OP_PLUS");
-        return str;
+        break;
     case OP_MINUS:
         sprintf( str, "OP_MINUS");
-        return str;
+        break;
     case OP_TIMES:
         sprintf( str, "OP_TIMES");
-        return str;
+        break;
     case OP_DIV:
         sprintf( str, "OP_DIV");
-        return str;
+        break;
     case OP_MIN_ISET:
         sprintf( str, "OP_MIN_ISET");
-        return str;
+        break;
     case OP_MAX_ISET:
         sprintf( str, "OP_MAX_ISET");
-        return str;
+        break;
     case OP_SIZE_ISET:
         sprintf( str, "OP_SIZE_ISET");
-        return str;
+        break;
     case OP_AND:
         sprintf( str, "OP_AND");
-        return str;
+        break;
     case OP_OR:
         sprintf( str, "OP_OP");
-        return str;
+        break;
     case OP_NOT:
         sprintf( str, "OP_NOT");
-        return str;
+        break;
     case OP_EQ:
         sprintf( str, "OP_EQ");
-        return str;
+        break;
     case OP_LT:
         sprintf( str, "OP_LT");
-        return str;
+        break;
     case OP_LTE:
         sprintf( str, "OP_LTE");
-        return str;
+        break;
     case OP_IN:
         sprintf( str, "OP_IN");
-        return str;
+        break;
     default:
         sprintf(str, "%d", type);
-        return str;
+        break;
     }
+
+    sprintf(str, "%s [%s]", str, printSymbols(node->symbols));
+
+    return str;
+}
+
+AST_TREE initNode(OP_TYPE type) {
+    AST_TREE newNode = malloc(sizeof(AST_NODE));
+    newNode->type = type;
+    newNode->op_count = 0;
+    newNode->strVal = NULL;
+    newNode->operands = NULL;
+    newNode->next = NULL;
+    newNode->symbols = NULL;
+    return newNode;
 }
 
 AST_TREE createLiteral(OP_TYPE type, char* literal) {
-    AST_TREE newNode = malloc(sizeof(AST_NODE));
-    newNode->type = type;
-    newNode->op_count = 0;
-    newNode->strVal = literal;
-    newNode->operands = NULL;
-    newNode->next = NULL;
-    return newNode;
+    AST_TREE n = initNode(type);
+    n->strVal = literal;
+    return n;
 }
 
 AST_TREE createIntConstant( OP_TYPE type, int value ) {
-    AST_TREE newNode = malloc(sizeof(AST_NODE));
-    newNode->type = type;
-    newNode->op_count = 0;
-
-    newNode->intVal = value;
-
-    newNode->strVal = NULL;
-    newNode->operands = NULL;
-    newNode->next = NULL;
-    return newNode;
+    AST_TREE n = initNode(type);
+    n->intVal = value;
+    return n;
 }
 
 AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
-    AST_TREE newNode = malloc(sizeof(AST_NODE));
-    newNode->type = type;
-    newNode->strVal = NULL;
-    newNode->next = NULL;
+    AST_TREE n = initNode(type);
+    n->op_count = opCount;
+    n->operands = calloc(opCount, sizeof *n->operands);
 
-    newNode->op_count = opCount;
-    newNode->operands = calloc(opCount, sizeof *newNode->operands);
-    int i;
     va_list ap;
-    va_start(ap, opCount);
-    for (i = 0; i < opCount; i++)
-        newNode->operands[i] = va_arg(ap, AST_TREE);
+    int i;
+    va_start(ap, opCount);    
+    for (i = 0; i < opCount; i++) {
+        n->operands[i] = va_arg(ap, AST_TREE);
+    }
     va_end(ap);
-    return newNode;
+    return n;
 }
 
 AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand) {
     int i;
     for( i=0; i < node->op_count; ++i ) {
-        if( node->operands[i]->type == operand )
+        if( node->operands[i] && node->operands[i]->type == operand )
             return node->operands[i];
     }
 }

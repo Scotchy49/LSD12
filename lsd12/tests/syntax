@@ -4,11 +4,9 @@ program x;
     var
       a int;
       b bool;
-      function fct1(var a: int, b: bool) : void;
-        forward;
-      function fct0() : int;
+      function fct0(var c: int, d: bool) : int;
         var
-          a int;
+          e int;
         begin
           read a;
           return a;

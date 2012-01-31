@@ -3,24 +3,16 @@
 #include <stdlib.h>
 #include "ast.h"
 #include "sym.h"
-
-SYMLIST appendSymbol( SYMLIST list, SYMLIST symbol ) {
-    SYMLIST tmp = list;
-    while(tmp->next) {
-        tmp = tmp->next;
-    }
-
-    tmp->next = symbol;
-    return list;
-}
-
 /*
  * pre: symbol is initialized
  * post: puts symbol at the start of the list
  */
 SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol ) {
-    symbol->next = list;
-    return symbol;
+    if( symbol ) {
+        symbol->next = list;
+        return symbol;
+    }
+    return list;
 }
 
 SYMLIST createSymbol(char *id, int type) {
@@ -48,64 +40,93 @@ SYMLIST getVarSymbol(AST_TREE node) {
     return createSymbol(id, type);
 }
 
-SYMLIST getSymbols(AST_TREE node, SYMLIST accessible, int depth ) {
+SYMLIST getSymbol(AST_TREE node, int depth) {
     int i;
-    SYMLIST s = accessible;
+    SYMLIST sym = NULL;
 
     if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
-        SYMLIST fctSym = getFunctionSymbol(node);
-        s = prependSymbol(s, fctSym);
-        printf("fct %s d: %d q: %d\n", fctSym->id, depth, 0);
+        sym = getFunctionSymbol(node);
     } else if (node->type == OP_FUNCTION_VAR_DECL) {
-        SYMLIST varSym = getVarSymbol(node);
-        printf("symbol %s d: %d q: %d\n", varSym->id, depth, 0);
-        s = prependSymbol(s, varSym);
-    } else if( node->type == OP_FUNCTION_DECLBLOCK ) {
-        /*AST_TREE vars = node->operands[0];
-        while(vars) {
-            s = getSymbols(vars, s, depth);
-            vars = vars->next;
-        }*/
+        sym = getVarSymbol(node);
+    } else if(node->type == OP_FUNCTION_PARAM ) {
+        sym = getVarSymbol(node);
     }
 
-    return s;
+    if( sym ) {
+        sym->depth = depth;
+    }
+
+    return sym;
 }
 
 char *printSymbols(SYMLIST s) {
+    char *symbols = malloc(255);
     while(s) {
-        printf("%s -> ", s->id);
+        sprintf(symbols, "%s -> %s (%d)", symbols, s->id, s->depth);
         s = s->next;
     }
-    printf("\n");
+    return symbols;
 }
 
-/*
- * fills root and its children with the symbols list
- * accessible represents the upward symbols (with depth = depth-1)
- * Returns the symbols accessible for root's siblings (downwards)
- */
-SYMLIST fillSymbols( AST_TREE root, SYMLIST accessible, int depth ) {
-    SYMLIST s = accessible;
+
+void popSymbols(AST_TREE root) {
+    if( root->type == OP_FUNCTION_PARAMS ) {
+        AST_TREE paramList = root->operands[0];
+        if( paramList ) {
+            while(paramList->next) {
+                paramList = paramList->next;
+            }
+            root->symbols = paramList->symbols;
+        }
+
+    } else if( root->type == OP_FUNCTION_DECLBLOCK ) {
+        AST_TREE declList = root->operands[0];
+        while(declList->next) {
+            declList = declList->next;
+        }
+        root->symbols = declList->symbols;
+    }
+}
+
+void populateSymbols( AST_TREE root, SYMLIST accessible, int depth ) {
     int i;
 
-    // propagation verticale
-    while(root) {
-        s = getSymbols(root, s, depth);
-        printf("for %s : ", humanReadableNode(root));
-        printSymbols(s);
-        root->symbols = s;
+    if( root ) {
+        // each node inherits the symbols of its father, so we prepend the current node's
+        // symbol with the "already" accessible ones
+        root->symbols = prependSymbol(accessible, getSymbol(root, depth));
 
-        // propagation horizontale
-        for( i = 0; i < root->op_count; ++i ) {
-            AST_TREE subNode = root->operands[i];
-            if( subNode ) {
-                fillSymbols(subNode, s, depth+1);
+        // the operands inherit from the operator's symbols, so we will pass those to them
+        // while populating them. As we give symbols to the operands, we will discover new
+        // symbols. The successors will inherit those.
+        SYMLIST tmpSymbols = root->symbols;
+        for(i = 0; i < root->op_count; ++i) {
+            AST_TREE operand = root->operands[i];
+            if( operand ) {
+
+                // depth is relative to function, so we increase the depth only if we traversed a function operator
+                int d = depth;
+                if( root->type == OP_FUNCTION ) {
+                    d++;
+                }
+
+                populateSymbols(operand, tmpSymbols, d);
+                tmpSymbols = operand->symbols;
             }
         }
 
-        root = root->next;
+        // once we populated the operands, sometimes we need to bubble back new identifiers
+        // back to the operator.
+        popSymbols(root);
+
+        // the next vertical operators inherit automatically from this node, too
+        populateSymbols(root->next, root->symbols, depth);
     }
+}
 
+void fillSymbols( AST_TREE program ) {
 
-    return s;
+    // on créer les symboles
+    populateSymbols(program, NULL, -1);
+
 }

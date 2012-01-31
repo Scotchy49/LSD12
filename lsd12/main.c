@@ -19,8 +19,8 @@ int yyerror() {
 }
 
 void printTree(AST_TREE node, int depth) {
-    if( node != NULL ) {
-        int i;
+    int i;
+    if( node != NULL ) {        
         for( i = 0; i < depth; ++i )
             printf("%s", "|  ");
         char * nodeStr = humanReadableNode(node);
@@ -36,17 +36,21 @@ void printTree(AST_TREE node, int depth) {
             printf("next\n");
             printTree(node->next, depth);
         }
+    } else {
+        for( i = 0; i < depth; ++i )
+            printf("%s", "|  ");
+        printf("NULL\n");
     }
 }
 
 extern int yydebug;
 
 int main() {
-    yydebug = 1;
+//    yydebug = 1;
     yyparse();
-    printTree(root, 0);
+    fillSymbols(root);
 
-    fillSymbols(getNodeOperand(root, OP_FUNCTION), NULL, 0);
+    printTree(root, 0);
 
     freeTree(root);
     return 0;

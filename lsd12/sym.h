@@ -28,7 +28,7 @@ typedef struct symbol_list {
  * post: puts symbol at the start of the list
  */
 SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol );
-
-SYMLIST fillSymbols( AST_TREE root, SYMLIST accessible, int depth );
+char *printSymbols(SYMLIST s);
+void fillSymbols( AST_TREE root );
 
 #endif /* SYM_H_ */
