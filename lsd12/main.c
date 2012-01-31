@@ -48,6 +48,7 @@ extern int yydebug;
 int main() {
 //    yydebug = 1;
     yyparse();
+
     fillSymbols(root);
 
     printTree(root, 0);

@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ast.h"
 #include "sym.h"
 /*
@@ -18,18 +19,12 @@ SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol ) {
 SYMLIST createSymbol(char *id, int type) {
     SYMLIST s = malloc(sizeof *s);
     s->id = id;
+    s->type = type;
     s->pos = 0;
     s->depth = 0;
     s->next = NULL;
+    s->isFunction = 0;
     return s;
-}
-
-SYMLIST getFunctionSymbol(AST_TREE node) {
-    char *id = getNodeOperand(node, OP_ID)->strVal;
-    int type = getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
-    // todo: handle params
-
-    return createSymbol(id, type);
 }
 
 SYMLIST getVarSymbol(AST_TREE node) {
@@ -38,6 +33,21 @@ SYMLIST getVarSymbol(AST_TREE node) {
     int type = getNodeOperand(node, OP_VAR_TYPE)->intVal;
 
     return createSymbol(id, type);
+}
+
+SYMLIST getFunctionSymbol(AST_TREE node) {
+    char *id = getNodeOperand(node, OP_ID)->strVal;
+    int type = getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
+
+    SYMLIST s = createSymbol(id, type);
+    s->isFunction = 1;
+
+    AST_TREE param = getNodeOperand(node, OP_FUNCTION_PARAMS)->operands[0];
+    while(param) {
+        s->paramList = prependSymbol(s->paramList, getVarSymbol(param));
+        param = param->next;
+    }
+    return s;
 }
 
 SYMLIST getSymbol(AST_TREE node, int depth) {
@@ -59,10 +69,57 @@ SYMLIST getSymbol(AST_TREE node, int depth) {
     return sym;
 }
 
+int sameSymbols(SYMLIST a, SYMLIST b) {
+    // they have to be on the same depth
+    // other is it a shadow
+    if( a->depth != b->depth )
+        return 0;
+
+    // ID check
+    if( strcmp(a->id, b->id) != 0)
+        return 0;
+
+    // for functions, we check if the length and type of the operators are the same
+    if( a->isFunction && b->isFunction ) {
+        SYMLIST p_a = a->paramList;
+        SYMLIST p_b = b->paramList;
+        while(p_a->next || p_b->next) {
+            if( !p_a->next || !p_b->next ) {
+                // not the same number of params
+                return 0;
+            }
+
+            // not the same type
+            if( p_a->type != p_b->type )
+                return 0;
+
+            p_a = p_a->next;
+            p_b = p_b->next;
+        }
+
+        // same params
+        return 1;
+    }
+
+    return 1;
+}
+
+
 char *printSymbols(SYMLIST s) {
     char *symbols = malloc(255);
     while(s) {
-        sprintf(symbols, "%s -> %s (%d)", symbols, s->id, s->depth);
+        char *fct = "";
+        if( s->isFunction ) {
+            fct = malloc(127);
+            strcpy(fct, "(");
+            SYMLIST params = s->paramList;
+            while(params) {
+                sprintf(fct, "%s%s%s", fct, getVarTypeName(s->type), params->next?",":"");
+                params = params->next;
+            }
+            strcat(fct, ")");
+        }
+        sprintf(symbols, "%s -> %s%s:%s", symbols, s->id, fct, getVarTypeName(s->type));
         s = s->next;
     }
     return symbols;
@@ -78,7 +135,6 @@ void popSymbols(AST_TREE root) {
             }
             root->symbols = paramList->symbols;
         }
-
     } else if( root->type == OP_FUNCTION_DECLBLOCK ) {
         AST_TREE declList = root->operands[0];
         while(declList->next) {
@@ -88,13 +144,13 @@ void popSymbols(AST_TREE root) {
     }
 }
 
-void populateSymbols( AST_TREE root, SYMLIST accessible, int depth ) {
+void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
     int i;
 
     if( root ) {
         // each node inherits the symbols of its father, so we prepend the current node's
         // symbol with the "already" accessible ones
-        root->symbols = prependSymbol(accessible, getSymbol(root, depth));
+        root->symbols = prependSymbol(inherited, getSymbol(root, depth));
 
         // the operands inherit from the operator's symbols, so we will pass those to them
         // while populating them. As we give symbols to the operands, we will discover new

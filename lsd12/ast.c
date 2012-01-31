@@ -15,18 +15,18 @@
 char *getVarTypeName(int val) {
     switch(val) {
     case TYPE_INT:
-        return "int";
+        return "i";
     case TYPE_BOOLEAN:
-        return "bool";
+        return "b";
     case TYPE_VOID:
-        return "void";
+        return "v";
     case TYPE_ISET:
-        return "iset";
+        return "is";
     }
 }
 
 char *humanReadableNode(AST_TREE node) {
-    char *str = malloc(sizeof(char)*255);
+    char *str = malloc(511);
     OP_TYPE type = node->type;
     switch(type) {
     case OP_REXPR:
