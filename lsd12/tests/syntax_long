@@ -10,11 +10,11 @@ program example;
       { Verifie que ensA et ensB sont identiques }
       function equals(ens1:iset,ens2:iset) : bool;
         forward;
-
+        
       { Initialise ens avec des valeurs saisies par l'utilisateur }
-      function buildEns( var ens : iset ) : void;
+      function buildEns( var a : iset, b:int) : void;
         var
-          x int;
+          b int;
           
           function tt() : void;
           var

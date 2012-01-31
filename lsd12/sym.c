@@ -4,69 +4,23 @@
 #include <string.h>
 #include "ast.h"
 #include "sym.h"
-/*
- * pre: symbol is initialized
- * post: puts symbol at the start of the list
- */
-SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol ) {
-    if( symbol ) {
-        symbol->next = list;
-        return symbol;
-    }
-    return list;
-}
 
-SYMLIST createSymbol(char *id, int type) {
-    SYMLIST s = malloc(sizeof *s);
-    s->id = id;
-    s->type = type;
-    s->pos = 0;
-    s->depth = 0;
-    s->next = NULL;
-    s->isFunction = 0;
-    return s;
-}
-
-SYMLIST getVarSymbol(AST_TREE node) {
-
-    char *id = getNodeOperand(node, OP_ID)->strVal;
-    int type = getNodeOperand(node, OP_VAR_TYPE)->intVal;
-
-    return createSymbol(id, type);
-}
-
-SYMLIST getFunctionSymbol(AST_TREE node) {
-    char *id = getNodeOperand(node, OP_ID)->strVal;
-    int type = getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
-
-    SYMLIST s = createSymbol(id, type);
-    s->isFunction = 1;
-
-    AST_TREE param = getNodeOperand(node, OP_FUNCTION_PARAMS)->operands[0];
-    while(param) {
-        s->paramList = prependSymbol(s->paramList, getVarSymbol(param));
-        param = param->next;
-    }
-    return s;
-}
-
-SYMLIST getSymbol(AST_TREE node, int depth) {
-    int i;
-    SYMLIST sym = NULL;
-
-    if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
-        sym = getFunctionSymbol(node);
-    } else if (node->type == OP_FUNCTION_VAR_DECL) {
-        sym = getVarSymbol(node);
-    } else if(node->type == OP_FUNCTION_PARAM ) {
-        sym = getVarSymbol(node);
+char *printSymbol(SYMLIST s) {
+    char *symbol = malloc(255);
+    char *fct = "";
+    if( s->isFunction ) {
+        fct = malloc(127);
+        strcpy(fct, "(");
+        SYMLIST params = s->paramList;
+        while(params) {
+            sprintf(fct, "%s%s%s", fct, getVarTypeName(s->type), params->next?",":"");
+            params = params->next;
+        }
+        strcat(fct, ")");
     }
 
-    if( sym ) {
-        sym->depth = depth;
-    }
-
-    return sym;
+    sprintf(symbol, "%s%s%s:%s(%d)", s->isForward ? "-":"", s->id, fct, getVarTypeName(s->type), s->depth);
+    return symbol;
 }
 
 int sameSymbols(SYMLIST a, SYMLIST b) {
@@ -97,29 +51,98 @@ int sameSymbols(SYMLIST a, SYMLIST b) {
             p_b = p_b->next;
         }
 
-        // same params
-        return 1;
+        if( a->isForward && !b->isForward )
+            return 0;
     }
 
     return 1;
 }
 
+/*
+ * pre: symbol is initialized
+ * post: puts symbol at the start of the list
+ */
+SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol ) {
+    if( symbol ) {
+        SYMLIST tmp = list;
+        // check name constraints
+        while( tmp && tmp->depth == symbol->depth ) {
+            if(sameSymbols(tmp, symbol)) {
+                fprintf(stderr, "KO\n");
+                fprintf(stderr, "%s already defined\n", printSymbol(symbol));
+                exit(1);
+            }
+            tmp = tmp->next;
+        }
+
+        symbol->next = list;
+        return symbol;
+    }
+    return list;
+}
+
+SYMLIST createSymbol(char *id, int type) {
+    SYMLIST s = malloc(sizeof *s);
+    s->id = id;
+    s->type = type;
+    s->pos = 0;
+    s->depth = 0;
+    s->next = NULL;
+    s->isFunction = 0;
+    s->isForward = 0;
+    return s;
+}
+
+SYMLIST getVarSymbol(AST_TREE node) {
+
+    char *id = getNodeOperand(node, OP_ID)->strVal;
+    int type = getNodeOperand(node, OP_VAR_TYPE)->intVal;
+
+    return createSymbol(id, type);
+}
+
+SYMLIST getFunctionSymbol(AST_TREE node) {
+    char *id = getNodeOperand(node, OP_ID)->strVal;
+    int type = getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
+
+    SYMLIST s = createSymbol(id, type);
+    s->isFunction = 1;
+    s->isForward = node->type == OP_FUNCTION_FORWARD;
+
+    AST_TREE param = getNodeOperand(node, OP_FUNCTION_PARAMS)->operands[0];
+    while(param) {
+        s->paramList = prependSymbol(s->paramList, getVarSymbol(param));
+        param = param->next;
+    }
+    return s;
+}
+
+SYMLIST getSymbol(AST_TREE node, int depth) {
+    int i;
+    SYMLIST sym = NULL;
+
+    if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
+        sym = getFunctionSymbol(node);
+    } else if (node->type == OP_FUNCTION_VAR_DECL) {
+        sym = getVarSymbol(node);
+    } else if(node->type == OP_FUNCTION_PARAM ) {
+        sym = getVarSymbol(node);
+    }
+
+    if( sym ) {
+        sym->depth = depth;
+    }
+
+    return sym;
+}
+
+
+
 
 char *printSymbols(SYMLIST s) {
-    char *symbols = malloc(255);
+    char *symbols = malloc(1024);
     while(s) {
-        char *fct = "";
-        if( s->isFunction ) {
-            fct = malloc(127);
-            strcpy(fct, "(");
-            SYMLIST params = s->paramList;
-            while(params) {
-                sprintf(fct, "%s%s%s", fct, getVarTypeName(s->type), params->next?",":"");
-                params = params->next;
-            }
-            strcat(fct, ")");
-        }
-        sprintf(symbols, "%s -> %s%s:%s", symbols, s->id, fct, getVarTypeName(s->type));
+        sprintf(symbols, "%s -> %s", symbols, printSymbol(s));
         s = s->next;
     }
     return symbols;

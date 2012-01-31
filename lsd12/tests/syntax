@@ -2,15 +2,10 @@ program x;
   {this is a comment}
   function main(): void;
     var
-      a int;
-      b bool;
       function fct0(var c: int, d: bool) : int;
-        var
-          e int;
-        begin
-          read a;
-          return a;
-        end;
+		forward;
+	  function fct0(var c: int, d: bool) : int;
+		forward;
       begin
         a := fct0();
         b := a <= 0;

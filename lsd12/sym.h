@@ -18,6 +18,7 @@ typedef struct symbol_list {
     int depth;      // relative depth
 
     int isFunction;
+    int isForward;
     struct symbol_list *paramList;
 
     struct symbol_list *next;
