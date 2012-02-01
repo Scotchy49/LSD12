@@ -6,3 +6,4 @@ Full language specification is in statement/spec.pdf
 
 27/01/2012: Lexical analyser 
 29/01/2012: Grammatical analyzer and AST tree generation.
+30/01/2012: Symbol list generation and namimg constraints validation
