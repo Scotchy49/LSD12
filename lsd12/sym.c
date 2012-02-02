@@ -13,7 +13,7 @@ char *printSymbol(SYMLIST s) {
         strcpy(fct, "(");
         SYMLIST params = s->paramList;
         while(params) {
-            sprintf(fct, "%s%s%s", fct, getVarTypeName(params->type), params->next?",":"");
+            sprintf(fct, "%s%s%s%s", fct, params->isRefParam ? "&" : "", getVarTypeName(params->type), params->next?",":"");
             params = params->next;
         }
         strcat(fct, ")");
@@ -25,7 +25,7 @@ char *printSymbol(SYMLIST s) {
 
 int sameSymbols(SYMLIST a, SYMLIST b) {
     // they have to be on the same depth
-    // other is it a shadow
+    // otherwise is it a shadow
     if( a->depth != b->depth )
         return 0;
 
@@ -64,11 +64,24 @@ void checkNameConstraints(SYMLIST list, SYMLIST symbol) {
     while( tmp && tmp->depth == symbol->depth ) {
         if(sameSymbols(tmp, symbol)) {
             fprintf(stderr, "KO\n");
-            fprintf(stderr, "%s already defined\n", printSymbol(symbol));
+            fprintf(stderr, "%s already defined (%s)\n", printSymbol(symbol), printSymbol(tmp));
             exit(1);
         }
         tmp = tmp->next;
     }
+}
+
+SYMLIST appendSymbol( SYMLIST list, SYMLIST symbol ) {
+    SYMLIST tmp = list;
+    if(tmp) {
+        while(tmp->next)
+            tmp = tmp->next;
+            
+        tmp->next = symbol;
+        return list;
+    }
+
+    return symbol;
 }
 
 /*
@@ -93,6 +106,8 @@ SYMLIST createSymbol(char *id, int type) {
     s->next = NULL;
     s->isFunction = 0;
     s->isForward = 0;
+    s->isRefParam = 0;
+    s->paramList = NULL;
     return s;
 }
 
@@ -114,7 +129,9 @@ SYMLIST getFunctionSymbol(AST_TREE node) {
 
     AST_TREE param = getNodeOperand(node, OP_FUNCTION_PARAMS)->operands[0];
     while(param) {
-        s->paramList = prependSymbol(s->paramList, getVarSymbol(param));
+        SYMLIST ps = getVarSymbol(param);
+        ps->isRefParam = getNodeOperand(param, OP_FUNCTION_PARAM_VAR)->intVal;
+        s->paramList = appendSymbol(s->paramList, ps);
         param = param->next;
     }
     return s;

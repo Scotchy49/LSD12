@@ -20,6 +20,7 @@ typedef struct symbol_list {
     int isFunction;
     int isForward;
     struct symbol_list *paramList;
+    int isRefParam;
 
     struct symbol_list *next;
 } *SYMLIST;
