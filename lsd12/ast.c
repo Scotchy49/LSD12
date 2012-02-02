@@ -221,6 +221,7 @@ AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand) {
         if( node->operands[i] && node->operands[i]->type == operand )
             return node->operands[i];
     }
+    return NULL;
 }
 
 /*
