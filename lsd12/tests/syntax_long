@@ -12,7 +12,7 @@ program example;
         forward;
         
       { Initialise ens avec des valeurs saisies par l'utilisateur }
-      function buildEns( var a : iset, b:int) : void;
+      function buildEns( var ap : iset, bp:int) : void;
         var
           b int;
           

@@ -58,23 +58,26 @@ int sameSymbols(SYMLIST a, SYMLIST b) {
     return 1;
 }
 
+void checkNameConstraints(SYMLIST list, SYMLIST symbol) {
+    SYMLIST tmp = list;
+    // check name constraints
+    while( tmp && tmp->depth == symbol->depth ) {
+        if(sameSymbols(tmp, symbol)) {
+            fprintf(stderr, "KO\n");
+            fprintf(stderr, "%s already defined\n", printSymbol(symbol));
+            exit(1);
+        }
+        tmp = tmp->next;
+    }
+}
+
 /*
  * pre: symbol is initialized
  * post: puts symbol at the start of the list
  */
 SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol ) {
     if( symbol ) {
-        SYMLIST tmp = list;
-        // check name constraints
-        while( tmp && tmp->depth == symbol->depth ) {
-            if(sameSymbols(tmp, symbol)) {
-                fprintf(stderr, "KO\n");
-                fprintf(stderr, "%s already defined\n", printSymbol(symbol));
-                exit(1);
-            }
-            tmp = tmp->next;
-        }
-
+        checkNameConstraints(list, symbol);
         symbol->next = list;
         return symbol;
     }

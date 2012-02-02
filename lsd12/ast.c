@@ -228,8 +228,8 @@ AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand) {
  */
 AST_TREE addChildNode( AST_TREE parent, AST_TREE child ) {
     AST_TREE end = parent;
-    if( end->next != NULL )
-        end = parent->next;
+    while( end->next != NULL )
+        end = end->next;
 
     end->next = child;
     return parent;
