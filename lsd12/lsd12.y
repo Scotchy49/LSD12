@@ -81,10 +81,11 @@ VarDecl : ID TypeDecl SEMICOLON 	{$$=createNode(OP_FUNCTION_VAR_DECL, 2, createL
 DeclBloc : VAR DeclList     {$$ = createNode(OP_FUNCTION_DECLBLOCK, 1, $2);}
 	;
 
-DeclList : VarDecl           {$$ = $1;}
-        |  Function          {$$ = $1; }
-        |  VarDecl DeclList  {$$ = addChildNode($1, $2);}
-        |  Function DeclList {$$ = addChildNode($1, $2);}
+DeclList : /**/              {$$ = NULL;}
+        |  VarDecl           {$$ = $1;}
+        |  Function          {$$ = $1;}
+        |  DeclList VarDecl   {$$ = addChildNode($1, $2);}
+        |  DeclList Function  {$$ = addChildNode($1, $2);}
     ;
 
 

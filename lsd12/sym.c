@@ -13,13 +13,13 @@ char *printSymbol(SYMLIST s) {
         strcpy(fct, "(");
         SYMLIST params = s->paramList;
         while(params) {
-            sprintf(fct, "%s%s%s", fct, getVarTypeName(s->type), params->next?",":"");
+            sprintf(fct, "%s%s%s", fct, getVarTypeName(params->type), params->next?",":"");
             params = params->next;
         }
         strcat(fct, ")");
     }
 
-    sprintf(symbol, "%s%s%s:%s(%d)", s->isForward ? "-":"", s->id, fct, getVarTypeName(s->type), s->depth);
+    sprintf(symbol, "%s%s%s:%s(%d,%d)", s->isForward ? "-":"", s->id, fct, getVarTypeName(s->type), s->depth, s->pos);
     return symbol;
 }
 
@@ -120,7 +120,7 @@ SYMLIST getFunctionSymbol(AST_TREE node) {
     return s;
 }
 
-SYMLIST getSymbol(AST_TREE node, int depth) {
+SYMLIST getSymbol(AST_TREE node, int depth, int pos) {
     int i;
     SYMLIST sym = NULL;
 
@@ -134,6 +134,7 @@ SYMLIST getSymbol(AST_TREE node, int depth) {
 
     if( sym ) {
         sym->depth = depth;
+        sym->pos = pos;
     }
 
     return sym;
@@ -163,20 +164,22 @@ void popSymbols(AST_TREE root) {
         }
     } else if( root->type == OP_FUNCTION_DECLBLOCK ) {
         AST_TREE declList = root->operands[0];
-        while(declList->next) {
-            declList = declList->next;
+        if( declList ) {
+            while(declList->next) {
+                declList = declList->next;
+            }
+            root->symbols = declList->symbols;
         }
-        root->symbols = declList->symbols;
     }
 }
 
 void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
     int i;
-
-    if( root ) {
+    int pos = 0;
+    while( root ) {
         // each node inherits the symbols of its father, so we prepend the current node's
         // symbol with the "already" accessible ones
-        root->symbols = prependSymbol(inherited, getSymbol(root, depth));
+        root->symbols = prependSymbol(inherited, getSymbol(root, depth, pos));
 
         // the operands inherit from the operator's symbols, so we will pass those to them
         // while populating them. As we give symbols to the operands, we will discover new
@@ -202,7 +205,10 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
         popSymbols(root);
 
         // the next vertical operators inherit automatically from this node, too
-        populateSymbols(root->next, root->symbols, depth);
+        //populateSymbols(root->next, root->symbols, depth);
+        inherited = root->symbols;
+        root = root->next;
+        pos++;
     }
 }
 
