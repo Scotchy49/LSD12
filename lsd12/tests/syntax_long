@@ -46,7 +46,8 @@ program example;
       buildEns( ensA );
       buildEns( ensB );
       if( equals(ensA, ensB) ) then
-        write a + -(a);
+        write -5;
+        write a-(-fct0());
       else
         write 0;
       fi;

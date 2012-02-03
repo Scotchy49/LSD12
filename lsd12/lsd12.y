@@ -23,7 +23,7 @@ extern AST_TREE root;
 %left MIN_ISET MAX_ISET SIZE_ISET
 %left LP RP
 
-%type <ast> Program Function Instruction Instructions InstructionList TypeDecl FuncType FunctionParams ParamDecl VarDecl DeclBloc CodeBloc FunctionCall LExpr CallParams RExpr DeclList FunctionParamList CallWithParams
+%type <ast> Program Function Instruction Instructions InstructionList TypeDecl FuncType FunctionParams ParamDecl VarDecl DeclBloc CodeBloc FunctionCall LExpr CallParams RExpr DeclList FunctionParamList CallWithParams 
 %type <strVal> ID
 %type <intVal> CONSTANT
 %%
@@ -106,11 +106,11 @@ CallWithParams: RExpr                       {$$=$1;}
               | CallWithParams COMMA RExpr  {$$=addChildNode($1,$3);}
         ;
 
-RExpr :   LExpr                         {$$ = $1;}
-        | LP RExpr RP                   {$$ = $2;}
-        | MINUS RExpr                   {$$ = createNode(OP_TIMES, 2, createIntConstant(OP_CONSTANT_INT, -1), $2);}
+RExpr : LP RExpr RP                     {$$ = $2;}
+        | MINUS RExpr                   {$$ = createNode(OP_MINUS, 2, createIntConstant(OP_CONSTANT_INT, 0), $2);}
+        | LExpr                         {$$ = $1;}
+        | CONSTANT                      {$$ = createIntConstant(OP_CONSTANT_INT, $1);}
         | FunctionCall                  {$$ = $1;}
-        | CONSTANT 			{$$ = createIntConstant(OP_CONSTANT_INT, $1);}
         | RExpr PLUS RExpr		{$$ = createNode(OP_PLUS, 2, $1, $3);}
         | RExpr MINUS RExpr		{$$ = createNode(OP_MINUS, 2, $1, $3);}
         | RExpr TIMES RExpr		{$$ = createNode(OP_TIMES, 2, $1, $3);}
