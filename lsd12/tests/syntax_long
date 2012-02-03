@@ -15,7 +15,7 @@ program example;
       function buildEns( var ap : iset, bp:int) : void;
         var
           db int;
-          
+          db bool;
           function tt() : void;
           var
             ttv int;
@@ -46,7 +46,7 @@ program example;
       buildEns( ensA );
       buildEns( ensB );
       if( equals(ensA, ensB) ) then
-        write -5;
+        write a;
         write a-(-fct0());
       else
         write 0;

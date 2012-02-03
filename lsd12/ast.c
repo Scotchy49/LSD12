@@ -11,6 +11,7 @@
 #include "ast.h"
 #include "sym.h"
 
+extern int num_line;
 
 char *getVarTypeName(int val) {
     switch(val) {
@@ -172,13 +173,14 @@ char *humanReadableNode(AST_TREE node) {
         break;
     }
 
-    sprintf(str, "%s [%s]", str, printSymbols(node->symbols));
+    sprintf(str, "%s [%s]",str, printSymbols(node->symbols));
 
     return str;
 }
 
 AST_TREE initNode(OP_TYPE type) {
     AST_TREE newNode = malloc(sizeof(AST_NODE));
+    newNode->num_line = num_line;
     newNode->type = type;
     newNode->strVal = NULL;
     newNode->operands = NULL;

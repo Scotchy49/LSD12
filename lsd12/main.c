@@ -12,9 +12,11 @@
 
 AST_TREE root = 0;
 
-int yyerror() {
+extern int num_line;
+
+int yyerror(const char *error) {
     fprintf(stderr, "KO\n");
-    fprintf(stderr, "Line %d: Grammatical error.\n", 1);
+    fprintf(stderr, "Line %d: %s.\n", num_line, error);
     exit(1);
 }
 

@@ -6,6 +6,8 @@
 extern AST_TREE root;
 %}
 
+%error-verbose
+
 %union {
 	int intVal;
 	char *strVal;

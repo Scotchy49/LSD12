@@ -64,8 +64,8 @@ void checkNameConstraints(SYMLIST list, SYMLIST symbol) {
     while( tmp && tmp->depth == symbol->depth ) {
         if(sameSymbols(tmp, symbol)) {
             fprintf(stderr, "KO\n");
-            fprintf(stderr, "%s already defined (%s)\n", printSymbol(symbol), printSymbol(tmp));
-            exit(1);
+            fprintf(stderr, "Line %d: %s already defined as %s (line %d)\n", symbol->num_line, printSymbol(symbol), printSymbol(tmp), tmp->num_line);
+            exit(EXIT_FAILURE);
         }
         tmp = tmp->next;
     }
@@ -97,10 +97,11 @@ SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol ) {
     return list;
 }
 
-SYMLIST createSymbol(char *id, int type) {
+SYMLIST createSymbol(char *id, int type, int num_line) {
     SYMLIST s = malloc(sizeof *s);
     s->id = id;
     s->type = type;
+    s->num_line = num_line;
     s->pos = 0;
     s->depth = 0;
     s->next = NULL;
@@ -116,14 +117,14 @@ SYMLIST getVarSymbol(AST_TREE node) {
     char *id = getNodeOperand(node, OP_ID)->strVal;
     int type = getNodeOperand(node, OP_VAR_TYPE)->intVal;
 
-    return createSymbol(id, type);
+    return createSymbol(id, type, node->num_line);
 }
 
 SYMLIST getFunctionSymbol(AST_TREE node) {
     char *id = getNodeOperand(node, OP_ID)->strVal;
     int type = getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
 
-    SYMLIST s = createSymbol(id, type);
+    SYMLIST s = createSymbol(id, type, node->num_line);
     s->isFunction = 1;
     s->isForward = node->type == OP_FUNCTION_FORWARD;
 

@@ -23,6 +23,8 @@ typedef struct symbol_list {
     int isParam; // 0 = no, 1 = value passed param, 2 = reference passed param
 
     struct symbol_list *next;
+    
+    int num_line; // line where the symbol appears
 } *SYMLIST;
 
 /*

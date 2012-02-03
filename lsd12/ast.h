@@ -66,6 +66,8 @@ typedef enum {
 typedef struct ast_node {
     OP_TYPE type;
     
+    int num_line; // line number where this node appears
+    
     struct ast_node *operands;
     
     int intVal;
