@@ -206,22 +206,14 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
         // the operands inherit from the operator's symbols, so we will pass those to them
         // while populating them. As we give symbols to the operands, we will discover new
         // symbols. The successors will inherit those.
-        SYMLIST tmpSymbols = root->symbols;
-        AST_TREE operand = root->operands;
-        if(operand) {
-            // depth is relative to function, so we increase the depth only if we traversed a function operator
-            int d = depth;
-            if( root->type == OP_FUNCTION ) {
-                d++;
-            }
 
-            populateSymbols(operand, tmpSymbols, d);
-/*
-            tmpSymbols = operand->symbols;
-
-            operand = operand->next;
-*/
+        // depth is relative to function, so we increase the depth only if we traversed a function operator
+        int d = depth;
+        if( root->type == OP_FUNCTION ) {
+            d++;
         }
+
+        populateSymbols(root->operands, root->symbols, d);
 
         // once we populated the operands, sometimes we need to bubble back new identifiers
         // back to the operator.
