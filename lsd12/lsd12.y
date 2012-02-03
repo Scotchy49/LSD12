@@ -108,6 +108,7 @@ CallWithParams: RExpr                       {$$=$1;}
 
 RExpr :   LExpr                         {$$ = $1;}
         | LP RExpr RP                   {$$ = $2;}
+        | MINUS RExpr                   {$$ = createNode(OP_TIMES, 2, createIntConstant(OP_CONSTANT_INT, -1), $2);}
         | FunctionCall                  {$$ = $1;}
         | CONSTANT 			{$$ = createIntConstant(OP_CONSTANT_INT, $1);}
         | RExpr PLUS RExpr		{$$ = createNode(OP_PLUS, 2, $1, $3);}
