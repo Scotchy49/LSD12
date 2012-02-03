@@ -14,7 +14,7 @@ program example;
       { Initialise ens avec des valeurs saisies par l'utilisateur }
       function buildEns( var ap : iset, bp:int) : void;
         var
-          b int;
+          db int;
           
           function tt() : void;
           var

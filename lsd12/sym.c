@@ -13,13 +13,13 @@ char *printSymbol(SYMLIST s) {
         strcpy(fct, "(");
         SYMLIST params = s->paramList;
         while(params) {
-            sprintf(fct, "%s%s%s%s", fct, params->isRefParam ? "&" : "", getVarTypeName(params->type), params->next?",":"");
+            sprintf(fct, "%s%s%s%s", fct, params->isParam == 2 ? "&" : "", getVarTypeName(params->type), params->next?",":"");
             params = params->next;
         }
         strcat(fct, ")");
     }
 
-    sprintf(symbol, "%s%s%s:%s(%d,%d)", s->isForward ? "-":"", s->id, fct, getVarTypeName(s->type), s->depth, s->pos);
+    sprintf(symbol, "%s%s%s:%s(%d,%d)", s->isForward ? "-":s->isParam ? "+" : "", s->id, fct, getVarTypeName(s->type), s->depth, s->pos);
     return symbol;
 }
 
@@ -106,7 +106,7 @@ SYMLIST createSymbol(char *id, int type) {
     s->next = NULL;
     s->isFunction = 0;
     s->isForward = 0;
-    s->isRefParam = 0;
+    s->isParam = 0;
     s->paramList = NULL;
     return s;
 }
@@ -127,10 +127,10 @@ SYMLIST getFunctionSymbol(AST_TREE node) {
     s->isFunction = 1;
     s->isForward = node->type == OP_FUNCTION_FORWARD;
 
-    AST_TREE param = getNodeOperand(node, OP_FUNCTION_PARAMS)->operands[0];
+    AST_TREE param = getNodeOperand(node, OP_FUNCTION_PARAMS)->operands;
     while(param) {
         SYMLIST ps = getVarSymbol(param);
-        ps->isRefParam = getNodeOperand(param, OP_FUNCTION_PARAM_VAR)->intVal;
+        ps->isParam = 1 + getNodeOperand(param, OP_FUNCTION_PARAM_VAR)->intVal;
         s->paramList = appendSymbol(s->paramList, ps);
         param = param->next;
     }
@@ -147,6 +147,7 @@ SYMLIST getSymbol(AST_TREE node, int depth, int pos) {
         sym = getVarSymbol(node);
     } else if(node->type == OP_FUNCTION_PARAM ) {
         sym = getVarSymbol(node);
+        sym->isParam = 1 + getNodeOperand(node, OP_FUNCTION_PARAM_VAR)->intVal;
     }
 
     if( sym ) {
@@ -172,7 +173,7 @@ char *printSymbols(SYMLIST s) {
 
 void popSymbols(AST_TREE root) {
     if( root->type == OP_FUNCTION_PARAMS ) {
-        AST_TREE paramList = root->operands[0];
+        AST_TREE paramList = root->operands;
         if( paramList ) {
             while(paramList->next) {
                 paramList = paramList->next;
@@ -180,7 +181,7 @@ void popSymbols(AST_TREE root) {
             root->symbols = paramList->symbols;
         }
     } else if( root->type == OP_FUNCTION_DECLBLOCK ) {
-        AST_TREE declList = root->operands[0];
+        AST_TREE declList = root->operands;
         if( declList ) {
             while(declList->next) {
                 declList = declList->next;
@@ -196,25 +197,30 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
     while( root ) {
         // each node inherits the symbols of its father, so we prepend the current node's
         // symbol with the "already" accessible ones
-        root->symbols = prependSymbol(inherited, getSymbol(root, depth, pos));
+        SYMLIST nSymbol = getSymbol(root, depth, pos);
+        if( nSymbol )
+            ++pos;
+        
+        root->symbols = prependSymbol(inherited, nSymbol);
 
         // the operands inherit from the operator's symbols, so we will pass those to them
         // while populating them. As we give symbols to the operands, we will discover new
         // symbols. The successors will inherit those.
         SYMLIST tmpSymbols = root->symbols;
-        for(i = 0; i < root->op_count; ++i) {
-            AST_TREE operand = root->operands[i];
-            if( operand ) {
-
-                // depth is relative to function, so we increase the depth only if we traversed a function operator
-                int d = depth;
-                if( root->type == OP_FUNCTION ) {
-                    d++;
-                }
-
-                populateSymbols(operand, tmpSymbols, d);
-                tmpSymbols = operand->symbols;
+        AST_TREE operand = root->operands;
+        if(operand) {
+            // depth is relative to function, so we increase the depth only if we traversed a function operator
+            int d = depth;
+            if( root->type == OP_FUNCTION ) {
+                d++;
             }
+
+            populateSymbols(operand, tmpSymbols, d);
+/*
+            tmpSymbols = operand->symbols;
+
+            operand = operand->next;
+*/
         }
 
         // once we populated the operands, sometimes we need to bubble back new identifiers
@@ -222,10 +228,8 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
         popSymbols(root);
 
         // the next vertical operators inherit automatically from this node, too
-        //populateSymbols(root->next, root->symbols, depth);
         inherited = root->symbols;
         root = root->next;
-        pos++;
     }
 }
 

@@ -65,9 +65,9 @@ typedef enum {
 
 typedef struct ast_node {
     OP_TYPE type;
-    int op_count;
-
-    struct ast_node **operands;
+    
+    struct ast_node *operands;
+    
     int intVal;
     char *strVal;
 

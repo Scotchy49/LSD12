@@ -54,7 +54,7 @@ char *humanReadableNode(AST_TREE node) {
         sprintf( str, "OP_INSTRUCTION");
         break;
     case OP_INSTRUCTION_LIST:
-        sprintf( str, "OP_INSTRUCTION_LIST (%d)", node->op_count);
+        sprintf( str, "OP_INSTRUCTION_LIST");
         break;
     case OP_ASSIGN:
         sprintf( str, "OP_ASSIGN");
@@ -180,7 +180,6 @@ char *humanReadableNode(AST_TREE node) {
 AST_TREE initNode(OP_TYPE type) {
     AST_TREE newNode = malloc(sizeof(AST_NODE));
     newNode->type = type;
-    newNode->op_count = 0;
     newNode->strVal = NULL;
     newNode->operands = NULL;
     newNode->next = NULL;
@@ -202,14 +201,22 @@ AST_TREE createIntConstant( OP_TYPE type, int value ) {
 
 AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
     AST_TREE n = initNode(type);
-    n->op_count = opCount;
-    n->operands = calloc(opCount, sizeof *n->operands);
+    AST_TREE operandList = n->operands;
 
     va_list ap;
     int i;
     va_start(ap, opCount);    
-    for (i = 0; i < opCount; i++) {
-        n->operands[i] = va_arg(ap, AST_TREE);
+    for( i = 0; i < opCount; ++i ) {
+        AST_TREE nOperand = va_arg(ap, AST_TREE);
+        if( nOperand ) {
+            if( operandList )
+                operandList->next = nOperand;
+
+            operandList = nOperand;
+
+            if( n->operands == NULL ) 
+                n->operands = operandList;
+        }
     }
     va_end(ap);
     return n;
@@ -217,9 +224,11 @@ AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
 
 AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand) {
     int i;
-    for( i=0; i < node->op_count; ++i ) {
-        if( node->operands[i] && node->operands[i]->type == operand )
-            return node->operands[i];
+    AST_TREE node_operand = node->operands;
+    while(node_operand) {
+        if( node_operand->type == operand ) 
+            return node_operand;
+        node_operand = node_operand->next;
     }
     return NULL;
 }
@@ -237,12 +246,5 @@ AST_TREE addChildNode( AST_TREE parent, AST_TREE child ) {
 }
 
 void freeTree( AST_TREE tree ) {
-    if( tree != NULL ) {
-        free(tree->strVal);
-        int i;
-        for( i = 0; i < tree->op_count; ++i ) {
-            freeTree(tree->operands[i]);
-        }
-    }
-    free(tree);
+    
 }

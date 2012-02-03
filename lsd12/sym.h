@@ -20,7 +20,7 @@ typedef struct symbol_list {
     int isFunction;
     int isForward;
     struct symbol_list *paramList;
-    int isRefParam;
+    int isParam; // 0 = no, 1 = value passed param, 2 = reference passed param
 
     struct symbol_list *next;
 } *SYMLIST;

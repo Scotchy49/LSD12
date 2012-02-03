@@ -26,8 +26,9 @@ void printTree(AST_TREE node, int depth) {
         char * nodeStr = humanReadableNode(node);
         printf("%s\n", nodeStr);
         free(nodeStr);
-        for( i = 0; i < node->op_count; ++i ) {
-            printTree(node->operands[i], depth+1);
+        AST_TREE operand = node->operands;
+        if(operand) {
+            printTree(operand, depth+1);
         }
 
         if( node->next != NULL ) {
@@ -44,15 +45,24 @@ void printTree(AST_TREE node, int depth) {
 }
 
 extern int yydebug;
+extern FILE *yyin;
+extern void yyparse();
 
-int main() {
+int main(int argc, const char *argv[]) {
 //    yydebug = 1;
+    if(argc < 2) {
+        fprintf(stderr, "You must give a filename as argument.");
+        return EXIT_FAILURE;
+    } 
+    
+    yyin = fopen(argv[1], "r");
     yyparse();
-
+    fclose(yyin);
+    
     fillSymbols(root);
 
     printTree(root, 0);
 
     freeTree(root);
-    return 0;
+    return EXIT_SUCCESS;
 }

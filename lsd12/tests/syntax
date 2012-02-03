@@ -2,10 +2,18 @@ program x;
   {this is a comment}
   function main(): void;
     var
-      function fct0(var c: int, d: bool) : int;
-		forward;
-	  function fct0(var c: int, d: bool) : int;
-		forward;
+      a int;
+      b bool;
+      function fct0() : int;
+        var
+          a bool;
+          b bool;
+        begin
+          if( a = b ) then
+            fct0();
+          fi;
+          return 1;
+        end;
       begin
         a := fct0();
         b := a <= 0;
