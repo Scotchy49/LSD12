@@ -5,7 +5,8 @@ program x;
       a int;
       b bool;
     begin
-      a := 1;
-      b := false;
+      a := 0;
+      b := false; 
+      b := b || true || a = a || a <= 2;
     end;
 end;

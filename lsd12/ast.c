@@ -179,14 +179,18 @@ char *humanReadableNode(AST_TREE node) {
 }
 
 AST_TREE initNode(OP_TYPE type) {
-    AST_TREE newNode = malloc(sizeof(AST_NODE));
-    newNode->num_line = num_line;
-    newNode->type = type;
-    newNode->strVal = NULL;
-    newNode->operands = NULL;
-    newNode->next = NULL;
-    newNode->symbols = NULL;
-    return newNode;
+    AST_TREE n = malloc(sizeof *n);
+    if( !n ) {
+        fprintf(stderr, "KO\n");
+        fprintf(stderr, "Could not allocate enough memory !");
+    }
+    n->num_line = num_line;
+    n->type = type;
+    n->strVal = NULL;
+    n->operands = NULL;
+    n->next = NULL;
+    n->symbols = NULL;
+    return n;
 }
 
 AST_TREE createLiteral(OP_TYPE type, char* literal) {
