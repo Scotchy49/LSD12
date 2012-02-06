@@ -118,6 +118,13 @@ int getType( AST_TREE node ) {
         }
     }
     
+    if(node->type == OP_IF || node->type == OP_IF_ELSE || node->type == OP_WHILE) {
+        // the condition is the first operand
+        if(getType(node->operands) != TYPE_BOOLEAN ) {
+            error(node->num_line, "the condition must be a boolean");
+        }
+    }
+    
     return -1;
 }
 

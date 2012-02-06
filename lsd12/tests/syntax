@@ -5,8 +5,16 @@ program x;
       a int;
       b bool;
     begin
+      b || false;
       a := 0;
       b := false; 
       b := b || true || a = a || a <= 2;
+      if( b  ) then
+        write 1;
+      fi;
+
+      while( b ) do
+        write a;
+      od;
     end;
 end;

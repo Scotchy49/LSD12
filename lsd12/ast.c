@@ -151,7 +151,7 @@ char *humanReadableNode(AST_TREE node) {
         sprintf( str, "OP_AND");
         break;
     case OP_OR:
-        sprintf( str, "OP_OP");
+        sprintf( str, "OP_OR");
         break;
     case OP_NOT:
         sprintf( str, "OP_NOT");
