@@ -126,7 +126,7 @@ int getType( AST_TREE node ) {
     }
     
     if(node->type == OP_RETURN ) {
-        int functionType = findFirstFunctionSymbol(node->symbols)->type;
+        int functionType = findParentFunctionSymbol(node->symbols)->type;
         if( functionType == TYPE_VOID ) {
             error(node->num_line, "void functions cannot return a value.");
         }

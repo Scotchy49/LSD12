@@ -82,9 +82,10 @@ SYMLIST findVarSymbol(SYMLIST list, char*id) {
 }
 
 
-SYMLIST findFirstFunctionSymbol(SYMLIST list) {
+SYMLIST findParentFunctionSymbol(SYMLIST list) {
+    int depth = list->depth;
     while( list ) {
-        if( list->isFunction ) 
+        if( list->isFunction && list->depth == depth - 1 ) 
             return list;
         list = list->next;
     }

@@ -10,7 +10,7 @@ program x;
           a int;
         begin
           a := 1;
-          return a;
+          return fct1();
         end;
     begin
       b || false;
@@ -35,6 +35,5 @@ program x;
         fi;
         write a;
       od;
-      return fct1();
     end;
 end;
