@@ -50,7 +50,7 @@ InstructionList : /* nothing */   {$$=createNode(OP_INSTRUCTION_LIST,1,NULL);}
                 | Instructions    {$$=createNode(OP_INSTRUCTION_LIST,1,$1);}
     ;
 Instructions : Instruction              {$$=$1;}
-             | Instructions Instruction {$$=addChildNode($1,$2);}
+             | Instruction Instructions {$$=addChildNode($1,$2);}
         ;
 
 TypeDecl : INT  		{$$=createIntConstant(OP_VAR_TYPE, TYPE_INT);}

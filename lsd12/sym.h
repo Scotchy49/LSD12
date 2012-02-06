@@ -39,7 +39,7 @@ typedef struct symbol_list {
  */
 SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol );
 SYMLIST findVarSymbol(SYMLIST list, char *id);
-SYMLIST findParentFunctionSymbol(SYMLIST list);
+SYMLIST findParentFunctionSymbol(AST_TREE node);
 SYMLIST findFunctionSymbol(SYMLIST list, AST_TREE fctCallNode);
 SYMLIST createSymbol(char *id, int type, int num_line);
 char *printSymbols(SYMLIST s);

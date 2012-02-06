@@ -215,6 +215,12 @@ AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
     for( i = 0; i < opCount; ++i ) {
         AST_TREE nOperand = va_arg(ap, AST_TREE);
         if( nOperand ) {
+            AST_TREE tmp = nOperand;
+            while(tmp) {
+                tmp->parent = n;
+                tmp = tmp->next;
+            }
+           
             if( operandList )
                 operandList->next = nOperand;
 
@@ -222,6 +228,8 @@ AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
 
             if( n->operands == NULL ) 
                 n->operands = operandList;
+            
+            
         }
     }
     va_end(ap);
@@ -248,6 +256,8 @@ AST_TREE addChildNode( AST_TREE parent, AST_TREE child ) {
         end = end->next;
 
     end->next = child;
+    if( child )
+        child->parent = end->parent;
     return parent;
 }
 

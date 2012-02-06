@@ -75,6 +75,8 @@ typedef struct ast_node {
 
     struct ast_node *next;
     struct symbol_list *symbols;
+    
+    struct ast_node *parent;
 } AST_NODE, *AST_TREE;
 
 char *getVarTypeName(int val);

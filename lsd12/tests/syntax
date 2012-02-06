@@ -3,42 +3,10 @@ program x;
   function main(): void;
     var
       a int;
-      b bool;
-
-      function fct1(a:bool) : int;
-        forward;
-      function fct1(a:int) : bool;
-        forward;
-     
-      function fct0(b:bool) : int;
-        var
-          a int;
+      function b(): bool; var
         begin
-          a := 1;
-          return fct1(a);
+          return true;
         end;
     begin
-      b || false;
-      a := 0;
-      b := false; 
-      b := b || true || a = a || a <= 2;
-      if( b  ) then
-        write 1;
-      fi;
-
-      while( b ) do
-        if( b ) then
-            a := a + 1;
-            if( b ) then
-                a := a + 1;
-                if( b ) then
-                    a := a + 1;
-                fi;
-            else
-                a := a - 1;
-            fi;
-        fi;
-        write a;
-      od;
     end;
 end;

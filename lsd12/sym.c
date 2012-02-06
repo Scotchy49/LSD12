@@ -99,12 +99,12 @@ SYMLIST findVarSymbol(SYMLIST list, char*id) {
 }
 
 
-SYMLIST findParentFunctionSymbol(SYMLIST list) {
-    int depth = list->depth;
-    while( list ) {
-        if( list->isFunction && list->depth == depth - 1 ) 
-            return list;
-        list = list->next;
+SYMLIST findParentFunctionSymbol(AST_TREE node) {
+    while(node) {
+        if( node->parent->type == OP_FUNCTION ) {
+            return node->parent->symbols;
+        }
+        node = node->parent;
     }
     return NULL;
 }

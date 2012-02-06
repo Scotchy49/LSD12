@@ -84,6 +84,19 @@ int getType( AST_TREE node ) {
         return symbol->type;
     }
     
+    // function & function calls
+    if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
+        return getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
+    }
+    
+    if(node->type == OP_FUNCTION_CALL) {
+        SYMLIST fct = findFunctionSymbol(node->symbols, node);
+        if( fct == NULL ) {
+            error(node->num_line, "function not found %s", getNodeOperand(node, OP_ID)->strVal);
+        } 
+        return fct->type;
+    }
+    
     // misc type checks
     if( node->type == OP_ASSIGN ) {
         int leftType = getType(node->operands);
@@ -99,10 +112,6 @@ int getType( AST_TREE node ) {
         if( type != TYPE_INT ) {
             error(node->num_line, "read/write operations can only be applied to int");
         }
-    }
-    
-    if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
-        return getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
     }
     
     if(node->type == OP_PROGRAM ) {
@@ -126,7 +135,7 @@ int getType( AST_TREE node ) {
     }
     
     if(node->type == OP_RETURN ) {
-        int functionType = findParentFunctionSymbol(node->symbols)->type;
+        int functionType = findParentFunctionSymbol(node)->type;
         if( functionType == TYPE_VOID ) {
             error(node->num_line, "void functions cannot return a value.");
         }
@@ -134,14 +143,6 @@ int getType( AST_TREE node ) {
         if( functionType != getType(node->operands) ) {
             error(node->num_line, "return value not the same as function type");
         }
-    }
-    
-    if(node->type == OP_FUNCTION_CALL) {
-        SYMLIST fct = findFunctionSymbol(node->symbols, node);
-        if( fct == NULL ) {
-            error(node->num_line, "function not found %s", getNodeOperand(node, OP_ID)->strVal);
-        } 
-        return fct->type;
     }
     
     return -1;
