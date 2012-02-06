@@ -137,7 +137,7 @@ int getType( AST_TREE node ) {
     }
     
     if(node->type == OP_FUNCTION_CALL) {
-        SYMLIST fct = findFunctionSymbol(node->symbols, getNodeOperand(node, OP_ID)->strVal, 0);
+        SYMLIST fct = findFunctionSymbol(node->symbols, node);
         if( fct == NULL ) {
             error(node->num_line, "function not found %s", getNodeOperand(node, OP_ID)->strVal);
         } 

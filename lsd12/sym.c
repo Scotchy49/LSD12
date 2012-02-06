@@ -24,6 +24,20 @@ char *printSymbol(SYMLIST s) {
     return symbol;
 }
 
+SYMLIST appendSymbol( SYMLIST list, SYMLIST symbol ) {
+    SYMLIST tmp = list;
+    if(tmp) {
+        while(tmp->next)
+            tmp = tmp->next;
+            
+        tmp->next = symbol;
+        return list;
+    }
+
+    return symbol;
+}
+
+
 int symbolcmp(SYMLIST a, SYMLIST b) {
     int result = 0;
     
@@ -61,7 +75,7 @@ int symbolcmp(SYMLIST a, SYMLIST b) {
         }
 
         if( a->isForward ^ b->isForward )
-            result |= DIFF_PARAMS;
+            result |= DIFF_FORWARD;
     }
 
     return result;
@@ -95,10 +109,27 @@ SYMLIST findParentFunctionSymbol(SYMLIST list) {
     return NULL;
 }
 
-SYMLIST findFunctionSymbol(SYMLIST list, char *id, int paramCount, ...) {
+SYMLIST findFunctionSymbol(SYMLIST list, AST_TREE functionCall) {
+    char *id = getNodeOperand(functionCall, OP_ID)->strVal;
+
+    SYMLIST s = createSymbol(id, -1, -1);
+    s->isFunction = 1;
+    s->depth = -1;
+
+    AST_TREE param = getNodeOperand(functionCall, OP_FUNCTION_CALL_PARAMS)->operands;
+
+    while(param) {
+        SYMLIST ps = createSymbol(NULL, getType(param), -1);
+        ps->isParam = 1;
+        s->paramList = appendSymbol(s->paramList, ps);
+        param = param->next;
+    }
+    
     while(list) {
-        if(list->isFunction && strcmp(list->id, id) == 0)
+        int diff = symbolcmp(list, s);
+        if( diff == DIFF_DEPTH || (diff == (DIFF_DEPTH | DIFF_FORWARD)) ) {
             return list;
+        } 
         list = list->next;
     }
     return NULL;
@@ -116,20 +147,6 @@ void checkNameConstraints(SYMLIST list, SYMLIST symbol) {
         tmp = tmp->next;
     }
 }
-
-SYMLIST appendSymbol( SYMLIST list, SYMLIST symbol ) {
-    SYMLIST tmp = list;
-    if(tmp) {
-        while(tmp->next)
-            tmp = tmp->next;
-            
-        tmp->next = symbol;
-        return list;
-    }
-
-    return symbol;
-}
-
 /*
  * pre: symbol is initialized
  * post: puts symbol at the start of the list
@@ -258,7 +275,7 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
 
         // depth is relative to function, so we increase the depth only if we traversed a function operator
         int d = depth;
-        if( root->type == OP_FUNCTION ) {
+        if( root->type == OP_FUNCTION || root->type == OP_FUNCTION_FORWARD ) {
             d++;
         }
 

@@ -5,15 +5,17 @@ program x;
       a int;
       b bool;
 
-      function fct0() : bool;
+      function fct1(a:bool) : int;
+        forward;
+      function fct1(a:int) : bool;
         forward;
      
-      function fct1() : int;
+      function fct0(b:bool) : int;
         var
           a int;
         begin
           a := 1;
-          return fct0();
+          return fct1(a);
         end;
     begin
       b || false;

@@ -14,6 +14,7 @@
 #define DIFF_ID         1 << 1
 #define DIFF_FCT        1 << 2
 #define DIFF_PARAMS     1 << 3
+#define DIFF_FORWARD    1 << 4
 
 typedef struct symbol_list {
     char *id;
@@ -39,7 +40,7 @@ typedef struct symbol_list {
 SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol );
 SYMLIST findVarSymbol(SYMLIST list, char *id);
 SYMLIST findParentFunctionSymbol(SYMLIST list);
-SYMLIST findFunctionSymbol(SYMLIST list, char *id, int paramCount, ...);
+SYMLIST findFunctionSymbol(SYMLIST list, AST_TREE fctCallNode);
 SYMLIST createSymbol(char *id, int type, int num_line);
 char *printSymbols(SYMLIST s);
 void fillSymbols( AST_TREE root );
