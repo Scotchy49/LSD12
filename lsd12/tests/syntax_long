@@ -2,7 +2,7 @@ program example;
   function main() : void;
     var
       { declaration de variables + fonctions }
-      a bool;
+      a int;
       b int;
       ensA iset;
       ensB iset;
@@ -12,15 +12,8 @@ program example;
         forward;
         
       { Initialise ens avec des valeurs saisies par l'utilisateur }
-      function buildEns( var ap : iset, bp:int) : void;
+      function buildEns( var ens : iset, x:int) : void;
         var
-          db int;
-          db bool;
-          function tt() : void;
-          var
-            ttv int;
-          begin
-          end;
         begin
           read x;
           while( !(x = 0) ) do
@@ -35,7 +28,7 @@ program example;
           equal bool;
         begin
           equal := #ens1 = #ens2;
-          while( equal && 0 < ens1 && 0 < ens2 ) do
+          while( equal && 0 < #ens1 && 0 < #ens2 ) do
             equal := min ens1 = min ens2;
             remove min ens1 from ens1;
             remove min ens2 from ens2;
@@ -47,7 +40,7 @@ program example;
       buildEns( ensB );
       if( equals(ensA, ensB) ) then
         write a;
-        write a-(-fct0());
+        write a-(-b);
       else
         write 0;
       fi;

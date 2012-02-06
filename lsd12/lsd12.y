@@ -51,6 +51,7 @@ InstructionList : /* nothing */   {$$=createNode(OP_INSTRUCTION_LIST,1,NULL);}
     ;
 Instructions : Instruction              {$$=$1;}
              | Instructions Instruction {$$=addChildNode($1,$2);}
+        ;
 
 TypeDecl : INT  		{$$=createIntConstant(OP_VAR_TYPE, TYPE_INT);}
          | BOOLEAN 		{$$=createIntConstant(OP_VAR_TYPE, TYPE_BOOLEAN);}
@@ -76,6 +77,7 @@ FunctionParams : /**/                   {$$=createNode(OP_FUNCTION_PARAMS, 1, NU
 
 FunctionParamList: ParamDecl                            {$$=$1;}
                 |  FunctionParamList COMMA ParamDecl    {$$=addChildNode($1,$3);}
+        ;
 
 VarDecl : ID TypeDecl SEMICOLON 	{$$=createNode(OP_FUNCTION_VAR_DECL, 2, createLiteral(OP_ID, $1), $2);}
 	;

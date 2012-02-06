@@ -4,6 +4,7 @@
 #include <string.h>
 #include "ast.h"
 #include "sym.h"
+#include "type.h"
 
 char *printSymbol(SYMLIST s) {
     char *symbol = malloc(255);
@@ -23,15 +24,21 @@ char *printSymbol(SYMLIST s) {
     return symbol;
 }
 
-int sameSymbols(SYMLIST a, SYMLIST b) {
+int symbolcmp(SYMLIST a, SYMLIST b) {
+    int result = 0;
+    
     // they have to be on the same depth
     // otherwise is it a shadow
-    if( a->depth != b->depth )
-        return 0;
+    if( a->depth != b->depth ) {
+        result |= DIFF_DEPTH ;
+    }
 
     // ID check
-    if( strcmp(a->id, b->id) != 0)
-        return 0;
+    if( strcmp(a->id, b->id) != 0 )
+        result |= DIFF_ID;
+    
+    if( a->isFunction != b->isFunction )
+        result |= DIFF_FCT;
 
     // for functions, we check if the length and type of the operators are the same
     if( a->isFunction && b->isFunction ) {
@@ -39,30 +46,50 @@ int sameSymbols(SYMLIST a, SYMLIST b) {
         SYMLIST p_b = b->paramList;
         while(p_a->next || p_b->next) {
             if( !p_a->next || !p_b->next ) {
-                // not the same number of params
-                return 0;
+                result |= DIFF_PARAMS;
             }
 
             // not the same type
             if( p_a->type != p_b->type )
-                return 0;
+                result |= DIFF_PARAMS;
 
             p_a = p_a->next;
             p_b = p_b->next;
         }
 
-        if( a->isForward && !b->isForward )
-            return 0;
+        if( a->isForward ^ b->isForward )
+            result |= DIFF_PARAMS;
     }
 
-    return 1;
+    return result;
+}
+
+SYMLIST findSymbol(SYMLIST list, SYMLIST symbol) {
+    while(list) {
+        int diff = symbolcmp(list, symbol);
+        if( diff & DIFF_ID || diff & DIFF_FCT || diff & DIFF_PARAMS ) {
+                list = list->next;
+        } else {
+                return list;
+        }
+    }
+    return NULL;
+}
+
+SYMLIST findVarSymbol(SYMLIST list, char*id) {
+    SYMLIST symbol = createSymbol(id,-1,-1);
+    return findSymbol(list, symbol);
+}
+
+SYMLIST findFunctionSymbol(SYMLIST list, char *id, int paramCount, ...) {
+    
 }
 
 void checkNameConstraints(SYMLIST list, SYMLIST symbol) {
     SYMLIST tmp = list;
     // check name constraints
     while( tmp && tmp->depth == symbol->depth ) {
-        if(sameSymbols(tmp, symbol)) {
+        if(symbolcmp(tmp, symbol) == 0) {
             fprintf(stderr, "KO\n");
             fprintf(stderr, "Line %d: %s already defined as %s (line %d)\n", symbol->num_line, printSymbol(symbol), printSymbol(tmp), tmp->num_line);
             exit(EXIT_FAILURE);
@@ -219,7 +246,9 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
         // once we populated the operands, sometimes we need to bubble back new identifiers
         // back to the operator.
         popSymbols(root);
-
+        
+        validateType(root);
+        
         // the next vertical operators inherit automatically from this node, too
         inherited = root->symbols;
         root = root->next;

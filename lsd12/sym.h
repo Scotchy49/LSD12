@@ -10,6 +10,11 @@
 
 #include "ast.h"
 
+#define DIFF_DEPTH      1 << 0
+#define DIFF_ID         1 << 1
+#define DIFF_FCT        1 << 2
+#define DIFF_PARAMS     1 << 3
+
 typedef struct symbol_list {
     char *id;
     int type;
@@ -32,6 +37,8 @@ typedef struct symbol_list {
  * post: puts symbol at the start of the list
  */
 SYMLIST prependSymbol( SYMLIST list, SYMLIST symbol );
+SYMLIST findVarSymbol(SYMLIST list, char *id);
+SYMLIST createSymbol(char *id, int type, int num_line);
 char *printSymbols(SYMLIST s);
 void fillSymbols( AST_TREE root );
 

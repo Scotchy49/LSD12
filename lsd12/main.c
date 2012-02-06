@@ -9,6 +9,7 @@
 #include "y.tab.h"
 #include "ast.h"
 #include "sym.h"
+#include "type.h"
 
 AST_TREE root = 0;
 

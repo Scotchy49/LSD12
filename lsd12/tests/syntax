@@ -4,19 +4,10 @@ program x;
     var
       a int;
       b bool;
-      function fct0() : int;
-        var
-          a bool;
-          b bool;
-        begin
-          if( a = b ) then
-            fct0();
-          fi;
-          return 1;
-        end;
-      begin
-        a := fct0();
-        b := a <= 0;
-        write a;
-      end;
+    begin
+      a := 1 + 1 + (a*a)-a;
+      b := true;
+      write a;
+      write b;
+    end;
 end;
