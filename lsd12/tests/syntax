@@ -5,9 +5,7 @@ program x;
       a int;
       b bool;
     begin
-      a := 1 + 1 + (a*a)-a;
-      b := true;
-      write a;
-      write b;
+      a := 1;
+      b := false;
     end;
 end;

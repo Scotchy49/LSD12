@@ -18,7 +18,7 @@ comment		"{"(.*?)"}"
 ":"		{return COLON;}
 ","		{return COMMA;}
 
-":="	{return ASSIGN;}
+":="            {return ASSIGN;}
 "+"		{return PLUS;}
 "-"		{return MINUS;}
 "/"		{return DIV;}

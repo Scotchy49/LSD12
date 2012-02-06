@@ -39,10 +39,9 @@ program example;
       buildEns( ensA );
       buildEns( ensB );
       if( equals(ensA, ensB) ) then
-        write a;
-        write a-(-b);
+        a := b;
       else
-        write 0;
+        write a;
       fi;
     end;
 end;
