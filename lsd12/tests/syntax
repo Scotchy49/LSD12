@@ -5,12 +5,15 @@ program x;
       a int;
       b bool;
 
+      function fct0() : bool;
+        forward;
+     
       function fct1() : int;
         var
           a int;
         begin
           a := 1;
-          return fct1();
+          return fct0();
         end;
     begin
       b || false;

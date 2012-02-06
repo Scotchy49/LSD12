@@ -44,17 +44,20 @@ int symbolcmp(SYMLIST a, SYMLIST b) {
     if( a->isFunction && b->isFunction ) {
         SYMLIST p_a = a->paramList;
         SYMLIST p_b = b->paramList;
-        while(p_a->next || p_b->next) {
-            if( !p_a->next || !p_b->next ) {
+        while(p_a || p_b) {
+            if( !p_a || !p_b ) {
                 result |= DIFF_PARAMS;
+                break;
+            } else {
+                // not the same type
+                if( p_a->type != p_b->type ) {
+                    result |= DIFF_PARAMS;
+                    break;
+                }
+
+                p_a = p_a->next;
+                p_b = p_b->next;
             }
-
-            // not the same type
-            if( p_a->type != p_b->type )
-                result |= DIFF_PARAMS;
-
-            p_a = p_a->next;
-            p_b = p_b->next;
         }
 
         if( a->isForward ^ b->isForward )
