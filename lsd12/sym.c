@@ -81,8 +81,23 @@ SYMLIST findVarSymbol(SYMLIST list, char*id) {
     return findSymbol(list, symbol);
 }
 
+
+SYMLIST findFirstFunctionSymbol(SYMLIST list) {
+    while( list ) {
+        if( list->isFunction ) 
+            return list;
+        list = list->next;
+    }
+    return NULL;
+}
+
 SYMLIST findFunctionSymbol(SYMLIST list, char *id, int paramCount, ...) {
-    
+    while(list) {
+        if(list->isFunction && strcmp(list->id, id) == 0)
+            return list;
+        list = list->next;
+    }
+    return NULL;
 }
 
 void checkNameConstraints(SYMLIST list, SYMLIST symbol) {
@@ -146,6 +161,8 @@ SYMLIST getVarSymbol(AST_TREE node) {
 
     return createSymbol(id, type, node->num_line);
 }
+
+
 
 SYMLIST getFunctionSymbol(AST_TREE node) {
     char *id = getNodeOperand(node, OP_ID)->strVal;

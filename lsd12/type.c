@@ -125,6 +125,25 @@ int getType( AST_TREE node ) {
         }
     }
     
+    if(node->type == OP_RETURN ) {
+        int functionType = findFirstFunctionSymbol(node->symbols)->type;
+        if( functionType == TYPE_VOID ) {
+            error(node->num_line, "void functions cannot return a value.");
+        }
+        
+        if( functionType != getType(node->operands) ) {
+            error(node->num_line, "return value not the same as function type");
+        }
+    }
+    
+    if(node->type == OP_FUNCTION_CALL) {
+        SYMLIST fct = findFunctionSymbol(node->symbols, getNodeOperand(node, OP_ID)->strVal, 0);
+        if( fct == NULL ) {
+            error(node->num_line, "function not found %s", getNodeOperand(node, OP_ID)->strVal);
+        } 
+        return fct->type;
+    }
+    
     return -1;
 }
 

@@ -4,6 +4,14 @@ program x;
     var
       a int;
       b bool;
+
+      function fct1() : int;
+        var
+          a int;
+        begin
+          a := 1;
+          return a;
+        end;
     begin
       b || false;
       a := 0;
@@ -14,7 +22,19 @@ program x;
       fi;
 
       while( b ) do
+        if( b ) then
+            a := a + 1;
+            if( b ) then
+                a := a + 1;
+                if( b ) then
+                    a := a + 1;
+                fi;
+            else
+                a := a - 1;
+            fi;
+        fi;
         write a;
       od;
+      return fct1();
     end;
 end;
