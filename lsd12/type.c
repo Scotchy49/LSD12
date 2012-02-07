@@ -60,6 +60,12 @@ int getType( AST_TREE node ) {
     }
     
     //iset expressions
+    if( node->type == OP_ADD_ISET || node->type == OP_REMOVE_ISET ) {
+        if( getType(node->operands) != TYPE_INT ) {
+            error(node->num_line, "add/remove to/from iset only accepts int params");
+        }
+    }
+    
     if( node->type == OP_MIN_ISET || node->type == OP_MAX_ISET || node->type == OP_SIZE_ISET ) {
         if( getType(node->operands) != TYPE_ISET ) {
             error(node->num_line, "Was expecting iset");

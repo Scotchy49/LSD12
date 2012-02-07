@@ -1,0 +1,10 @@
+program x;
+  function main() : void;
+    var
+      a iset;
+      b bool;
+    begin
+      add 1 to a;
+      b := b in a;
+    end;
+  end;

@@ -1,0 +1,26 @@
+program x;
+  function main() : void;
+    var
+      function a(a: int, var b:bool) : void;
+        var 
+          function c() : void;
+            var 
+            begin 
+              a(2, false); 
+              c(); 
+          end;
+        begin 
+          c(); 
+      end;
+      function b(a: int) : void;
+        var 
+        begin 
+          a(1, true); 
+          b(1); 
+          c(); { illegal }
+        end;
+      
+    begin
+      a(1, true);
+    end;
+  end;

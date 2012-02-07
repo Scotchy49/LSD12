@@ -1,0 +1,14 @@
+program x;
+  function main() : void;
+    var
+      a iset;
+      b int;
+    begin
+      add 1 to a;
+      remove 2 from a;
+      b := #a;
+      if( 1 in a ) then
+        write 1;
+      fi;
+    end;
+  end;

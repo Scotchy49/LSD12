@@ -1,0 +1,9 @@
+program x;
+  function main() : void;
+    var
+      function a(a: int, var b:bool) : void;
+        var begin end;
+    begin
+      a(1, true);
+    end;
+  end;

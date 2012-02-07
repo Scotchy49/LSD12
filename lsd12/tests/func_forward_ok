@@ -1,0 +1,13 @@
+program x;
+  function main() : void;
+    var
+      function a() : void;
+        forward;
+      function b() : void;
+        var begin a(); end;
+      function a() : void;
+        var begin end;
+    begin
+      b();
+    end;
+  end;

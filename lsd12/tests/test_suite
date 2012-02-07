@@ -20,3 +20,17 @@ OK tests/while_op_ok
 KO tests/while_op_ko
 OK tests/func_noparam_ok
 KO tests/func_noparam_ko
+OK tests/func_nested_param_ok
+KO tests/func_nested_param_ko
+KO tests/func_param_type_ko
+OK tests/func_recurs_ok
+KO tests/func_recurs_ko
+OK tests/func_reach_ok
+KO tests/func_reach_ko
+OK tests/func_overload_ok
+KO tests/func_overload_ko
+OK tests/func_forward_ok
+KO tests/func_forward_ko
+KO tests/func_forward_nested_ko
+OK tests/iset_operation_ok
+KO tests/iset_operation_ko
