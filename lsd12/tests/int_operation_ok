@@ -1,0 +1,11 @@
+program x;
+  function main() : void;
+    var
+      a int;
+      b int;
+    begin
+      a := 1 + 2 * 3 / 3;
+      b := a * 2;
+      a := b * a;
+    end;
+  end;

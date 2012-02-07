@@ -1,0 +1,8 @@
+program x;
+  function main() : void;
+    var
+      a int;
+    begin
+      a := 1 + 2 * 3 / 3 + true;
+    end;
+  end;

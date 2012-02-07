@@ -10,3 +10,5 @@ OK tests/read_int_ok
 KO tests/read_int_ko
 OK tests/write_int_ok
 KO tests/write_int_ko
+OK tests/int_operation_ok
+KO tests/int_operation_ko
