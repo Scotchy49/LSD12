@@ -2,9 +2,7 @@ program x;
   function main() : void;
     var
       function a() : void;
-        var begin end;
-      function a() : void;
-        var begin end;
+        var begin return 1; end;
     begin
       a();
     end;

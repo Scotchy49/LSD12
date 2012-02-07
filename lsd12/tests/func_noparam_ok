@@ -3,10 +3,11 @@ program x;
     var
       function a() : void;
         var begin end;
-      function b() : void;
+      function b() : int;
         var a int;
         begin
           a := 2;
+          return a;
         end;
     begin
       a();
