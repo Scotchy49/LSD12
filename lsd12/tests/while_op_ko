@@ -1,0 +1,10 @@
+program x;
+  function main() : void;
+    var
+      a int;
+    begin
+      while( a ) do
+       ;;
+      od;
+    end;
+  end;

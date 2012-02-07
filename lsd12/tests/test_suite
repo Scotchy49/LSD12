@@ -12,3 +12,11 @@ OK tests/write_int_ok
 KO tests/write_int_ko
 OK tests/int_operation_ok
 KO tests/int_operation_ko
+OK tests/bool_operation_ok
+KO tests/bool_operation_ko
+OK tests/if_op_ok
+KO tests/if_op_ko
+OK tests/while_op_ok
+KO tests/while_op_ko
+OK tests/func_noparam_ok
+KO tests/func_noparam_ko

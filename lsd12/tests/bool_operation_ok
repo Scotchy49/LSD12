@@ -1,0 +1,11 @@
+program x;
+  function main() : void;
+    var
+      a bool;
+      b int;
+    begin
+      a := true || false && false || b=2;
+      b := b * 2;
+      a := b = 2;
+    end;
+  end;
