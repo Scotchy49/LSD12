@@ -308,7 +308,5 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
 void fillSymbols( AST_TREE program ) {
 
     // on créer les symboles
-    populateSymbols(program, NULL, -1);
-    
-    validateType(program);
+    populateSymbols(program, NULL, -1);    
 }

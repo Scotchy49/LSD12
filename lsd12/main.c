@@ -63,7 +63,9 @@ int main(int argc, const char *argv[]) {
     if(argc == 2) {
         fclose(yyin);
     }
+    
     fillSymbols(root);
+    validateType(root);
     
     // if we came this far, the code is correct
     fprintf(stderr, "OK\n");
