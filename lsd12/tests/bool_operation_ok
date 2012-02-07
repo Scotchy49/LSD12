@@ -7,5 +7,8 @@ program x;
       a := true || false && false || b=2;
       b := b * 2;
       a := b = 2;
+      a := b < b;
+      a := b <= 2;
+      a := 3 <= 2;
     end;
   end;
