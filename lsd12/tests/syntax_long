@@ -12,8 +12,9 @@ program example;
         forward;
         
       { Initialise ens avec des valeurs saisies par l'utilisateur }
-      function buildEns( var ens : iset, x:int) : void;
+      function buildEns( var ens : iset) : void;
         var
+          x int;
         begin
           read x;
           while( !(x = 0) ) do

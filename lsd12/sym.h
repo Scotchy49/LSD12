@@ -23,10 +23,12 @@ typedef struct symbol_list {
     int pos;        // relative position
     int depth;      // relative depth
 
-    int isFunction;
-    int isForward;
+    int isFunction;    
     struct symbol_list *paramList;
     int isParam; // 0 = no, 1 = value passed param, 2 = reference passed param
+    
+    int isForward;
+    struct symbol_list *ref; // if the function is forward, it must reference the actual impl
 
     struct symbol_list *next;
     

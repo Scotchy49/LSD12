@@ -3,7 +3,10 @@ program x;
   function main(): void;
     var
       a int;
-      function b(): bool; var
+      function c(): bool;
+        forward;
+      function b(): bool; 
+        var
         begin
           return true;
         end;

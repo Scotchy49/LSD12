@@ -86,6 +86,16 @@ int getType( AST_TREE node ) {
     
     // function & function calls
     if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
+        if( node->type == OP_FUNCTION_FORWARD ) {
+            // check if we have a ref to the impl
+            if( !node->symbols->ref ) {
+                error(node->num_line, "forward declaration not implemented.");
+            } else if( node->symbols->type != node->symbols->ref->type ) {
+                // the return type of the forward decl must be the same as the return type of the implementation
+                error(node->num_line, "forward declaration return type do not match (declared %s, actual is %s)", 
+                        getVarTypeName(node->symbols->type), getVarTypeName(node->symbols->ref->type));
+            }
+        }
         return getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
     }
     
@@ -149,5 +159,10 @@ int getType( AST_TREE node ) {
 }
 
 void validateType(AST_TREE node) {
-    getType(node);
+    // a node is valid if all its tree is correctly typed
+    while( node ) {
+        getType(node);
+        validateType(node->operands);
+        node = node->next;
+    }
 }

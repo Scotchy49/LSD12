@@ -127,9 +127,12 @@ SYMLIST findFunctionSymbol(SYMLIST list, AST_TREE functionCall) {
     
     while(list) {
         int diff = symbolcmp(list, s);
-        if( diff == DIFF_DEPTH || (diff == (DIFF_DEPTH | DIFF_FORWARD)) ) {
+        if( diff == DIFF_DEPTH ) {
             return list;
-        } 
+        } else if( diff == (DIFF_DEPTH | DIFF_FORWARD) ) {
+            // if we found a forward decl, we return the actual implementation
+            return list->ref;
+        }
         list = list->next;
     }
     return NULL;
@@ -139,7 +142,8 @@ void checkNameConstraints(SYMLIST list, SYMLIST symbol) {
     SYMLIST tmp = list;
     // check name constraints
     while( tmp && tmp->depth == symbol->depth ) {
-        if(symbolcmp(tmp, symbol) == 0) {
+        int diff = symbolcmp(tmp, symbol);
+        if( diff == 0 ) {
             fprintf(stderr, "KO\n");
             fprintf(stderr, "Line %d: %s already defined as %s (line %d)\n", symbol->num_line, printSymbol(symbol), printSymbol(tmp), tmp->num_line);
             exit(EXIT_FAILURE);
@@ -170,6 +174,7 @@ SYMLIST createSymbol(char *id, int type, int num_line) {
     s->next = NULL;
     s->isFunction = 0;
     s->isForward = 0;
+    s->ref = NULL;
     s->isParam = 0;
     s->paramList = NULL;
     return s;
@@ -207,7 +212,7 @@ SYMLIST getSymbol(AST_TREE node, int depth, int pos) {
     int i;
     SYMLIST sym = NULL;
 
-    if(node->type == OP_FUNCTION || node->type == OP_FUNCTION_FORWARD ) {
+    if( node->type == OP_FUNCTION_FORWARD || node->type == OP_FUNCTION) {
         sym = getFunctionSymbol(node);
     } else if (node->type == OP_FUNCTION_VAR_DECL) {
         sym = getVarSymbol(node);
@@ -236,9 +241,18 @@ char *printSymbols(SYMLIST s) {
     return symbols;
 }
 
-
 void popSymbols(AST_TREE root) {
-    if( root->type == OP_FUNCTION_PARAMS ) {
+    if( root->type == OP_FUNCTION ) {
+        // add ref to the previous forward decl
+        SYMLIST implSymbol = root->symbols;
+        SYMLIST tmp = implSymbol->next;
+        while(tmp) {
+            if( symbolcmp(tmp, implSymbol) == DIFF_FORWARD ) {
+                tmp->ref = implSymbol;
+            }
+            tmp = tmp->next;
+        }
+    } else if( root->type == OP_FUNCTION_PARAMS ) {
         AST_TREE paramList = root->operands;
         if( paramList ) {
             while(paramList->next) {
@@ -285,17 +299,16 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
         // back to the operator.
         popSymbols(root);
         
-        validateType(root);
-        
         // the next vertical operators inherit automatically from this node, too
         inherited = root->symbols;
         root = root->next;
-    }
+    }    
 }
 
 void fillSymbols( AST_TREE program ) {
 
     // on créer les symboles
     populateSymbols(program, NULL, -1);
-
+    
+    validateType(program);
 }
