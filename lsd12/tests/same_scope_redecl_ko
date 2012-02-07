@@ -1,0 +1,10 @@
+program x;
+  function main(): void;
+  var
+    a int;
+    a bool; { redeclaration }
+  begin
+    a := 1;
+    a := true;
+  end;
+end;

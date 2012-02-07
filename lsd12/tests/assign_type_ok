@@ -1,0 +1,9 @@
+program x;
+  function main() : void;
+    var
+      a int;
+      b int;
+    begin
+      a := b;
+    end;
+  end;

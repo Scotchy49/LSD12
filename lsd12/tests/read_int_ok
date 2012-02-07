@@ -1,0 +1,8 @@
+program x;
+  function main() : void;
+    var
+      a int;
+    begin
+      read a;
+    end;
+  end;

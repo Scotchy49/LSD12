@@ -1,0 +1,10 @@
+program x;
+  function main() : void;
+    var
+      a int;
+    begin
+      write a;
+      write 1;
+      write a+1;
+    end;
+  end;

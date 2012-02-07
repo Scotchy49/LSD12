@@ -1,0 +1,12 @@
+OK tests/basic_program_ok
+KO tests/basic_program_ko
+OK tests/basic_int_bool_decl_ok
+KO tests/same_scope_redecl_ko
+KO tests/main_no_param_ko
+KO tests/main_void_ko
+KO tests/assign_type_ko
+OK tests/assign_type_ok
+OK tests/read_int_ok
+KO tests/read_int_ko
+OK tests/write_int_ok
+KO tests/write_int_ko

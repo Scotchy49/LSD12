@@ -1,0 +1,6 @@
+program x;
+  function main(a:int) : void;
+    var
+    begin
+    end;
+  end;
