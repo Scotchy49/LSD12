@@ -2,6 +2,7 @@
 #define AST_H
 
 typedef enum {
+    OP_NOP,
     OP_REXPR,
     OP_ID,
     OP_LEXPR,

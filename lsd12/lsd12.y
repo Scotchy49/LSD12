@@ -33,7 +33,7 @@ extern AST_TREE root;
 Program : PROGRAM ID SEMICOLON Function END_BLOCK SEMICOLON { root = createNode(OP_PROGRAM, 2, createLiteral(OP_ID, $2), $4); }
 	;
 
-Instruction : SEMICOLON 								{/*no side effect*/}
+Instruction : SEMICOLON 								{$$=createNode(OP_NOP, 0);}
             | RExpr SEMICOLON								{$$=$1;}
             | LExpr ASSIGN RExpr SEMICOLON                                              {$$=createNode(OP_ASSIGN, 2, $1, $3);}
             | IF LP RExpr RP THEN InstructionList FI SEMICOLON 				{$$=createNode(OP_IF, 2, $3, $6);}
@@ -50,7 +50,7 @@ InstructionList : /* nothing */   {$$=createNode(OP_INSTRUCTION_LIST,1,NULL);}
                 | Instructions    {$$=createNode(OP_INSTRUCTION_LIST,1,$1);}
     ;
 Instructions : Instruction              {$$=$1;}
-             | Instruction Instructions {$$=addChildNode($1,$2);}
+             | Instructions Instruction {$$=addChildNode($1,$2);}
         ;
 
 TypeDecl : INT  		{$$=createIntConstant(OP_VAR_TYPE, TYPE_INT);}
