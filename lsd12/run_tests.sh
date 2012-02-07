@@ -16,6 +16,14 @@ while IFS=' ' read -ra TOKENS; do
             echo "${txtgrn}pass${txtrst}: ${TOKENS[1]} OK"
         fi
     else
-        echo "${txtred}fail${txtrst}: ${TOKENS[1]} Got $result, expected ${TOKENS[0]}."
+    	if [ "$result" = "KO" ] 
+        then
+        	# KO, show the error
+            echo "${txtred}fail${txtrst}: ${TOKENS[1]} $result, expected ${TOKENS[0]}. `./lsd12 < ${TOKENS[1]} 2>&1 | tail -1` "
+        else
+        	# OK
+            echo "${txtred}fail${txtrst}: ${TOKENS[1]} $result, expected ${TOKENS[0]}."
+        fi
+        exit 1
     fi
 done
