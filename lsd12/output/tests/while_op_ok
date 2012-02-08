@@ -1,4 +1,3 @@
-OK
 ;OP_PROGRAM []
 ;|  OP_ID (x) []
 ;|  next
@@ -9,18 +8,119 @@ OK
 ;|  |  next
 ;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,0)]
 ;|  |  next
-;|  |  OP_FUNCTION_DECLBLOCK [ -> a:b(0,0) -> main():v(-1,0)]
-;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:b(0,0) -> main():v(-1,0)]
-;|  |  |  |  OP_ID (a) [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  OP_FUNCTION_DECLBLOCK [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ID (i) [ -> i:i(0,0) -> main():v(-1,0)]
 ;|  |  |  |  next
-;|  |  |  |  OP_VAR_TYPE (b) [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_VAR_TYPE (i) [ -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  next
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ID (x) [ -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_VAR_TYPE (i) [ -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  next
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ID (a) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_VAR_TYPE (b) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
 ;|  |  next
-;|  |  OP_FUNCTION_BODY [ -> a:b(0,0) -> main():v(-1,0)]
-;|  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
-;|  |  |  |  OP_WHILE [ -> a:b(0,0) -> main():v(-1,0)]
-;|  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  OP_FUNCTION_BODY [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (x) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
-;|  |  |  |  |  |  0 [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_CONSTANT_INT (0) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_READ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_EQ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  0 [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_WHILE [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_READ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  OP_EQ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  OP_LEXPR (x) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  OP_PLUS [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  |  OP_LEXPR (x) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_PROGRAM []
+;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
+ssp 3
+ujp @begin
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+define @begin
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda i 0 1
+;Generating pcode for node OP_CONSTANT_INT (0) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+ldc i 0
+sto i
+;Generating pcode for node OP_READ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+read
+sto i
+;Generating pcode for node OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda b 0 2
+;Generating pcode for node OP_EQ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LEXPR (i) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+ind i
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+ldc i 1
+equ i
+sto b
+;Generating pcode for node OP_WHILE [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+define @while_1
+;Generating pcode for node OP_LEXPR (a) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda b 0 2
+ind b
+fjp @od_1
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_READ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+read
+sto i
+;Generating pcode for node OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda b 0 2
+;Generating pcode for node OP_EQ [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LEXPR (i) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+ind i
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+ldc i 1
+equ i
+sto b
+;Generating pcode for node OP_ASSIGN [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda i 0 1
+;Generating pcode for node OP_PLUS [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LEXPR (x) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+lda i 0 1
+ind i
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> a:b(0,2) -> x:i(0,1) -> i:i(0,0) -> main():v(-1,0)]
+ldc i 1
+add i
+sto i
+ujp @while_1
+define @od_1
+stp

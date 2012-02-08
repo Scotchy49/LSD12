@@ -1,4 +1,3 @@
-OK
 ;OP_PROGRAM []
 ;|  OP_ID (x) []
 ;|  next
@@ -56,3 +55,13 @@ OK
 ;|  |  |  |  |  OP_ID (b) [ -> b():i(0,1) -> a():v(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  next
 ;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> b():i(0,1) -> a():v(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_PROGRAM []
+;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
+ssp 0
+ujp @begin
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b():i(0,1) -> a():v(0,0) -> main():v(-1,0)]
+define @begin
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> b():i(0,1) -> a():v(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION_CALL [ -> b():i(0,1) -> a():v(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION_CALL [ -> b():i(0,1) -> a():v(0,0) -> main():v(-1,0)]
+stp

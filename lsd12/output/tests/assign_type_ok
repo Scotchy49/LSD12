@@ -1,4 +1,3 @@
-OK
 ;OP_PROGRAM []
 ;|  OP_ID (x) []
 ;|  next
@@ -26,3 +25,17 @@ OK
 ;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  next
 ;|  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_PROGRAM []
+;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
+ssp 2
+ujp @begin
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+define @begin
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_ASSIGN [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+;Generating pcode for node OP_LEXPR (b) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 0 1
+ind i
+sto i
+stp

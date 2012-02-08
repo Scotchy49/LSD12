@@ -1,4 +1,3 @@
-OK
 ;OP_PROGRAM []
 ;|  OP_ID (x) []
 ;|  next
@@ -13,3 +12,11 @@ OK
 ;|  |  next
 ;|  |  OP_FUNCTION_BODY [ -> main():v(-1,0)]
 ;|  |  |  OP_INSTRUCTION_LIST [ -> main():v(-1,0)]
+;Generating pcode for node OP_PROGRAM []
+;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
+ssp 0
+ujp @begin
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> main():v(-1,0)]
+define @begin
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> main():v(-1,0)]
+stp

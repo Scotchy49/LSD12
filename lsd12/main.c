@@ -10,6 +10,7 @@
 #include "ast.h"
 #include "sym.h"
 #include "type.h"
+#include "pcode.h"
 
 AST_TREE root = 0;
 
@@ -68,9 +69,10 @@ int main(int argc, const char *argv[]) {
     validateType(root);
     
     // if we came this far, the code is correct
-    fprintf(stderr, "OK\n");
+    fprintf(stderr, "OK\n");    
     
-    printTree(root, 0);
+    printTree(root, 0);    
+    generatePCode(root);
     freeTree(root);
     return EXIT_SUCCESS;
 }

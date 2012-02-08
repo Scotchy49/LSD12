@@ -7,7 +7,7 @@ program x;
         a := true;
       fi;
       if( a ) then;;;;fi;
-      if( 2 = 2 ) then 
+      if( 2 = 3 ) then 
         a := false;
       else
         a := true;

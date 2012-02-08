@@ -1,4 +1,3 @@
-OK
 ;OP_PROGRAM []
 ;|  OP_ID (x) []
 ;|  next
@@ -42,7 +41,7 @@ OK
 ;|  |  |  |  |  OP_EQ [ -> a:b(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> a:b(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_CONSTANT_INT (3) [ -> a:b(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  next
 ;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  OP_ASSIGN [ -> a:b(0,0) -> main():v(-1,0)]
@@ -55,3 +54,56 @@ OK
 ;|  |  |  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  |  next
 ;|  |  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_PROGRAM []
+;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
+ssp 1
+ujp @begin
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a:b(0,0) -> main():v(-1,0)]
+define @begin
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_IF [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a:b(0,0) -> main():v(-1,0)]
+ldc b 1
+fjp @fi_1
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_ASSIGN [ -> a:b(0,0) -> main():v(-1,0)]
+lda b 0 0
+;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a:b(0,0) -> main():v(-1,0)]
+ldc b 1
+sto b
+define @fi_1
+;Generating pcode for node OP_IF [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LEXPR (a) [ -> a:b(0,0) -> main():v(-1,0)]
+lda b 0 0
+ind b
+fjp @fi_2
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node 0 [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node 0 [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node 0 [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node 0 [ -> a:b(0,0) -> main():v(-1,0)]
+define @fi_2
+;Generating pcode for node OP_IF_ELSE [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_EQ [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_CONSTANT_INT (2) [ -> a:b(0,0) -> main():v(-1,0)]
+ldc i 2
+;Generating pcode for node OP_CONSTANT_INT (3) [ -> a:b(0,0) -> main():v(-1,0)]
+ldc i 3
+equ i
+fjp @else_3
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_ASSIGN [ -> a:b(0,0) -> main():v(-1,0)]
+lda b 0 0
+;Generating pcode for node OP_CONSTANT_BOOL (0) [ -> a:b(0,0) -> main():v(-1,0)]
+ldc b 0
+sto b
+ujp @fi_3
+define @else_3
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_ASSIGN [ -> a:b(0,0) -> main():v(-1,0)]
+lda b 0 0
+;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a:b(0,0) -> main():v(-1,0)]
+ldc b 1
+sto b
+define @fi_3
+stp

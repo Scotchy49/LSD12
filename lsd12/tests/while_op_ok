@@ -1,10 +1,17 @@
 program x;
   function main() : void;
     var
+      i int;
+      x int;
       a bool;
     begin
+	  x := 0;
+	  read i;
+	  a := i = 1;
       while( a ) do
-       ;;
+        read i;
+        a := i = 1;
+        x := x + 1;
       od;
     end;
   end;

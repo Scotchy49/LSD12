@@ -34,6 +34,7 @@ KO tests/func_overload_ko
 OK tests/func_forward_ok
 KO tests/func_forward_ko
 KO tests/func_forward_nested_ko
+KO tests/func_forward_type_mismatch_ko
 OK tests/iset_operation_ok
 KO tests/iset_operation_ko
 OK tests/fibonnaci_ok

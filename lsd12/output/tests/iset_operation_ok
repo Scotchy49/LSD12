@@ -1,4 +1,3 @@
-OK
 ;OP_PROGRAM []
 ;|  OP_ID (x) []
 ;|  next
@@ -47,3 +46,26 @@ OK
 ;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  OP_WRITE [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_PROGRAM []
+;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
+ssp 2
+ujp @begin
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+define @begin
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_ADD_ISET [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_REMOVE_ISET [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_ASSIGN [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+lda i 0 1
+;Generating pcode for node OP_SIZE_ISET [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+sto i
+;Generating pcode for node OP_IF [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_IN [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+fjp @fi_1
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_WRITE [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> b:i(0,1) -> a:is(0,0) -> main():v(-1,0)]
+ldc i 1
+prin
+define @fi_1
+stp
