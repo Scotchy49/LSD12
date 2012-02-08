@@ -1,0 +1,18 @@
+program fib;
+  function main() : void;
+  var 
+  	a int;
+    function fib( i : int ) : int;
+    var begin
+      if( i <= 1 ) then
+        return 1;
+      fi;
+      return fib(i-1) + fib(i-2);
+    end;
+  begin
+      while(true) do
+        read a;
+        write fib(a);
+      od;
+  end;
+end;

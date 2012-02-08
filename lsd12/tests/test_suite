@@ -36,3 +36,4 @@ KO tests/func_forward_ko
 KO tests/func_forward_nested_ko
 OK tests/iset_operation_ok
 KO tests/iset_operation_ko
+OK tests/fibonnaci_ok
