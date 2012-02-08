@@ -1,0 +1,30 @@
+OK
+;OP_PROGRAM []
+;|  OP_ID (x) []
+;|  next
+;|  OP_FUNCTION [ -> main():v(-1,0)]
+;|  |  OP_ID (main) [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_PARAMS [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_DECLBLOCK [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ID (a) [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_VAR_TYPE (i) [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_BODY [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_WRITE [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_WRITE [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_WRITE [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_PLUS [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_LEXPR (a) [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:i(0,0) -> main():v(-1,0)]

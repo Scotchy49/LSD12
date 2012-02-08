@@ -1,0 +1,15 @@
+OK
+;OP_PROGRAM []
+;|  OP_ID (x) []
+;|  next
+;|  OP_FUNCTION [ -> main():v(-1,0)]
+;|  |  OP_ID (main) [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_PARAMS [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_DECLBLOCK [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_BODY [ -> main():v(-1,0)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> main():v(-1,0)]

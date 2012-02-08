@@ -1,0 +1,80 @@
+OK
+;OP_PROGRAM []
+;|  OP_ID (x) []
+;|  next
+;|  OP_FUNCTION [ -> main():v(-1,0)]
+;|  |  OP_ID (main) [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_PARAMS [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_DECLBLOCK [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ID (a) [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_VAR_TYPE (b) [ -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  next
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ID (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_VAR_TYPE (i) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  next
+;|  |  OP_FUNCTION_BODY [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_ASSIGN [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_OR [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_AND [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  OP_OR [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_CONSTANT_BOOL (0) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  OP_CONSTANT_BOOL (0) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_EQ [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_ASSIGN [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_TIMES [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_ASSIGN [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_EQ [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_ASSIGN [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_LT [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_ASSIGN [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_LTE [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  next
+;|  |  |  |  OP_ASSIGN [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_LTE [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  OP_CONSTANT_INT (3) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> b:i(0,1) -> a:b(0,0) -> main():v(-1,0)]

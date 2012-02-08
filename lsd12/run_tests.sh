@@ -9,6 +9,7 @@ while IFS=' ' read -ra TOKENS; do
     result=`./lsd12 < ${TOKENS[1]} 2>&1 | head -1`
     if [ "$result" = "${TOKENS[0]}" ] 
     then
+        ./lsd12 < ${TOKENS[1]} &> output/${TOKENS[1]}
         if [ "$result" = "KO" ] 
         then
             echo "${txtgrn}pass${txtrst}: ${TOKENS[1]} KO `./lsd12 < ${TOKENS[1]} 2>&1 | tail -1` "
