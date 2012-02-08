@@ -11,7 +11,9 @@ program x;
       while( a ) do
         read i;
         a := i = 1;
-        x := x + 1;
+        while( 0 < x ) do
+          x := x - 1;
+        od;
       od;
     end;
   end;
