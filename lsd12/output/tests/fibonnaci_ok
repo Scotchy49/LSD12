@@ -90,7 +90,7 @@ define @fibBody
 ;Generating pcode for node OP_IF [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_LTE [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_LEXPR (i) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-lda i 1 0
+lda i 0 5
 ind i
 ;Generating pcode for node OP_CONSTANT_INT (1) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ldc i 1
@@ -111,7 +111,7 @@ lda i 0 0
 mst 0
 ;Generating pcode for node OP_MINUS [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_LEXPR (i) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-lda i 1 0
+lda i 0 5
 ind i
 ;Generating pcode for node OP_CONSTANT_INT (1) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ldc i 1
@@ -121,7 +121,7 @@ cup 1 @fib
 mst 0
 ;Generating pcode for node OP_MINUS [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_LEXPR (i) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-lda i 1 0
+lda i 0 5
 ind i
 ;Generating pcode for node OP_CONSTANT_INT (2) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ldc i 2

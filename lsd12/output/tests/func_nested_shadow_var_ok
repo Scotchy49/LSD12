@@ -52,7 +52,7 @@ define @aBody
 ;Generating pcode for node OP_RETURN [ -> +a:i(1,0) -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 lda i 0 0
 ;Generating pcode for node OP_LEXPR (a) [ -> +a:i(1,0) -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-lda i 1 0
+lda i 0 5
 ind i
 sto i
 retf

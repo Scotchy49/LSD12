@@ -26,7 +26,14 @@ int getFunctionStackSize( AST_TREE fct ) {
 void generateAdressPCode( AST_TREE node ) {
     if( node->type == OP_LEXPR ) {
         SYMLIST s = findVarSymbol(node->symbols, node->strVal);
-        printf("lda %s %d %d\n", getVarTypeName(s->type), node->symbols->depth - s->depth, s->pos);
+        //if(s->isParam == 0) {
+            printf("lda %s %d %d\n", getVarTypeName(s->type), node->symbols->depth - s->depth, s->pos + (s->isParam ? 5 : 0));
+        /*} else if( s->isParam == 1) {
+            printf("lod %s %d %d\n", getVarTypeName(s->type), node->symbols->depth - s->depth, s->pos + (s->isParam ? 5 : 0));
+        } else {
+            // s->isParam == 2
+            printf("lod a %d %d\n", node->symbols->depth - s->depth, s->pos + (s->isParam ? 5 : 0));
+        }*/
     }
 }
 
@@ -73,12 +80,15 @@ void generatePCode(AST_TREE node) {
         if( node->type == OP_FUNCTION_CALL ) {
             printf("mst 0\n");
             AST_TREE params = getNodeOperand(node, OP_FUNCTION_CALL_PARAMS)->operands;
+            SYMLIST fct = findFunctionSymbol(node->symbols, node);
+            SYMLIST paramList = fct->paramList;
             int i;
             for( i = 0; params; ++i ) {
                 generatePCode(params);
                 params = params->next;
+                paramList = paramList->next;
             }
-            printf("cup %d @%s\n", i, getNodeOperand(node, OP_ID)->strVal);
+            printf("cup %d @%s\n", i, fct->id);
         }
         
         if(node->type == OP_FUNCTION_DECLBLOCK) {
@@ -101,7 +111,7 @@ void generatePCode(AST_TREE node) {
         
         if( node->type == OP_LEXPR ) {
             SYMLIST s = findVarSymbol(node->symbols, node->strVal);
-            printf("lda %s %d %d\n", getVarTypeName(s->type), s->depth, s->pos);
+            printf("lda %s %d %d\n", getVarTypeName(s->type), node->symbols->depth - s->depth, s->pos + (s->isParam ? 5 : 0));
             printf("ind %s\n", getVarTypeName(s->type));
         }
         

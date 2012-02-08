@@ -1,0 +1,18 @@
+program x;
+  function main() : void;
+    var
+      a int;
+      function a(var a: int, b:bool) : void;
+        var begin 
+          if(b) then
+            a := a+1;
+          else
+            a := a - 1;
+          fi;
+        end;
+    begin
+      a := 1;
+      a(a, true);
+      write a;
+    end;
+  end;

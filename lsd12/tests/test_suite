@@ -22,6 +22,7 @@ OK tests/func_noparam_ok
 KO tests/func_noparam_ko
 OK tests/func_nested_param_ok
 KO tests/func_nested_param_ko
+OK tests/func_var_param_change_ok
 OK tests/func_nested_shadow_var_ok
 KO tests/func_param_in_var_redecl_ko
 KO tests/func_param_type_ko

@@ -1,15 +1,24 @@
 program x;
   function main() : void;
     var
+      a int;
       function a(a: int, b:bool) : int;
-        var begin 
+        var 
+          function b() : int;
+            var 
+            begin
+              a := a + 1;
+              return a;
+            end;
+        begin
           if(b) then
-            return a + 1;
+            return b() - 1;
           else
-            return a - 1;
+            return b() + 1;
           fi;
         end;
     begin
-      write a(1, true);
+      a(1,true);
+      write a;
     end;
   end;
