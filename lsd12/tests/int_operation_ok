@@ -7,5 +7,7 @@ program x;
       a := 1 + 2 * 3 / 3;
       b := a * 2;
       a := b * a;
+      write -1;
+      write a-1;
     end;
   end;
