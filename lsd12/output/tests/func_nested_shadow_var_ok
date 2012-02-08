@@ -39,10 +39,24 @@
 ;|  |  |  |  OP_WRITE [ -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  OP_LEXPR (a) [ -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_PROGRAM []
-;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
 ssp 1
 ujp @begin
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION [ -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+define @a
+ssp 6
+ujp @aBody
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> +a:i(1,0) -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+define @aBody
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> +a:i(1,0) -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_RETURN [ -> +a:i(1,0) -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+;Generating pcode for node OP_LEXPR (a) [ -> +a:i(1,0) -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 1 0
+ind i
+sto i
+retf
+retf
 define @begin
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_WRITE [ -> a(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]

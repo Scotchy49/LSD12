@@ -105,11 +105,67 @@
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_PROGRAM []
-;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
 ssp 0
 ujp @begin
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION [ -> a(i,&b):v(0,0) -> main():v(-1,0)]
+define @a
+ssp 7
+ujp @aBody
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> +b:b(1,1) -> +a:i(1,0) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+define @aBody
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> +b:b(1,1) -> +a:i(1,0) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+retp
+;Generating pcode for node OP_FUNCTION [ -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+define @b
+ssp 6
+ujp @bBody
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> +a:i(1,0) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+define @bBody
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> +a:i(1,0) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION_CALL [ -> +a:i(1,0) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> +a:i(1,0) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc i 1
+;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> +a:i(1,0) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc b 1
+cup 2 @a
+;Generating pcode for node OP_FUNCTION_CALL [ -> +a:i(1,0) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> +a:i(1,0) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc i 1
+cup 1 @b
+retp
+;Generating pcode for node OP_FUNCTION [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+define @c
+ssp 5
+ujp @cBody
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+define @cBody
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION_CALL [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_CONSTANT_INT (2) [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc i 2
+;Generating pcode for node OP_CONSTANT_BOOL (0) [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc b 0
+cup 2 @a
+;Generating pcode for node OP_FUNCTION_CALL [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_CONSTANT_INT (2) [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc i 2
+cup 1 @b
+;Generating pcode for node OP_FUNCTION_CALL [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+mst 0
+cup 0 @c
+retp
 define @begin
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_FUNCTION_CALL [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc i 1
+;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> c():v(0,2) -> b(i):v(0,1) -> a(i,&b):v(0,0) -> main():v(-1,0)]
+ldc b 1
+cup 2 @a
 stp

@@ -14,13 +14,19 @@ int getFunctionStackSize( AST_TREE fct ) {
         }
         decl = decl->next;
     }
+    
+    AST_TREE params = getNodeOperand(fct, OP_FUNCTION_PARAMS)->operands;
+    while( params ) {
+        i++;
+        params = params->next;
+    }
     return i;
 }
 
 void generateAdressPCode( AST_TREE node ) {
     if( node->type == OP_LEXPR ) {
         SYMLIST s = findVarSymbol(node->symbols, node->strVal);
-        printf("lda %s %d %d\n", getVarTypeName(s->type), s->depth, s->pos);
+        printf("lda %s %d %d\n", getVarTypeName(s->type), node->symbols->depth - s->depth, s->pos);
     }
 }
 
@@ -29,17 +35,60 @@ void generatePCode(AST_TREE node) {
         printf(";Generating pcode for node %s\n", humanReadableNode(node));
 
         if( node->type == OP_PROGRAM ) {
-            generatePCode(getNodeOperand(node, OP_FUNCTION));
+            AST_TREE mainFunc = getNodeOperand(node, OP_FUNCTION);
+            int s = getFunctionStackSize(mainFunc);
+            printf("ssp %d\n", s);        
+            printf("ujp @begin\n");
+            generatePCode(getNodeOperand(mainFunc, OP_FUNCTION_DECLBLOCK));
+            printf("define @begin\n");
+            generatePCode(getNodeOperand(getNodeOperand(mainFunc, OP_FUNCTION_BODY), OP_INSTRUCTION_LIST));
             printf("stp\n");
         }
 
         if( node->type == OP_FUNCTION ) {
             int s = getFunctionStackSize(node);
-            printf("ssp %d\n", s);        
-            printf("ujp @begin\n");
+            char *id = getNodeOperand(node, OP_ID)->strVal;
+            printf("define @%s\n", id);
+            printf("ssp %d\n", 5+s);
+            printf("ujp @%sBody\n", id);
             generatePCode(getNodeOperand(node, OP_FUNCTION_DECLBLOCK));
-            printf("define @begin\n");
+            printf("define @%sBody\n", id);
             generatePCode(getNodeOperand(getNodeOperand(node, OP_FUNCTION_BODY), OP_INSTRUCTION_LIST));
+            
+            if(getNodeOperand(node, OP_FUNCTION_TYPE)->intVal == TYPE_VOID ) {
+                printf("retp\n");
+            } else {
+                printf("retf\n");
+            }
+        }
+        
+        if( node->type == OP_RETURN ) {
+            int type = findParentFunctionSymbol(node)->type;
+            printf("lda %s 0 0\n", getVarTypeName(type));
+            generatePCode(node->operands);
+            printf("sto %s\n", getVarTypeName(type));
+            printf("retf\n");
+        }
+        
+        if( node->type == OP_FUNCTION_CALL ) {
+            printf("mst 0\n");
+            AST_TREE params = getNodeOperand(node, OP_FUNCTION_CALL_PARAMS)->operands;
+            int i;
+            for( i = 0; params; ++i ) {
+                generatePCode(params);
+                params = params->next;
+            }
+            printf("cup %d @%s\n", i, getNodeOperand(node, OP_ID)->strVal);
+        }
+        
+        if(node->type == OP_FUNCTION_DECLBLOCK) {
+            AST_TREE declList = node->operands;
+            while(declList) {
+                if( declList->type == OP_FUNCTION ) {
+                    generatePCode(declList);
+                }
+                declList = declList->next;
+            }
         }
 
         if( node->type == OP_INSTRUCTION_LIST ) {

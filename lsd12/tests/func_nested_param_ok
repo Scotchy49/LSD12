@@ -1,9 +1,15 @@
 program x;
   function main() : void;
     var
-      function a(a: int, var b:bool) : void;
-        var begin end;
+      function a(a: int, b:bool) : int;
+        var begin 
+          if(b) then
+            return a + 1;
+          else
+            return a - 1;
+          fi;
+        end;
     begin
-      a(1, true);
+      write a(1, true);
     end;
   end;

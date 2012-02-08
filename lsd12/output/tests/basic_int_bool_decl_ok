@@ -22,7 +22,6 @@
 ;|  |  OP_FUNCTION_BODY [ -> b:b(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;|  |  |  OP_INSTRUCTION_LIST [ -> b:b(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_PROGRAM []
-;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
 ssp 2
 ujp @begin
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b:b(0,1) -> a:i(0,0) -> main():v(-1,0)]

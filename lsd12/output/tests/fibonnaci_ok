@@ -77,17 +77,67 @@
 ;|  |  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;|  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_PROGRAM []
-;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
 ssp 1
 ujp @begin
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+define @fib
+ssp 6
+ujp @fibBody
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+define @fibBody
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_IF [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LTE [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LEXPR (i) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 1 0
+ind i
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+ldc i 1
+leq i
+fjp @fi_1
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_RETURN [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+ldc i 1
+sto i
+retf
+define @fi_1
+;Generating pcode for node OP_RETURN [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+;Generating pcode for node OP_PLUS [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_FUNCTION_CALL [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_MINUS [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LEXPR (i) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 1 0
+ind i
+;Generating pcode for node OP_CONSTANT_INT (1) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+ldc i 1
+sub i
+cup 1 @fib
+;Generating pcode for node OP_FUNCTION_CALL [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_MINUS [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;Generating pcode for node OP_LEXPR (i) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 1 0
+ind i
+;Generating pcode for node OP_CONSTANT_INT (2) [ -> +i:i(1,0) -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+ldc i 2
+sub i
+cup 1 @fib
+add i
+sto i
+retf
+retf
 define @begin
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_WHILE [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-define @while_1
+define @while_2
 ;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ldc b 1
-fjp @od_1
+fjp @od_2
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_READ [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 lda i 0 0
@@ -95,7 +145,12 @@ read
 sto i
 ;Generating pcode for node OP_WRITE [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_FUNCTION_CALL [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+mst 0
+;Generating pcode for node OP_LEXPR (a) [ -> fib(i):i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+lda i 0 0
+ind i
+cup 1 @fib
 prin
-ujp @while_1
-define @od_1
+ujp @while_2
+define @od_2
 stp

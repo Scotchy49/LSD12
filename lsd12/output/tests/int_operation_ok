@@ -63,7 +63,6 @@
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_PROGRAM []
-;Generating pcode for node OP_FUNCTION [ -> main():v(-1,0)]
 ssp 2
 ujp @begin
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]

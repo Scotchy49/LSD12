@@ -1,6 +1,7 @@
 program x;
   function main() : void;
     var
+      a int;
       function a() : void;
         var begin end;
       function b() : int;
@@ -11,6 +12,7 @@ program x;
         end;
     begin
       a();
-      b();
+      a := b();
+      write a;
     end;
   end;
