@@ -101,8 +101,8 @@ SYMLIST findVarSymbol(SYMLIST list, char*id) {
 
 SYMLIST findParentFunctionSymbol(AST_TREE node) {
     while(node) {
-        if( node->parent->type == OP_FUNCTION ) {
-            return node->parent->symbols;
+        if( node->type == OP_FUNCTION ) {
+            return node->symbols;
         }
         node = node->parent;
     }
@@ -177,6 +177,7 @@ SYMLIST createSymbol(char *id, int type, int num_line) {
     s->ref = NULL;
     s->isParam = 0;
     s->paramList = NULL;
+    s->uniqueId = -1;
     return s;
 }
 

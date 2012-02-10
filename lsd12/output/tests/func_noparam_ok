@@ -71,19 +71,19 @@ ssp 1
 ujp @begin
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_FUNCTION [ -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
-define @a
+define @a_1
 ssp 5
-ujp @aBody
+ujp @a_1Body
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
-define @aBody
+define @a_1Body
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 retp
 ;Generating pcode for node OP_FUNCTION [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
-define @b
+define @b_2
 ssp 6
-ujp @bBody
+ujp @b_2Body
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a:i(1,0) -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
-define @bBody
+define @b_2Body
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:i(1,0) -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_ASSIGN [ -> a:i(1,0) -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 lda i 0 0
@@ -102,12 +102,12 @@ define @begin
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_FUNCTION_CALL [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 mst 0
-cup 0 @a
+cup 0 @a_1
 ;Generating pcode for node OP_ASSIGN [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 lda i 0 0
 ;Generating pcode for node OP_FUNCTION_CALL [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 mst 0
-cup 0 @b
+cup 0 @b_2
 sto i
 ;Generating pcode for node OP_WRITE [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_LEXPR (a) [ -> b():i(0,2) -> a():v(0,1) -> a:i(0,0) -> main():v(-1,0)]

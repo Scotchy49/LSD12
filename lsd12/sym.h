@@ -32,6 +32,8 @@ typedef struct symbol_list {
 
     struct symbol_list *next;
     
+    int uniqueId;
+    
     int num_line; // line where the symbol appears
 } *SYMLIST;
 

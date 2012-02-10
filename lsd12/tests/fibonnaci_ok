@@ -10,7 +10,8 @@ program fib;
       return fib(i-1) + fib(i-2);
     end;
   begin
-      while(true) do
+      a := 1;
+      while( 0 < a) do
         read a;
         write fib(a);
       od;

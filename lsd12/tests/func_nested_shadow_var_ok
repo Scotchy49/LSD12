@@ -5,6 +5,7 @@ program x;
     function a( a: int ) : int;
     var begin return a; end;
     begin
-      write a;
+      a := 1;
+      write a(2);
     end;
   end;

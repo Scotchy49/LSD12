@@ -1,13 +1,15 @@
 program x;
   function main() : void;
     var
-      function a() : void;
+      function a(x:int) : void;
         forward;
-      function b() : void;
-        var begin a(); end;
+
       function a() : void;
-        var begin end;
+        var begin a(2); end;
+
+      function a(var x:int) : void;
+        var begin write x; end;
     begin
-      b();
+      a();
     end;
   end;

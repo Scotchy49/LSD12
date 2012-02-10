@@ -2,17 +2,21 @@ program x;
   function main() : void;
     var
       a int;
-      function a(var a: int, b:bool) : void;
+      b bool;
+      function a(var a: int, var b:bool) : void;
         var begin 
-          if(b) then
-            a := a+1;
-          else
-            a := a - 1;
-          fi;
+          a := a+1;
+          b := !b;
         end;
     begin
       a := 1;
-      a(a, true);
+      b := false;
+      a(a, b);
       write a;
+      if( b ) then
+        write 1;
+      else
+        write 0;
+      fi;
     end;
   end;

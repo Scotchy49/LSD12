@@ -2,11 +2,17 @@ program x;
   function main() : void;
     var
       function a(a: int, var b:bool) : void;
-        var begin end;
+        var begin 
+            b := !b;
+            write a;
+        end;
       function a(a: int, var b:int) : void;
-        var begin end;
+        var begin 
+            b := -b;
+            write a;
+        end;
     begin
       a(1, 1);
-      a(1, true);
+      a(2, true);
     end;
   end;

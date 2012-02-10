@@ -18,6 +18,7 @@ program x;
           fi;
         end;
     begin
+      a := 1;
       a(1,true);
       write a;
     end;

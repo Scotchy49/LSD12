@@ -55,11 +55,11 @@ ssp 0
 ujp @begin
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a(i,&b):v(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_FUNCTION [ -> a(i,&b):v(0,0) -> main():v(-1,0)]
-define @a
+define @a_1
 ssp 7
-ujp @aBody
+ujp @a_1Body
 ;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> +b:b(1,1) -> +a:i(1,0) -> a(i,&b):v(0,0) -> main():v(-1,0)]
-define @aBody
+define @a_1Body
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> +b:b(1,1) -> +a:i(1,0) -> a(i,&b):v(0,0) -> main():v(-1,0)]
 ;Generating pcode for node OP_FUNCTION_CALL [ -> +b:b(1,1) -> +a:i(1,0) -> a(i,&b):v(0,0) -> main():v(-1,0)]
 mst 0
@@ -67,7 +67,7 @@ mst 0
 ldc i 2
 ;Generating pcode for node OP_CONSTANT_BOOL (0) [ -> +b:b(1,1) -> +a:i(1,0) -> a(i,&b):v(0,0) -> main():v(-1,0)]
 ldc b 0
-cup 2 @a
+cup 2 @a_1
 retp
 define @begin
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> a(i,&b):v(0,0) -> main():v(-1,0)]
@@ -77,5 +77,5 @@ mst 0
 ldc i 1
 ;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a(i,&b):v(0,0) -> main():v(-1,0)]
 ldc b 1
-cup 2 @a
+cup 2 @a_1
 stp
