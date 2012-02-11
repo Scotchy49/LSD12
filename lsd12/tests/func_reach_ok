@@ -1,7 +1,7 @@
 program x;
   function main() : void;
     var
-      function a(a: int, var b:bool) : void;
+      function a(a: int, b:bool) : void;
         var begin end;
       function b(a: int) : void;
         var begin a(1, true); b(1); end;

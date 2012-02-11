@@ -1,11 +1,13 @@
 program x;
   function main() : void;
     var
+      b bool;
       function a(a: int, var b:bool) : void;
         var begin 
-          a(2, false);
+          a(2, b);
         end;
     begin
-      a(1, true);
+      b := true;
+      a(1, b);
     end;
   end;

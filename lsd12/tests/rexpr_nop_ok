@@ -1,0 +1,12 @@
+program rexpr;
+  function main(): void;
+  var
+    a int;
+    function a(): void;
+    var begin write a; end;
+  begin
+    a := 1;
+    a();
+    a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;
+  end;
+end;

@@ -1,0 +1,2 @@
+KO
+Line 5: type error:forward declaration return type do not match (declared v, actual is i)

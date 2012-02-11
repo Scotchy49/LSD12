@@ -39,3 +39,4 @@ KO tests/func_forward_type_mismatch_ko
 OK tests/iset_operation_ok
 KO tests/iset_operation_ko
 OK tests/fibonnaci_ok
+OK tests/rexpr_nop_ok

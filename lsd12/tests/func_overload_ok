@@ -1,12 +1,12 @@
 program x;
   function main() : void;
     var
-      function a(a: int, var b:bool) : void;
+      function a(a: int, b:bool) : void;
         var begin 
             b := !b;
             write a;
         end;
-      function a(a: int, var b:int) : void;
+      function a(a: int, b:int) : void;
         var begin 
             b := -b;
             write a;

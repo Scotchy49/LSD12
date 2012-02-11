@@ -7,7 +7,7 @@ program x;
       function a() : void;
         var begin a(2); end;
 
-      function a(var x:int) : void;
+      function a(x:int) : void;
         var begin write x; end;
     begin
       a();

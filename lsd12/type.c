@@ -110,6 +110,19 @@ int getType( AST_TREE node ) {
         if( fct == NULL ) {
             error(node->num_line, "function not found %s", getNodeOperand(node, OP_ID)->strVal);
         } 
+        
+        // vérification de passage des paramètres VAR
+        AST_TREE actualParams = getNodeOperand(node, OP_FUNCTION_CALL_PARAMS)->operands;
+        SYMLIST params = fct->paramList;
+        while( params ) {
+            if( params->isParam == 2 && actualParams->type != OP_LEXPR) {
+                // si le paramètre formel est de type VAR, alors il faut que le paramètre passé
+                // soit de type LExpr ! (mail du 11/02/2012 par Xde)
+                error(node->num_line, "expected a LExpr for VAR param");
+            }
+            params = params->next;
+            actualParams = actualParams->next;
+        }
         return fct->type;
     }
     
