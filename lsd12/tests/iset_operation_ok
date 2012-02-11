@@ -3,9 +3,13 @@ program x;
     var
       a iset;
       b int;
+      function addIset( a : iset, i:int ) : void;
+      var begin
+        add i to a;
+      end;
     begin
       write #a;  {0}
-      add 2 to a;
+      addIset(a, 2);
       write max a; {2}
       add 5 to a; 
       write max a; {5}

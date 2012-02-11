@@ -2,7 +2,7 @@ program x;
   function main() : void;
     var
       a int;
-      function a(a: int, b:bool) : int;
+      function a(b:bool) : int;
         var 
           function b() : int;
             var 
@@ -19,7 +19,7 @@ program x;
         end;
     begin
       a := 1;
-      a(1,true);
+      a(true);
       write a;
     end;
   end;
