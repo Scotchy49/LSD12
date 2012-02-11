@@ -12,7 +12,7 @@
 ;|  |  next
 ;|  |  OP_FUNCTION_BODY [ -> main():v(-1,4)]
 ;|  |  |  OP_INSTRUCTION_LIST [ -> main():v(-1,4)]
-;Generating pcode for node OP_PROGRAM []
+;6: OP_PROGRAM []
 ssp 5
 ujp @begin
 define @iset_contains
@@ -336,7 +336,7 @@ add a
 ind i
 sto i
 retf
-;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> main():v(-1,4)]
+;4: OP_FUNCTION_DECLBLOCK [ -> main():v(-1,4)]
 define @begin
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> main():v(-1,4)]
+;5: OP_INSTRUCTION_LIST [ -> main():v(-1,4)]
 stp

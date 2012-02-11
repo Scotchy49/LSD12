@@ -94,7 +94,7 @@
 ;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_PROGRAM []
+;18: OP_PROGRAM []
 ssp 5
 ujp @begin
 define @iset_contains
@@ -418,65 +418,65 @@ add a
 ind i
 sto i
 retf
-;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_FUNCTION [ -> a(i,b):v(0,4) -> main():v(-1,4)]
+;14: OP_FUNCTION_DECLBLOCK [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;8: OP_FUNCTION [ -> a(i,b):v(0,4) -> main():v(-1,4)]
 define @a_1
 ssp 7
 ujp @a_1Body
-;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;5: OP_FUNCTION_DECLBLOCK [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
 define @a_1Body
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_ASSIGN [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;8: OP_INSTRUCTION_LIST [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;6: OP_ASSIGN [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda b 0 6
-;Generating pcode for node OP_NOT [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_LEXPR (b) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;6: OP_NOT [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;6: OP_LEXPR (b) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda b 0 6
 ind b
 not b
 sto b
-;Generating pcode for node OP_WRITE [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_LEXPR (a) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;7: OP_WRITE [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;7: OP_LEXPR (a) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda i 0 5
 ind i
 prin
 retp
-;Generating pcode for node OP_FUNCTION [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;13: OP_FUNCTION [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 define @a_2
 ssp 7
 ujp @a_2Body
-;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;10: OP_FUNCTION_DECLBLOCK [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 define @a_2Body
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_ASSIGN [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;13: OP_INSTRUCTION_LIST [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;11: OP_ASSIGN [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda i 0 6
-;Generating pcode for node OP_MINUS [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_CONSTANT_INT (0) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;11: OP_MINUS [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;11: OP_CONSTANT_INT (0) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ldc i 0
-;Generating pcode for node OP_LEXPR (b) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;11: OP_LEXPR (b) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda i 0 6
 ind i
 sub i
 sto i
-;Generating pcode for node OP_WRITE [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_LEXPR (a) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;12: OP_WRITE [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;12: OP_LEXPR (a) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda i 0 5
 ind i
 prin
 retp
 define @begin
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_FUNCTION_CALL [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;17: OP_INSTRUCTION_LIST [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;15: OP_FUNCTION_CALL [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 mst 0
-;Generating pcode for node OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;15: OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ldc i 1
-;Generating pcode for node OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;15: OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ldc i 1
 cup 2 @a_2
-;Generating pcode for node OP_FUNCTION_CALL [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;16: OP_FUNCTION_CALL [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 mst 0
-;Generating pcode for node OP_CONSTANT_INT (2) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;16: OP_CONSTANT_INT (2) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ldc i 2
-;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;16: OP_CONSTANT_BOOL (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ldc b 1
 cup 2 @a_1
 stp

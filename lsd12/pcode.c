@@ -412,7 +412,7 @@ void initializeISets(AST_TREE function) {
             printf("new\n");
             
             // on termine la liste avec l'adresse 0 du stack
-            printf("lda a 0 %d\n", decl->symbols->pos -1);
+            printf("lda a 0 %d\n", decl->symbols->pos - 1);
             printf("ind a\n");
             printf("ldc a 0\n");
             printf("sto a\n");
@@ -423,7 +423,7 @@ void initializeISets(AST_TREE function) {
 
 void generatePCode(AST_TREE node) {
     if( node != NULL ) {
-        printf(";Generating pcode for node %s\n", humanReadableNode(node));
+        printf(";%d: %s\n", node->num_line, humanReadableNode(node));
 
         if( node->type == OP_PROGRAM ) {
             AST_TREE mainFunc = getNodeOperand(node, OP_FUNCTION);
@@ -436,16 +436,12 @@ void generatePCode(AST_TREE node) {
             printf("define @begin\n");
             generatePCode(getNodeOperand(getNodeOperand(mainFunc, OP_FUNCTION_BODY), OP_INSTRUCTION_LIST));
             printf("stp\n");
-        }
-        
-        if( node->type == OP_FUNCTION_FORWARD ) {
+        } else if( node->type == OP_FUNCTION_FORWARD ) {
             // when we forward declarate, we need to assign an ID to the function NOW !
             SYMLIST symbol = node->symbols;
             symbol->uniqueId = ++gen;
             symbol->ref->uniqueId = symbol->uniqueId;
-        }
-
-        if( node->type == OP_FUNCTION ) {
+        } else if( node->type == OP_FUNCTION ) {
             int s = getFunctionStackSize(node);
             char *id = getNodeOperand(node, OP_ID)->strVal;
             SYMLIST symbol = node->symbols;
@@ -466,17 +462,13 @@ void generatePCode(AST_TREE node) {
             } else {
                 printf("retf\n");
             }
-        }
-        
-        if( node->type == OP_RETURN ) {
+        } else if( node->type == OP_RETURN ) {
             int type = findParentFunctionSymbol(node)->type;
             printf("lda %s 0 0\n", getVarTypeName(type));
             generatePCode(node->operands);
             printf("sto %s\n", getVarTypeName(type));
             printf("retf\n");
-        }
-        
-        if( node->type == OP_FUNCTION_CALL ) {
+        } else if( node->type == OP_FUNCTION_CALL ) {
             printf("mst 0\n");
             AST_TREE params = getNodeOperand(node, OP_FUNCTION_CALL_PARAMS)->operands;
             SYMLIST fct = findFunctionSymbol(node->symbols, node);
@@ -492,9 +484,7 @@ void generatePCode(AST_TREE node) {
                 paramList = paramList->next;
             }
             printf("cup %d @%s_%d\n", i, fct->id, fct->uniqueId);
-        }
-        
-        if(node->type == OP_FUNCTION_DECLBLOCK) {
+        } else if(node->type == OP_FUNCTION_DECLBLOCK) {
             AST_TREE declList = node->operands;
             while(declList) {
                 if( declList->type == OP_FUNCTION || declList->type == OP_FUNCTION_FORWARD ) {
@@ -502,31 +492,21 @@ void generatePCode(AST_TREE node) {
                 }
                 declList = declList->next;
             }
-        }
-
-        if( node->type == OP_INSTRUCTION_LIST ) {
+        } else if( node->type == OP_INSTRUCTION_LIST ) {
             AST_TREE instructions = node->operands;
             while(instructions) {
                 generatePCode(instructions);
                 instructions = instructions->next;
             }
-        }
-        
-        if( node->type == OP_LEXPR ) {
+        } else if( node->type == OP_LEXPR ) {
             SYMLIST s = findVarSymbol(node->symbols, node->strVal);
             generateAdressPCode(node);
             printf("ind %s\n", getVarTypeName(s->type));
-        }
-        
-        if( node->type == OP_CONSTANT_INT ) {
+        } else if( node->type == OP_CONSTANT_INT ) {
             printf("ldc i %d\n", node->intVal);
-        }
-        
-        if( node->type == OP_CONSTANT_BOOL ) {
+        } else if( node->type == OP_CONSTANT_BOOL ) {
             printf("ldc b %d\n", node->intVal);
-        }
-        
-        if( node->type == OP_OR ) {
+        } else if( node->type == OP_OR ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             int g = ++gen;
@@ -538,9 +518,7 @@ void generatePCode(AST_TREE node) {
             printf("define @true_%d\n", g);
             printf("ldc b 1\n");
             printf("define @end_%d\n", g);
-        }
-        
-        if( node->type == OP_AND ) {
+        } else if( node->type == OP_AND ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             int g = ++gen;
@@ -554,91 +532,67 @@ void generatePCode(AST_TREE node) {
             printf("define @false_%d\n", g);
             printf("ldc b 0\n");
             printf("define @end_%d\n", g);
-        }
-        
-        if( node->type == OP_NOT ) {
+        } else if( node->type == OP_NOT ) {
             AST_TREE operand = node->operands;
             generatePCode(operand);
             printf("not b\n");
-        }
-        
-        if( node->type == OP_EQ ) {
+        } else if( node->type == OP_EQ ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generatePCode(left);
             generatePCode(right);
             printf("equ i\n");
-        }
-        
-        if( node->type == OP_LT ) {
+        } else if( node->type == OP_LT ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generatePCode(left);
             generatePCode(right);
             printf("les i\n");
-        }
-        
-        if( node->type == OP_LTE ) {
+        } else if( node->type == OP_LTE ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generatePCode(left);
             generatePCode(right);
             printf("leq i\n");
-        }
-        
-        if( node->type == OP_ASSIGN ) {
+        } else if( node->type == OP_ASSIGN ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generateAdressPCode(left);
             generatePCode(right);
             SYMLIST s = findVarSymbol(left->symbols, left->strVal);
             printf("sto %s\n", getVarTypeName(s->type));
-        }
-        
-        if( node->type == OP_PLUS ) {
+        } else if( node->type == OP_PLUS ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generatePCode(left);
             generatePCode(right);
             printf("add i\n");
-        }
-        
-        if( node->type == OP_MINUS ) {
+        } else if( node->type == OP_MINUS ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generatePCode(left);
             generatePCode(right);
             printf("sub i\n");
-        }
-        
-        if( node->type == OP_TIMES ) {
+        } else if( node->type == OP_TIMES ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generatePCode(left);
             generatePCode(right);
             printf("mul i\n");
-        }
-        
-        if( node->type == OP_DIV ) {
+        } else if( node->type == OP_DIV ) {
             AST_TREE left = node->operands;
             AST_TREE right = left->next;
             generatePCode(left);
             generatePCode(right);
             printf("div i\n");
-        }
-        
-        if( node->type == OP_WRITE ) {
+        } else if( node->type == OP_WRITE ) {
             generatePCode(node->operands);
             printf("prin\n");
-        }
-        
-        if( node->type == OP_READ ) {
+        } else if( node->type == OP_READ ) {
             generateAdressPCode(node->operands);
             printf("read\n");
             printf("sto i\n");
-        }
-        
-        if( node->type == OP_IF ) {
+        } else if( node->type == OP_IF ) {
             AST_TREE cond = node->operands;
             AST_TREE then = cond->next;
             int g = ++gen;
@@ -647,9 +601,7 @@ void generatePCode(AST_TREE node) {
             printf("fjp @fi_%d\n", g);
             generatePCode(then);
             printf("define @fi_%d\n", g);
-        }
-        
-        if( node->type == OP_IF_ELSE ) {
+        } else if( node->type == OP_IF_ELSE ) {
             AST_TREE cond = node->operands;
             AST_TREE then = cond->next;
             AST_TREE els  = then->next;
@@ -662,9 +614,7 @@ void generatePCode(AST_TREE node) {
             printf("define @else_%d\n", g);
             generatePCode(els);
             printf("define @fi_%d\n", g);
-        }
-        
-        if( node->type == OP_WHILE ) {
+        } else if( node->type == OP_WHILE ) {
             AST_TREE cond = node->operands;
             AST_TREE then = cond->next;
             int g = ++gen;
@@ -675,11 +625,7 @@ void generatePCode(AST_TREE node) {
             generatePCode(then);
             printf("ujp @while_%d\n", g);
             printf("define @od_%d\n", g);
-        }
-        
-        
-        // iset ops
-        if( node->type == OP_ADD_ISET ) {
+        } else if( node->type == OP_ADD_ISET ) {
             printf("ldc a 1\n");
             generatePCode(node->operands);
             printf("sto i\n");
@@ -691,9 +637,7 @@ void generatePCode(AST_TREE node) {
             
             printf("mst 0\n");
             printf("cup 0 @iset_add\n");
-        }
-        
-        if(node->type == OP_REMOVE_ISET ) {
+        } else if(node->type == OP_REMOVE_ISET ) {
             printf("ldc a 1\n");
             generatePCode(node->operands);
             printf("sto i\n");
@@ -705,9 +649,7 @@ void generatePCode(AST_TREE node) {
             
             printf("mst 0\n");
             printf("cup 0 @iset_remove\n");
-        }
-        
-        if( node->type == OP_IN ) {
+        } else if( node->type == OP_IN ) {
             printf("ldc a 1\n");
             generatePCode(node->operands);
             printf("sto i\n");
@@ -719,27 +661,21 @@ void generatePCode(AST_TREE node) {
             
             printf("mst 0\n");
             printf("cup 0 @iset_contains\n");
-        }
-        
-        if( node->type == OP_MAX_ISET ) {
+        } else if( node->type == OP_MAX_ISET ) {
             printf("ldc a 0\n");
             generatePCode(node->operands);
             printf("sto a\n");
             
             printf("mst 0\n");
             printf("cup 0 @iset_max\n");
-        }
-        
-        if( node->type == OP_MIN_ISET ) {
+        } else if( node->type == OP_MIN_ISET ) {
             printf("ldc a 0\n");
             generatePCode(node->operands);
             printf("sto a\n");
             
             printf("mst 0\n");
             printf("cup 0 @iset_min\n");
-        }
-        
-        if( node->type == OP_SIZE_ISET ) {
+        } else if( node->type == OP_SIZE_ISET ) {
             generateAdressPCode(node->operands);
             printf("ldc a 1\n");
             printf("add a\n");

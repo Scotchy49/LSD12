@@ -54,7 +54,7 @@
 ;|  |  |  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  next
 ;|  |  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_PROGRAM []
+;16: OP_PROGRAM []
 ssp 6
 ujp @begin
 define @iset_contains
@@ -378,51 +378,51 @@ add a
 ind i
 sto i
 retf
-;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> a:b(0,5) -> main():v(-1,4)]
+;5: OP_FUNCTION_DECLBLOCK [ -> a:b(0,5) -> main():v(-1,4)]
 define @begin
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_IF [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a:b(0,5) -> main():v(-1,4)]
+;15: OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
+;8: OP_IF [ -> a:b(0,5) -> main():v(-1,4)]
+;6: OP_CONSTANT_BOOL (1) [ -> a:b(0,5) -> main():v(-1,4)]
 ldc b 1
 fjp @fi_1
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_ASSIGN [ -> a:b(0,5) -> main():v(-1,4)]
+;8: OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
+;7: OP_ASSIGN [ -> a:b(0,5) -> main():v(-1,4)]
 lda b 0 5
-;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a:b(0,5) -> main():v(-1,4)]
+;7: OP_CONSTANT_BOOL (1) [ -> a:b(0,5) -> main():v(-1,4)]
 ldc b 1
 sto b
 define @fi_1
-;Generating pcode for node OP_IF [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_LEXPR (a) [ -> a:b(0,5) -> main():v(-1,4)]
+;9: OP_IF [ -> a:b(0,5) -> main():v(-1,4)]
+;9: OP_LEXPR (a) [ -> a:b(0,5) -> main():v(-1,4)]
 lda b 0 5
 ind b
 fjp @fi_2
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node 0 [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node 0 [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node 0 [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node 0 [ -> a:b(0,5) -> main():v(-1,4)]
+;9: OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
+;9: 0 [ -> a:b(0,5) -> main():v(-1,4)]
+;9: 0 [ -> a:b(0,5) -> main():v(-1,4)]
+;9: 0 [ -> a:b(0,5) -> main():v(-1,4)]
+;9: 0 [ -> a:b(0,5) -> main():v(-1,4)]
 define @fi_2
-;Generating pcode for node OP_IF_ELSE [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_EQ [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_CONSTANT_INT (2) [ -> a:b(0,5) -> main():v(-1,4)]
+;14: OP_IF_ELSE [ -> a:b(0,5) -> main():v(-1,4)]
+;10: OP_EQ [ -> a:b(0,5) -> main():v(-1,4)]
+;10: OP_CONSTANT_INT (2) [ -> a:b(0,5) -> main():v(-1,4)]
 ldc i 2
-;Generating pcode for node OP_CONSTANT_INT (3) [ -> a:b(0,5) -> main():v(-1,4)]
+;10: OP_CONSTANT_INT (3) [ -> a:b(0,5) -> main():v(-1,4)]
 ldc i 3
 equ i
 fjp @else_3
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_ASSIGN [ -> a:b(0,5) -> main():v(-1,4)]
+;12: OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
+;11: OP_ASSIGN [ -> a:b(0,5) -> main():v(-1,4)]
 lda b 0 5
-;Generating pcode for node OP_CONSTANT_BOOL (0) [ -> a:b(0,5) -> main():v(-1,4)]
+;11: OP_CONSTANT_BOOL (0) [ -> a:b(0,5) -> main():v(-1,4)]
 ldc b 0
 sto b
 ujp @fi_3
 define @else_3
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
-;Generating pcode for node OP_ASSIGN [ -> a:b(0,5) -> main():v(-1,4)]
+;14: OP_INSTRUCTION_LIST [ -> a:b(0,5) -> main():v(-1,4)]
+;13: OP_ASSIGN [ -> a:b(0,5) -> main():v(-1,4)]
 lda b 0 5
-;Generating pcode for node OP_CONSTANT_BOOL (1) [ -> a:b(0,5) -> main():v(-1,4)]
+;13: OP_CONSTANT_BOOL (1) [ -> a:b(0,5) -> main():v(-1,4)]
 ldc b 1
 sto b
 define @fi_3
