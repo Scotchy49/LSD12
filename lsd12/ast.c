@@ -22,7 +22,7 @@ char *getVarTypeName(int val) {
     case TYPE_VOID:
         return "v";
     case TYPE_ISET:
-        return "is";
+        return "a";
     }
 }
 

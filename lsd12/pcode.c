@@ -10,32 +10,415 @@ int getFunctionStackSize( AST_TREE fct ) {
     AST_TREE decl = getNodeOperand(fct, OP_FUNCTION_DECLBLOCK)->operands;
     while(decl) {
         if( decl->type == OP_FUNCTION_VAR_DECL ) {
-            i++;
+            if( getNodeOperand(decl, OP_VAR_TYPE)->intVal == TYPE_ISET ) {
+                i += 2;
+            } else {
+                i++;
+            }
         }
         decl = decl->next;
     }
     
     AST_TREE params = getNodeOperand(fct, OP_FUNCTION_PARAMS)->operands;
     while( params ) {
-        i++;
+        if( getNodeOperand(params, OP_VAR_TYPE)->intVal == TYPE_ISET ) {
+            i += 2;
+        } else {
+            i++;
+        }
         params = params->next;
     }
     return i;
 }
 
+int getNumberOfParams(SYMLIST fct) {
+    SYMLIST paramBloc = fct->paramList;
+    int i = 0;
+    while(paramBloc) {
+        ++i;
+        if(fct->type == TYPE_ISET)
+            ++i;
+        paramBloc = paramBloc->next;
+    }
+    return i;
+}
+
+void printISetAlgorithms() {
+    // contains
+    printf("define @iset_contains\n"
+    "ssp 5\n"
+    "ldc a 3\n"
+    "ldc b 0\n"
+    "sto b\n"
+    "ldc a 2\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 4\n"
+    "ldc i 0\n"
+    "sto i\n"
+    "define @containsWhile\n"
+    "ldc a 3\n"
+    "ind b\n"
+    "not b\n"
+    "fjp @containsEndWhile\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "les i\n"
+    "fjp @containsEndWhile\n"
+    "ldc a 4\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc i 1\n"
+    "add i\n"
+    "sto i\n"
+    "ldc a 3\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "ldc a 1\n"
+    "ind i\n"
+    "equ i\n"
+    "sto b\n"
+    "ldc a 2\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ujp @containsWhile\n"
+    "define @containsEndWhile\n"
+    "lda b 0 0\n"
+    "ldc a 3\n"
+    "ind b\n"
+    "sto b\n"
+    "retf\n");
+    
+    //add
+    printf("define @iset_add\n"
+    "ssp 5\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "ldc i 0\n"
+    "equ i\n"
+    "fjp @addToSetElseSizeDiffZero\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc i 2\n"
+    "new\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ldc a 1\n"
+    "ind i\n"
+    "sto i\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ind a\n"
+    "ldc a 0\n"
+    "sto a\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ldc i 1\n"
+    "sto i\n"
+    "ujp @addToSetEndIfSizeZero\n"
+    "define @addToSetElseSizeDiffZero\n"
+    "ldc a 2\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 3\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 4\n"
+    "ldc i 0\n"
+    "sto i\n"
+    "define @addToSetWhileFindWhereToInsert\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "leq i\n"
+    "fjp @addToSetEndWhileFindWhereToInsert\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "ldc a 1\n"
+    "ind i\n"
+    "les i\n"
+    "fjp @addToSetEndWhileFindWhereToInsert\n"
+    "ldc a 4\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc i 1\n"
+    "add i\n"
+    "sto i\n"
+    "ldc a 2\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 3\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ujp @addToSetWhileFindWhereToInsert\n"
+    "define @addToSetEndWhileFindWhereToInsert\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ldc i 2\n"
+    "new\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ldc a 1\n"
+    "ind i\n"
+    "sto i\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ind a\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "ldc i 1\n"
+    "add i\n"
+    "sto i\n"
+    "define @addToSetEndIfSizeZero\n"
+    "define @addToSetEndAddToSet\n"
+    "retp\n");
+    
+    //remove
+    printf("define @iset_remove\n"
+    "ssp 5\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "ldc i 0\n"
+    "equ i\n"
+    "fjp @removeFromSetElseNonEmptySet\n"
+    "ujp @removeFromSetEndRemove\n"
+    "define @removeFromSetElseNonEmptySet\n"
+    "ldc a 2\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 3\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 4\n"
+    "ldc i 1\n"
+    "sto i\n"
+    "define @removeFromSetWhileNotVal\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "leq i\n"
+    "fjp @removeFromSetEndWhileNotVal\n"
+    "ldc a 1\n"
+    "ind i\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "neq i\n"
+    "fjp @removeFromSetEndWhileNotVal\n"
+    "ldc a 4\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc i 1\n"
+    "add i\n"
+    "sto i\n"
+    "ldc a 2\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 3\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ujp @removeFromSetWhileNotVal\n"
+    "define @removeFromSetEndWhileNotVal\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "leq i\n"
+    "fjp @removeFromSetEndIfValEqu\n"
+    "ldc a 1\n"
+    "ind i\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "equ i\n"
+    "fjp @removeFromSetEndIfValEqu\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ldc a 3\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "ldc i 1\n"
+    "sub i\n"
+    "sto i\n"
+    "define @removeFromSetEndIfValEqu\n"
+    "define @removeFromSetEndRemove\n"
+    "retp\n");
+    
+    //max
+    printf("define @iset_max\n"
+    "ssp 5\n"
+    "ldc a 2\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ldc a 4\n"
+    "ldc i 1\n"
+    "sto i\n"
+    "define @maxInSetWhileNotEnd\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc a 0\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "les i\n"
+    "fjp @maxInSetEndWhileNotEnd\n"
+    "ldc a 4\n"
+    "ldc a 4\n"
+    "ind i\n"
+    "ldc i 1\n"
+    "add i\n"
+    "sto i\n"
+    "ldc a 2\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ind a\n"
+    "sto a\n"
+    "ujp @maxInSetWhileNotEnd\n"
+    "define @maxInSetEndWhileNotEnd\n"
+    "lda i 0 0\n"
+    "ldc a 2\n"
+    "ind a\n"
+    "ldc a 1\n"
+    "add a\n"
+    "ind i\n"
+    "sto i\n"
+    "retf\n");
+    
+    printf("define @iset_min\n"
+        "ssp 5\n"
+        "lda i 0 0\n"
+        "ldc a 0\n"
+        "ind a\n"
+        "ldc a 1\n"
+        "add a\n"
+        "ind i\n"
+        "sto i\n"
+        "retf\n");
+}
+
 void generateAdressPCode( AST_TREE node ) {
     if( node->type == OP_LEXPR ) {
         SYMLIST s = findVarSymbol(node->symbols, node->strVal);
+        int paramSize = getNumberOfParams(findParentFunctionSymbol(node));
+        
         if( s->isParam == 2 ) {
-            printf("lod a %d %d\n", findParentFunctionSymbol(node)->depth+1-s->depth, s->pos + (s->isParam ? 5 : 0));
+            printf("lod a ");
         } else {
-            printf("lda %s %d %d\n", getVarTypeName(s->type), findParentFunctionSymbol(node)->depth+1-s->depth, s->pos + (s->isParam ? 5 : 0));
+            printf("lda %s ", getVarTypeName(s->type));
         }
+        printf("%d %d\n",  
+            findParentFunctionSymbol(node)->depth+1-s->depth, 
+            s->pos - (s->type == TYPE_ISET ? 1 : 0)
+          );
         return;
     }
     
     // if it is not a variable expr, we just generate the regular PCode for it
     generatePCode(node);
+}
+
+void initializeISets(AST_TREE function) {
+    AST_TREE decl = getNodeOperand(function, OP_FUNCTION_DECLBLOCK)->operands;
+    int paramSize = getNumberOfParams(function->symbols);
+    while( decl ) {
+        if( decl->type == OP_FUNCTION_VAR_DECL && getNodeOperand(decl, OP_VAR_TYPE)->intVal == TYPE_ISET ){
+            // on met la taille à 0 pour cet iset
+            printf("lda i 0 %d\n", decl->symbols->pos);
+            printf("ldc i 0\n");
+            printf("sto i\n");
+            
+            // on alloue de l'espace pour cet iset sur le heap et on fait pointer
+            printf("lda a 0 %d\n", decl->symbols->pos - 1);
+            printf("ldc i 1\n");
+            printf("new\n");
+            
+            // on termine la liste avec l'adresse 0 du stack
+            printf("lda a 0 %d\n", decl->symbols->pos -1);
+            printf("ind a\n");
+            printf("ldc a 0\n");
+            printf("sto a\n");
+        }
+        decl = decl->next;
+    }
 }
 
 void generatePCode(AST_TREE node) {
@@ -45,8 +428,10 @@ void generatePCode(AST_TREE node) {
         if( node->type == OP_PROGRAM ) {
             AST_TREE mainFunc = getNodeOperand(node, OP_FUNCTION);
             int s = getFunctionStackSize(mainFunc);
-            printf("ssp %d\n", s);        
+            printf("ssp %d\n", 5+s);
+            initializeISets(mainFunc);
             printf("ujp @begin\n");
+            printISetAlgorithms();
             generatePCode(getNodeOperand(mainFunc, OP_FUNCTION_DECLBLOCK));
             printf("define @begin\n");
             generatePCode(getNodeOperand(getNodeOperand(mainFunc, OP_FUNCTION_BODY), OP_INSTRUCTION_LIST));
@@ -70,6 +455,7 @@ void generatePCode(AST_TREE node) {
             
             printf("define @%s_%d\n", id, symbol->uniqueId);
             printf("ssp %d\n", 5+s);
+            initializeISets(node);
             printf("ujp @%s_%dBody\n", id, symbol->uniqueId);
             generatePCode(getNodeOperand(node, OP_FUNCTION_DECLBLOCK));
             printf("define @%s_%dBody\n", id, symbol->uniqueId);
@@ -289,6 +675,75 @@ void generatePCode(AST_TREE node) {
             generatePCode(then);
             printf("ujp @while_%d\n", g);
             printf("define @od_%d\n", g);
+        }
+        
+        
+        // iset ops
+        if( node->type == OP_ADD_ISET ) {
+            printf("ldc a 1\n");
+            generatePCode(node->operands);
+            printf("sto i\n");
+            
+            SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
+            printf("ldc a 0\n");
+            generateAdressPCode(node->operands->next);
+            printf("sto a\n");
+            
+            printf("mst 0\n");
+            printf("cup 0 @iset_add\n");
+        }
+        
+        if(node->type == OP_REMOVE_ISET ) {
+            printf("ldc a 1\n");
+            generatePCode(node->operands);
+            printf("sto i\n");
+            
+            SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
+            printf("ldc a 0\n");
+            generateAdressPCode(node->operands->next);
+            printf("sto a\n");
+            
+            printf("mst 0\n");
+            printf("cup 0 @iset_remove\n");
+        }
+        
+        if( node->type == OP_IN ) {
+            printf("ldc a 1\n");
+            generatePCode(node->operands);
+            printf("sto i\n");
+            
+            SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
+            printf("ldc a 0\n");
+            generateAdressPCode(node->operands->next);
+            printf("sto a\n");
+            
+            printf("mst 0\n");
+            printf("cup 0 @iset_contains\n");
+        }
+        
+        if( node->type == OP_MAX_ISET ) {
+            printf("ldc a 0\n");
+            generatePCode(node->operands);
+            printf("sto a\n");
+            
+            printf("mst 0\n");
+            printf("cup 0 @iset_max\n");
+        }
+        
+        if( node->type == OP_MIN_ISET ) {
+            printf("ldc a 0\n");
+            generatePCode(node->operands);
+            printf("sto a\n");
+            
+            printf("mst 0\n");
+            printf("cup 0 @iset_min\n");
+        }
+        
+        if( node->type == OP_SIZE_ISET ) {
+            generateAdressPCode(node->operands);
+            printf("ldc a 1\n");
+            printf("add a\n");
+            printf("ind i\n");
         }
             
     }

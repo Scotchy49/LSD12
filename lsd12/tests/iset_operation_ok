@@ -4,11 +4,15 @@ program x;
       a iset;
       b int;
     begin
-      add 1 to a;
-      remove 2 from a;
-      b := #a;
-      if( 1 in a ) then
-        write 1;
-      fi;
+      write #a;  {0}
+      add 2 to a;
+      write max a; {2}
+      add 5 to a; 
+      write max a; {5}
+      write min a; {2}
+      write #a;    {2}
+      remove 5 from a;
+      write max a; {2}
+      write #a;  {1}
     end;
   end;

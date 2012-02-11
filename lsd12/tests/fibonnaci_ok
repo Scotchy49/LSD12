@@ -1,9 +1,10 @@
 program fib;
   function main() : void;
   var 
-  	a int;
+    a int;
     function fib( i : int ) : int;
-    var begin
+    var
+    begin
       if( i <= 1 ) then
         return 1;
       fi;
@@ -11,7 +12,7 @@ program fib;
     end;
   begin
       a := 1;
-      while( 0 < a) do
+      while( 0 < a ) do
         read a;
         write fib(a);
       od;

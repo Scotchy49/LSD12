@@ -1,40 +1,361 @@
 ;OP_PROGRAM []
 ;|  OP_ID (x) []
 ;|  next
-;|  OP_FUNCTION [ -> main():v(-1,0)]
-;|  |  OP_ID (main) [ -> main():v(-1,0)]
+;|  OP_FUNCTION [ -> main():v(-1,4)]
+;|  |  OP_ID (main) [ -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_PARAMS [ -> main():v(-1,0)]
+;|  |  OP_FUNCTION_PARAMS [ -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,0)]
+;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_DECLBLOCK [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:i(0,0) -> main():v(-1,0)]
-;|  |  |  |  OP_ID (a) [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  OP_FUNCTION_DECLBLOCK [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ID (a) [ -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_VAR_TYPE (i) [ -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_VAR_TYPE (i) [ -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  next
-;|  |  |  OP_FUNCTION_VAR_DECL [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-;|  |  |  |  OP_ID (b) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ID (b) [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_VAR_TYPE (i) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  OP_VAR_TYPE (i) [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_BODY [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-;|  |  |  OP_INSTRUCTION_LIST [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-;|  |  |  |  OP_ASSIGN [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;|  |  OP_FUNCTION_BODY [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ASSIGN [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+;|  |  |  |  |  OP_LEXPR (b) [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
 ;Generating pcode for node OP_PROGRAM []
-ssp 2
+ssp 7
 ujp @begin
-;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-define @begin
-;Generating pcode for node OP_INSTRUCTION_LIST [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-;Generating pcode for node OP_ASSIGN [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
+define @iset_contains
+ssp 5
+ldc a 3
+ldc b 0
+sto b
+ldc a 2
+ldc a 0
+ind a
+ind a
+sto a
+ldc a 4
+ldc i 0
+sto i
+define @containsWhile
+ldc a 3
+ind b
+not b
+fjp @containsEndWhile
+ldc a 4
+ind i
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+les i
+fjp @containsEndWhile
+ldc a 4
+ldc a 4
+ind i
+ldc i 1
+add i
+sto i
+ldc a 3
+ldc a 2
+ind a
+ldc a 1
+add a
+ind i
+ldc a 1
+ind i
+equ i
+sto b
+ldc a 2
+ldc a 2
+ind a
+ind a
+sto a
+ujp @containsWhile
+define @containsEndWhile
+lda b 0 0
+ldc a 3
+ind b
+sto b
+retf
+define @iset_add
+ssp 5
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+ldc i 0
+equ i
+fjp @addToSetElseSizeDiffZero
+ldc a 0
+ind a
+ldc i 2
+new
+ldc a 0
+ind a
+ind a
+ldc a 1
+add a
+ldc a 1
+ind i
+sto i
+ldc a 0
+ind a
+ind a
+ldc a 0
+sto a
+ldc a 0
+ind a
+ldc a 1
+add a
+ldc i 1
+sto i
+ujp @addToSetEndIfSizeZero
+define @addToSetElseSizeDiffZero
+ldc a 2
+ldc a 0
+ind a
+sto a
+ldc a 3
+ldc a 0
+ind a
+ind a
+sto a
+ldc a 4
+ldc i 0
+sto i
+define @addToSetWhileFindWhereToInsert
+ldc a 4
+ind i
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+leq i
+fjp @addToSetEndWhileFindWhereToInsert
+ldc a 3
+ind a
+ldc a 1
+add a
+ind i
+ldc a 1
+ind i
+les i
+fjp @addToSetEndWhileFindWhereToInsert
+ldc a 4
+ldc a 4
+ind i
+ldc i 1
+add i
+sto i
+ldc a 2
+ldc a 3
+ind a
+sto a
+ldc a 3
+ldc a 3
+ind a
+ind a
+sto a
+ujp @addToSetWhileFindWhereToInsert
+define @addToSetEndWhileFindWhereToInsert
+ldc a 2
+ind a
+ldc i 2
+new
+ldc a 2
+ind a
+ind a
+ldc a 1
+add a
+ldc a 1
+ind i
+sto i
+ldc a 2
+ind a
+ind a
+ldc a 3
+ind a
+sto a
+ldc a 0
+ind a
+ldc a 1
+add a
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+ldc i 1
+add i
+sto i
+define @addToSetEndIfSizeZero
+define @addToSetEndAddToSet
+retp
+define @iset_remove
+ssp 5
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+ldc i 0
+equ i
+fjp @removeFromSetElseNonEmptySet
+ujp @removeFromSetEndRemove
+define @removeFromSetElseNonEmptySet
+ldc a 2
+ldc a 0
+ind a
+sto a
+ldc a 3
+ldc a 0
+ind a
+ind a
+sto a
+ldc a 4
+ldc i 1
+sto i
+define @removeFromSetWhileNotVal
+ldc a 4
+ind i
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+leq i
+fjp @removeFromSetEndWhileNotVal
+ldc a 1
+ind i
+ldc a 3
+ind a
+ldc a 1
+add a
+ind i
+neq i
+fjp @removeFromSetEndWhileNotVal
+ldc a 4
+ldc a 4
+ind i
+ldc i 1
+add i
+sto i
+ldc a 2
+ldc a 3
+ind a
+sto a
+ldc a 3
+ldc a 3
+ind a
+ind a
+sto a
+ujp @removeFromSetWhileNotVal
+define @removeFromSetEndWhileNotVal
+ldc a 4
+ind i
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+leq i
+fjp @removeFromSetEndIfValEqu
+ldc a 1
+ind i
+ldc a 3
+ind a
+ldc a 1
+add a
+ind i
+equ i
+fjp @removeFromSetEndIfValEqu
+ldc a 2
+ind a
+ldc a 3
+ind a
+ind a
+sto a
+ldc a 0
+ind a
+ldc a 1
+add a
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+ldc i 1
+sub i
+sto i
+define @removeFromSetEndIfValEqu
+define @removeFromSetEndRemove
+retp
+define @iset_max
+ssp 5
+ldc a 2
+ldc a 0
+ind a
+ind a
+sto a
+ldc a 4
+ldc i 1
+sto i
+define @maxInSetWhileNotEnd
+ldc a 4
+ind i
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+les i
+fjp @maxInSetEndWhileNotEnd
+ldc a 4
+ldc a 4
+ind i
+ldc i 1
+add i
+sto i
+ldc a 2
+ldc a 2
+ind a
+ind a
+sto a
+ujp @maxInSetWhileNotEnd
+define @maxInSetEndWhileNotEnd
 lda i 0 0
-;Generating pcode for node OP_LEXPR (b) [ -> b:i(0,1) -> a:i(0,0) -> main():v(-1,0)]
-lda i 0 1
+ldc a 2
+ind a
+ldc a 1
+add a
+ind i
+sto i
+retf
+define @iset_min
+ssp 5
+lda i 0 0
+ldc a 0
+ind a
+ldc a 1
+add a
+ind i
+sto i
+retf
+;Generating pcode for node OP_FUNCTION_DECLBLOCK [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+define @begin
+;Generating pcode for node OP_INSTRUCTION_LIST [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+;Generating pcode for node OP_ASSIGN [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+lda i 0 5
+;Generating pcode for node OP_LEXPR (b) [ -> b:i(0,6) -> a:i(0,5) -> main():v(-1,4)]
+lda i 0 6
 ind i
 sto i
 stp

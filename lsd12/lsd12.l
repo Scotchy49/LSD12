@@ -7,7 +7,7 @@ int num_line = 1;
 
 %option noyywrap
 
-id 			[a-zA-Z][0-9a-zA-Z]*
+id 		[a-zA-Z][0-9a-zA-Z]*
 blank		[ \t]
 nbr             (0|[1-9][0-9]*)
 comment		"{"(.*?)"}"

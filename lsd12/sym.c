@@ -209,7 +209,7 @@ SYMLIST getFunctionSymbol(AST_TREE node) {
     return s;
 }
 
-SYMLIST getSymbol(AST_TREE node, int depth, int pos) {
+SYMLIST getSymbol(AST_TREE node) {
     int i;
     SYMLIST sym = NULL;
 
@@ -220,11 +220,6 @@ SYMLIST getSymbol(AST_TREE node, int depth, int pos) {
     } else if(node->type == OP_FUNCTION_PARAM ) {
         sym = getVarSymbol(node);
         sym->isParam = 1 + getNodeOperand(node, OP_FUNCTION_PARAM_VAR)->intVal;
-    }
-
-    if( sym ) {
-        sym->depth = depth;
-        sym->pos = pos;
     }
 
     return sym;
@@ -274,27 +269,34 @@ void popSymbols(AST_TREE root) {
 
 void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
     int i;
-    int pos = 0;
-    while( root ) {
+    while( root ) {        
         // each node inherits the symbols of its father, so we prepend the current node's
         // symbol with the "already" accessible ones
-        SYMLIST nSymbol = getSymbol(root, depth, pos);
-        if( nSymbol )
-            ++pos;
-        
+        SYMLIST nSymbol = getSymbol(root);
+        if( nSymbol ) 
+            nSymbol->depth = depth;
         root->symbols = prependSymbol(inherited, nSymbol);
+        nSymbol = root->symbols;
+        if( nSymbol ) {            
+            if( nSymbol->isFunction == 0 )
+                nSymbol->pos = nSymbol->next->pos+1;
+            else
+                nSymbol->pos = 4;
+            
+            if( nSymbol->type == TYPE_ISET )
+                ++(nSymbol->pos);
+        }
 
         // the operands inherit from the operator's symbols, so we will pass those to them
         // while populating them. As we give symbols to the operands, we will discover new
         // symbols. The successors will inherit those.
 
         // depth is relative to function, so we increase the depth only if we traversed a function operator
-        int d = depth;
         if( root->type == OP_FUNCTION || root->type == OP_FUNCTION_FORWARD ) {
-            d++;
+            populateSymbols(root->operands, root->symbols, depth+1);
+        } else {
+            populateSymbols(root->operands, root->symbols, depth);
         }
-
-        populateSymbols(root->operands, root->symbols, d);
 
         // once we populated the operands, sometimes we need to bubble back new identifiers
         // back to the operator.
