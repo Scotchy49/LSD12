@@ -745,6 +745,11 @@ void generatePCode(AST_TREE node) {
             printf("add a\n");
             printf("ind i\n");
         }
+        
+        if( node->type == OP_NEG ) {
+            generatePCode(node->operands);
+            printf("neg i\n");
+        }
             
     }
 }

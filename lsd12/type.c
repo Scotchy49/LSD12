@@ -174,6 +174,13 @@ int getType( AST_TREE node ) {
         }
     }
     
+    if( node->type == OP_NEG ) {
+        if(getType(node->operands) != TYPE_INT ) {
+            error(node->num_line, "negation can only be applied to integers");
+        }
+        return TYPE_INT;
+    }
+    
     return -1;
 }
 

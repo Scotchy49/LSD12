@@ -69,9 +69,7 @@
 ;|  |  |  |  |  |  OP_ASSIGN [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  OP_LEXPR (b) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_MINUS [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  OP_NEG [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_WRITE [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
@@ -449,13 +447,11 @@ define @a_2Body
 ;Generating pcode for node OP_INSTRUCTION_LIST [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;Generating pcode for node OP_ASSIGN [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda i 0 6
-;Generating pcode for node OP_MINUS [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;Generating pcode for node OP_CONSTANT_INT (0) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc i 0
+;Generating pcode for node OP_NEG [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;Generating pcode for node OP_LEXPR (b) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 lda i 0 6
 ind i
-sub i
+neg i
 sto i
 ;Generating pcode for node OP_WRITE [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;Generating pcode for node OP_LEXPR (a) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]

@@ -42,6 +42,7 @@ typedef enum {
     OP_FUNCTION_CALL_PARAMS,
 
     OP_PLUS,
+    OP_NEG,
     OP_MINUS,
     OP_TIMES,
     OP_DIV,
