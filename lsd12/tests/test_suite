@@ -41,3 +41,4 @@ KO tests/iset_operation_ko
 OK tests/fibonnaci_ok
 OK tests/rexpr_nop_ok
 OK tests/lsd12_spec_example
+OK tests/neg_ok

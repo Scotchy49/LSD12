@@ -126,6 +126,9 @@ char *humanReadableNode(AST_TREE node) {
     case OP_FUNCTION_CALL_PARAMS:
         sprintf( str, "OP_FUNCTION_CALL_PARAMS");
         break;
+    case OP_NEG:
+        sprintf( str, "OP_NEG" );
+        break;
     case OP_PLUS:
         sprintf( str, "OP_PLUS");
         break;
