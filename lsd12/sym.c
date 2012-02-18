@@ -278,13 +278,16 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
         root->symbols = prependSymbol(inherited, nSymbol);
         nSymbol = root->symbols;
         if( nSymbol ) {            
-            if( nSymbol->isFunction == 0 )
-                nSymbol->pos = nSymbol->next->pos+1;
-            else
+            if( nSymbol->isFunction ) {
                 nSymbol->pos = 4;
+            } else {
+                // isets take 2 blocs
+                if( nSymbol->next->type == TYPE_ISET )
+                    nSymbol->pos = nSymbol->next->pos+2;
+                else
+                   nSymbol->pos = nSymbol->next->pos+1;
+            }
             
-            if( nSymbol->type == TYPE_ISET )
-                ++(nSymbol->pos);
         }
 
         // the operands inherit from the operator's symbols, so we will pass those to them

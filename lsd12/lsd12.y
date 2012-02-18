@@ -50,7 +50,7 @@ InstructionList : /* nothing */   {$$=createNode(OP_INSTRUCTION_LIST,1,NULL);}
                 | Instructions    {$$=createNode(OP_INSTRUCTION_LIST,1,$1);}
     ;
 Instructions : Instruction              {$$=$1;}
-             | Instructions Instruction {$$=addChildNode($1,$2);}
+             | Instructions Instruction {$$=addSiblingNode($1,$2);}
         ;
 
 TypeDecl : INT  		{$$=createIntConstant(OP_VAR_TYPE, TYPE_INT);}
@@ -76,7 +76,7 @@ FunctionParams : /**/                   {$$=createNode(OP_FUNCTION_PARAMS, 1, NU
         ;
 
 FunctionParamList: ParamDecl                            {$$=$1;}
-                |  FunctionParamList COMMA ParamDecl    {$$=addChildNode($1,$3);}
+                |  FunctionParamList COMMA ParamDecl    {$$=addSiblingNode($1,$3);}
         ;
 
 VarDecl : ID TypeDecl SEMICOLON 	{$$=createNode(OP_FUNCTION_VAR_DECL, 2, createLiteral(OP_ID, $1), $2);}
@@ -86,8 +86,8 @@ DeclBloc : VAR DeclList     {$$ = createNode(OP_FUNCTION_DECLBLOCK, 1, $2);}
 	;
 
 DeclList : /**/              {$$ = NULL;}
-        |  VarDecl DeclList  {$$ = addChildNode($1, $2);}
-        |  Function DeclList {$$ = addChildNode($1, $2);}
+        |  VarDecl DeclList  {$$ = addSiblingNode($1, $2);}
+        |  Function DeclList {$$ = addSiblingNode($1, $2);}
     ;
 
 
@@ -105,7 +105,7 @@ CallParams : /**/                       {$$=createNode(OP_FUNCTION_CALL_PARAMS, 
 	;
 
 CallWithParams: RExpr                       {$$=$1;}
-              | CallWithParams COMMA RExpr  {$$=addChildNode($1,$3);}
+              | CallWithParams COMMA RExpr  {$$=addSiblingNode($1,$3);}
         ;
 
 RExpr : LP RExpr RP                     {$$ = $2;}

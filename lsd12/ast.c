@@ -193,6 +193,7 @@ AST_TREE initNode(OP_TYPE type) {
     n->operands = NULL;
     n->next = NULL;
     n->symbols = NULL;
+    n->parent = NULL;
     return n;
 }
 
@@ -218,17 +219,23 @@ AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
     for( i = 0; i < opCount; ++i ) {
         AST_TREE nOperand = va_arg(ap, AST_TREE);
         if( nOperand ) {
+            
+            // assign the parent to the operands
             AST_TREE tmp = nOperand;
             while(tmp) {
                 tmp->parent = n;
                 tmp = tmp->next;
             }
            
+            // if this is a valid operand, we append it to the list
             if( operandList )
                 operandList->next = nOperand;
 
+            // we move the list forward
             operandList = nOperand;
 
+            // if the operand list is still empty, we assign the first child to the current
+            // node being created
             if( n->operands == NULL ) 
                 n->operands = operandList;
             
@@ -253,15 +260,15 @@ AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand) {
 /*
  * puts child at the end of parent
  */
-AST_TREE addChildNode( AST_TREE parent, AST_TREE child ) {
-    AST_TREE end = parent;
+AST_TREE addSiblingNode( AST_TREE elder, AST_TREE younger ) {
+    AST_TREE end = elder;
     while( end->next != NULL )
         end = end->next;
 
-    end->next = child;
-    if( child )
-        child->parent = end->parent;
-    return parent;
+    end->next = younger;
+    if( younger )
+        younger->parent = end->parent;
+    return elder;
 }
 
 void freeTree( AST_TREE tree ) {

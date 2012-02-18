@@ -36,7 +36,7 @@ int getNumberOfParams(SYMLIST fct) {
     int i = 0;
     while(paramBloc) {
         ++i;
-        if(fct->type == TYPE_ISET)
+        if(paramBloc->type == TYPE_ISET)
             ++i;
         paramBloc = paramBloc->next;
     }
@@ -387,7 +387,7 @@ void generateAdressPCode( AST_TREE node ) {
         }
         printf("%d %d\n",  
             findParentFunctionSymbol(node)->depth+1-s->depth, 
-            s->pos - (s->type == TYPE_ISET ? 1 : 0)
+            s->pos
           );
         return;
     }
@@ -402,17 +402,17 @@ void initializeISets(AST_TREE function) {
     while( decl ) {
         if( decl->type == OP_FUNCTION_VAR_DECL && getNodeOperand(decl, OP_VAR_TYPE)->intVal == TYPE_ISET ){
             // on met la taille à 0 pour cet iset
-            printf("lda i 0 %d\n", decl->symbols->pos);
+            printf("lda i 0 %d\n", decl->symbols->pos + 1);
             printf("ldc i 0\n");
             printf("sto i\n");
             
             // on alloue de l'espace pour cet iset sur le heap et on fait pointer
-            printf("lda a 0 %d\n", decl->symbols->pos - 1);
+            printf("lda a 0 %d\n", decl->symbols->pos);
             printf("ldc i 1\n");
             printf("new\n");
             
             // on termine la liste avec l'adresse 0 du stack
-            printf("lda a 0 %d\n", decl->symbols->pos - 1);
+            printf("lda a 0 %d\n", decl->symbols->pos);
             printf("ind a\n");
             printf("ldc a 0\n");
             printf("sto a\n");

@@ -87,7 +87,7 @@ AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand);
 AST_TREE createLiteral(OP_TYPE type, char* literal);
 AST_TREE createIntConstant( OP_TYPE type, int value );
 AST_TREE createNode( OP_TYPE type, int opCount, ... );
-AST_TREE addChildNode( AST_TREE parent, AST_TREE child );
+AST_TREE addSiblingNode( AST_TREE elder, AST_TREE younger );
 void freeTree( AST_TREE tree );
 
 #endif

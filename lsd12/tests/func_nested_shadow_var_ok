@@ -2,10 +2,18 @@ program x;
   function main() : void;
     var
       a int;
-    function a( a: int ) : int;
-    var begin return a; end;
+    function a( var a: int ) : int;
+    var 
+      b int; 
+    begin 
+      b := a;
+      b := 3;
+      a := 2;
+      return b; 
+    end;
     begin
       a := 1;
-      write a(2);
+      write a(a);
+      write a;
     end;
   end;
