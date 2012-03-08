@@ -1,13 +1,27 @@
 program x;
   function main() : void;
     var
-      function a(a: int, b:bool) : void;
-        var begin end;
+      b bool; 
+      function a(a: int, var b:bool) : void;
+        var 
+          function c() : void;
+            var 
+            begin 
+              a(2, b); 
+              c(); 
+          end;
+        begin 
+          c(); 
+      end;
       function b(a: int) : void;
-        var begin a(1, true); b(1); end;
-      function c() : void;
-        var begin a(2, false); b(2); c(); end;
+        var 
+ 
+        begin 
+          a(1, b); 
+          b(1); 
+        end;
+      
     begin
-      a(1, true);
+      a(1, b);
     end;
   end;

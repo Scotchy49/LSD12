@@ -399,7 +399,7 @@ ujp @a_2Body
 define @a_2Body
 ;8: OP_INSTRUCTION_LIST [ -> a():v(0,4) -> -a(i):v(0,4) -> main():v(-1,4)]
 ;8: OP_FUNCTION_CALL [ -> a():v(0,4) -> -a(i):v(0,4) -> main():v(-1,4)]
-mst 0
+mst 1
 ;8: OP_CONSTANT_INT (2) [ -> a():v(0,4) -> -a(i):v(0,4) -> main():v(-1,4)]
 ldc i 2
 cup 1 @a_1

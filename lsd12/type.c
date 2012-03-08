@@ -64,6 +64,8 @@ int getType( AST_TREE node ) {
         if( getType(node->operands) != TYPE_INT ) {
             error(node->num_line, "add/remove to/from iset only accepts int params");
         }
+        
+        //TODO
     }
     
     if( node->type == OP_MIN_ISET || node->type == OP_MAX_ISET || node->type == OP_SIZE_ISET ) {

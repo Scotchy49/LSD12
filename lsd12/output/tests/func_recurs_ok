@@ -393,7 +393,7 @@ ujp @a_1Body
 define @a_1Body
 ;8: OP_INSTRUCTION_LIST [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;7: OP_FUNCTION_CALL [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
-mst 0
+mst 1
 ;7: OP_CONSTANT_INT (2) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ldc i 2
 lod a 0 6

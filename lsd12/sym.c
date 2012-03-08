@@ -268,7 +268,6 @@ void popSymbols(AST_TREE root) {
 }
 
 void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
-    int i;
     while( root ) {        
         // each node inherits the symbols of its father, so we prepend the current node's
         // symbol with the "already" accessible ones
@@ -277,6 +276,8 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
             nSymbol->depth = depth;
         root->symbols = prependSymbol(inherited, nSymbol);
         nSymbol = root->symbols;
+        
+        // pcode helpers
         if( nSymbol ) {            
             if( nSymbol->isFunction ) {
                 nSymbol->pos = 4;

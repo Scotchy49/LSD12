@@ -469,9 +469,12 @@ void generatePCode(AST_TREE node) {
             printf("sto %s\n", getVarTypeName(type));
             printf("retf\n");
         } else if( node->type == OP_FUNCTION_CALL ) {
-            printf("mst 0\n");
             AST_TREE params = getNodeOperand(node, OP_FUNCTION_CALL_PARAMS)->operands;
             SYMLIST fct = findFunctionSymbol(node->symbols, node);
+            
+            // la profondeur de la base est la profondeur courante + profondeur de là où la fonction est déclarée
+            printf("mst %d\n", findParentFunctionSymbol(node)->depth - fct->depth + 1);
+            
             SYMLIST paramList = fct->paramList;
             int i;
             for( i = 0; params; ++i ) {
@@ -635,7 +638,7 @@ void generatePCode(AST_TREE node) {
             generateAdressPCode(node->operands->next);
             printf("sto a\n");
             
-            printf("mst 0\n");
+            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
             printf("cup 0 @iset_add\n");
         } else if(node->type == OP_REMOVE_ISET ) {
             printf("ldc a 1\n");
@@ -647,7 +650,7 @@ void generatePCode(AST_TREE node) {
             generateAdressPCode(node->operands->next);
             printf("sto a\n");
             
-            printf("mst 0\n");
+            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
             printf("cup 0 @iset_remove\n");
         } else if( node->type == OP_IN ) {
             printf("ldc a 1\n");
@@ -659,21 +662,21 @@ void generatePCode(AST_TREE node) {
             generateAdressPCode(node->operands->next);
             printf("sto a\n");
             
-            printf("mst 0\n");
+            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
             printf("cup 0 @iset_contains\n");
         } else if( node->type == OP_MAX_ISET ) {
             printf("ldc a 0\n");
             generatePCode(node->operands);
             printf("sto a\n");
             
-            printf("mst 0\n");
+            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
             printf("cup 0 @iset_max\n");
         } else if( node->type == OP_MIN_ISET ) {
             printf("ldc a 0\n");
             generatePCode(node->operands);
             printf("sto a\n");
             
-            printf("mst 0\n");
+            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
             printf("cup 0 @iset_min\n");
         } else if( node->type == OP_SIZE_ISET ) {
             generateAdressPCode(node->operands);

@@ -8,104 +8,106 @@
 ;|  |  next
 ;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_DECLBLOCK [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  OP_FUNCTION [ -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  OP_ID (a) [ -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  OP_FUNCTION_DECLBLOCK [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  OP_FUNCTION_VAR_DECL [ -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ID (b) [ -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_PARAMS [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (0) [ -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  OP_VAR_TYPE (b) [ -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  next
+;|  |  |  OP_FUNCTION [ -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ID (a) [ -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_PARAMS [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (0) [ -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_ID (a) [ -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (a) [ -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (0) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (1) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_ID (b) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (b) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (b) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_VAR_TYPE (b) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_TYPE (v) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_TYPE (v) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_BODY [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  next
-;|  |  |  OP_FUNCTION [ -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  OP_ID (b) [ -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_PARAMS [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (0) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (c) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_ID (a) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_PARAMS [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_TYPE (v) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_BODY [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_ID (a) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_TYPE (v) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_FUNCTION_DECLBLOCK [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_FUNCTION_BODY [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_INSTRUCTION_LIST [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_FUNCTION_CALL [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_ID (a) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_ID (b) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_FUNCTION_CALL [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_ID (c) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_BODY [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_ID (c) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  next
-;|  |  |  OP_FUNCTION [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  OP_ID (c) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  OP_FUNCTION [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ID (b) [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_PARAMS [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_PARAMS [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (0) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_ID (a) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_TYPE (v) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_TYPE (v) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_BODY [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_ID (a) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_BODY [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_ID (a) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_CONSTANT_BOOL (0) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_ID (b) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_ID (b) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_ID (c) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_BODY [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  OP_INSTRUCTION_LIST [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  OP_ID (a) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  OP_FUNCTION_BODY [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_CALL [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_ID (a) [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;13: OP_PROGRAM []
-ssp 5
+;|  |  |  |  |  |  OP_LEXPR (b) [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;27: OP_PROGRAM []
+ssp 6
 ujp @begin
 define @iset_contains
 ssp 5
@@ -428,65 +430,60 @@ add a
 ind i
 sto i
 retf
-;10: OP_FUNCTION_DECLBLOCK [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;5: OP_FUNCTION [ -> a(i,b):v(0,4) -> main():v(-1,4)]
+;24: OP_FUNCTION_DECLBLOCK [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;15: OP_FUNCTION [ -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 define @a_1
 ssp 7
 ujp @a_1Body
-;5: OP_FUNCTION_DECLBLOCK [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-define @a_1Body
-;5: OP_INSTRUCTION_LIST [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-retp
-;7: OP_FUNCTION [ -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-define @b_2
-ssp 6
-ujp @b_2Body
-;7: OP_FUNCTION_DECLBLOCK [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-define @b_2Body
-;7: OP_INSTRUCTION_LIST [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;7: OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-mst 0
-;7: OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc i 1
-;7: OP_CONSTANT_BOOL (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc b 1
-cup 2 @a_1
-;7: OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-mst 0
-;7: OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc i 1
-cup 1 @b_2
-retp
-;9: OP_FUNCTION [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-define @c_3
+;13: OP_FUNCTION_DECLBLOCK [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;12: OP_FUNCTION [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+define @c_2
 ssp 5
-ujp @c_3Body
-;9: OP_FUNCTION_DECLBLOCK [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-define @c_3Body
-;9: OP_INSTRUCTION_LIST [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;9: OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-mst 0
-;9: OP_CONSTANT_INT (2) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+ujp @c_2Body
+;9: OP_FUNCTION_DECLBLOCK [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+define @c_2Body
+;12: OP_INSTRUCTION_LIST [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;10: OP_FUNCTION_CALL [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+mst 2
+;10: OP_CONSTANT_INT (2) [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ldc i 2
-;9: OP_CONSTANT_BOOL (0) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc b 0
+lod a 1 6
 cup 2 @a_1
-;9: OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;11: OP_FUNCTION_CALL [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+mst 1
+cup 0 @c_2
+retp
+define @a_1Body
+;15: OP_INSTRUCTION_LIST [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;14: OP_FUNCTION_CALL [ -> c():v(1,4) -> +b:b(1,6) -> +a:i(1,5) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 mst 0
-;9: OP_CONSTANT_INT (2) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc i 2
-cup 1 @b_2
-;9: OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-mst 0
-cup 0 @c_3
+cup 0 @c_2
+retp
+;22: OP_FUNCTION [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+define @b_3
+ssp 6
+ujp @b_3Body
+;19: OP_FUNCTION_DECLBLOCK [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+define @b_3Body
+;22: OP_INSTRUCTION_LIST [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;20: OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+mst 1
+;20: OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+ldc i 1
+lda b 1 5
+cup 2 @a_1
+;21: OP_FUNCTION_CALL [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+mst 1
+;21: OP_CONSTANT_INT (1) [ -> +a:i(1,5) -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+ldc i 1
+cup 1 @b_3
 retp
 define @begin
-;12: OP_INSTRUCTION_LIST [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;11: OP_FUNCTION_CALL [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;26: OP_INSTRUCTION_LIST [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
+;25: OP_FUNCTION_CALL [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 mst 0
-;11: OP_CONSTANT_INT (1) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;25: OP_CONSTANT_INT (1) [ -> b(i):v(0,4) -> a(i,&b):v(0,4) -> b:b(0,5) -> main():v(-1,4)]
 ldc i 1
-;11: OP_CONSTANT_BOOL (1) [ -> c():v(0,4) -> b(i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc b 1
+lda b 0 5
 cup 2 @a_1
 stp

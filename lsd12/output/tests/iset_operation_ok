@@ -446,7 +446,7 @@ sto i
 ldc a 0
 lda a 0 5
 sto a
-mst 0
+mst 1
 cup 0 @iset_add
 retp
 define @begin
