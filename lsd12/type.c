@@ -104,6 +104,15 @@ int getType( AST_TREE node ) {
                         getVarTypeName(node->symbols->type), getVarTypeName(node->symbols->ref->type));
             }
         }
+        
+        // on vérifie que tous les iset sont bien passés par référence
+        SYMLIST params = node->symbols->paramList;
+        while( params ) {
+            if( params->type == TYPE_ISET && params->isParam != 2 ) {
+                error(node->num_line, "isets can only be passed by reference");
+            }
+            params = params->next;
+        }
         return getNodeOperand(node, OP_FUNCTION_TYPE)->intVal;
     }
     

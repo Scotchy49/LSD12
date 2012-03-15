@@ -9,7 +9,10 @@ program x;
       function b() : int;
         var a int;
         function c() : int;
-        var begin a:= a(); return a; end;
+          var begin 
+            a := a(); 
+            return a; 
+          end;
         begin
           return c();
         end;

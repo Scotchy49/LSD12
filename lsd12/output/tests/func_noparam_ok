@@ -89,7 +89,7 @@
 ;|  |  |  |  |  |  OP_ID (b) [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;21: OP_PROGRAM []
+;24: OP_PROGRAM []
 ssp 6
 ujp @begin
 define @iset_contains
@@ -413,7 +413,7 @@ add a
 ind i
 sto i
 retf
-;16: OP_FUNCTION_DECLBLOCK [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;19: OP_FUNCTION_DECLBLOCK [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ;8: OP_FUNCTION [ -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 define @a_1
 ssp 5
@@ -429,56 +429,56 @@ ind i
 sto i
 retf
 retf
-;15: OP_FUNCTION [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;18: OP_FUNCTION [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 define @b_2
 ssp 6
 ujp @b_2Body
-;13: OP_FUNCTION_DECLBLOCK [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;12: OP_FUNCTION [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;16: OP_FUNCTION_DECLBLOCK [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;15: OP_FUNCTION [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 define @c_3
 ssp 5
 ujp @c_3Body
 ;12: OP_FUNCTION_DECLBLOCK [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 define @c_3Body
-;12: OP_INSTRUCTION_LIST [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;12: OP_ASSIGN [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;15: OP_INSTRUCTION_LIST [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;13: OP_ASSIGN [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 1 5
-;12: OP_FUNCTION_CALL [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;13: OP_FUNCTION_CALL [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 mst 2
 cup 0 @a_1
 sto i
-;12: OP_RETURN [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;14: OP_RETURN [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 0
-;12: OP_LEXPR (a) [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;14: OP_LEXPR (a) [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 1 5
 ind i
 sto i
 retf
 retf
 define @b_2Body
-;15: OP_INSTRUCTION_LIST [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;14: OP_RETURN [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;18: OP_INSTRUCTION_LIST [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;17: OP_RETURN [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 0
-;14: OP_FUNCTION_CALL [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;17: OP_FUNCTION_CALL [ -> c():i(1,4) -> a:i(1,5) -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 mst 0
 cup 0 @c_3
 sto i
 retf
 retf
 define @begin
-;20: OP_INSTRUCTION_LIST [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;17: OP_ASSIGN [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;23: OP_INSTRUCTION_LIST [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;20: OP_ASSIGN [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
-;17: OP_CONSTANT_INT (1) [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;20: OP_CONSTANT_INT (1) [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ldc i 1
 sto i
-;18: OP_WRITE [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;18: OP_FUNCTION_CALL [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;21: OP_WRITE [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;21: OP_FUNCTION_CALL [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 mst 0
 cup 0 @a_1
 prin
-;19: OP_WRITE [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;19: OP_FUNCTION_CALL [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;22: OP_WRITE [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;22: OP_FUNCTION_CALL [ -> b():i(0,4) -> a():i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 mst 0
 cup 0 @b_2
 prin

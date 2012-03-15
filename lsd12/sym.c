@@ -283,7 +283,7 @@ void populateSymbols( AST_TREE root, SYMLIST inherited, int depth ) {
                 nSymbol->pos = 4;
             } else {
                 // isets take 2 blocs
-                if( nSymbol->next->type == TYPE_ISET )
+                if( !nSymbol->isParam && nSymbol->next->type == TYPE_ISET )
                     nSymbol->pos = nSymbol->next->pos+2;
                 else
                    nSymbol->pos = nSymbol->next->pos+1;

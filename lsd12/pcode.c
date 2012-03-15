@@ -472,7 +472,7 @@ void generatePCode(AST_TREE node) {
             AST_TREE params = getNodeOperand(node, OP_FUNCTION_CALL_PARAMS)->operands;
             SYMLIST fct = findFunctionSymbol(node->symbols, node);
             
-            // la profondeur de la base est la profondeur courante + profondeur de là où la fonction est déclarée
+            // la profondeur de la base est la profondeur courante - profondeur de là où la fonction est déclarée
             printf("mst %d\n", findParentFunctionSymbol(node)->depth - fct->depth + 1);
             
             SYMLIST paramList = fct->paramList;
