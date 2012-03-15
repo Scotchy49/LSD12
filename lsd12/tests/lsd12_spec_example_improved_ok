@@ -17,31 +17,53 @@ program exemple;
           od;
         end;
 
-      function equals(var ensA: iset, var ensB:iset) : bool;
+      function equals() : bool;
         var
           a int;
           b int;
           equal bool;
+          function equalsi(): bool;
+          var begin 
+            equal := #ensA = #ensB && (0 = #ensA || min ensA = min ensB);
+            if( equal && 0 < #ensA ) then
+              a := min ensA;
+              b := min ensB;
+              remove a from ensA;
+              remove b from ensB;
+              equal := equals();
+              add a to ensA;
+              add b to ensB;
+            fi;
+            return equal;
+          end;
         begin
-          equal := #ensA = #ensB && (0 = #ensA || min ensA = min ensB);
-          if( equal && 0 < #ensA ) then
-            a := min ensA;
-            b := min ensB;
-            remove a from ensA;
-            remove b from ensB;
-            equal := equals(ensA, ensB);
-            add a to ensA;
-            add b to ensB;
-          fi;
-          return equal;
+          return equalsi();
+        end;
+      function print(var ens : iset ) : void;    
+        var 
+          tmp iset;
+        begin
+          while( 0 < #ens ) do
+            write min ens;
+            add min ens to tmp;
+            remove min ens from ens;
+          od;
+          while( 0 < #tmp ) do
+            add min tmp to ens;
+            remove min tmp from tmp;
+          od;
         end;
   begin
+    remove 1 from ensA;
+    remove 2 from ensB;
     buildEns(ensA);
     buildEns(ensB);
-    if( equals(ensA, ensB) ) then
+    if( equals() ) then
       write 1;
     else
       write 0;
     fi;
+    print(ensA);
+    print(ensB);
   end;
 end;

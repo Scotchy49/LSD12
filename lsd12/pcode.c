@@ -402,7 +402,7 @@ void generateISetContains( AST_TREE node ) {
     generateAdressPCode(node->operands->next);
     printf("sto a\n");
 
-    printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
+    printf("mst 0\n");
     printf("cup 0 @iset_contains\n");
 }
 
@@ -654,7 +654,7 @@ void generatePCode(AST_TREE node) {
             generateAdressPCode(node->operands->next);
             printf("sto a\n");
             
-            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
+            printf("mst 0\n");
             printf("cup 0 @iset_add\n");
             
             printf("define @skip_insert_%d\n", g);
@@ -668,23 +668,23 @@ void generatePCode(AST_TREE node) {
             generateAdressPCode(node->operands->next);
             printf("sto a\n");
             
-            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
+            printf("mst 0\n");
             printf("cup 0 @iset_remove\n");
         } else if( node->type == OP_IN ) {
             generateISetContains(node);
         } else if( node->type == OP_MAX_ISET ) {
             printf("ldc a 0\n");
-            generatePCode(node->operands);
+            generateAdressPCode(node->operands);
             printf("sto a\n");
             
-            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
+            printf("mst 0\n");
             printf("cup 0 @iset_max\n");
         } else if( node->type == OP_MIN_ISET ) {
             printf("ldc a 0\n");
             generatePCode(node->operands);
             printf("sto a\n");
             
-            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
+            printf("mst 0\n");
             printf("cup 0 @iset_min\n");
         } else if( node->type == OP_SIZE_ISET ) {
             generateAdressPCode(node->operands);

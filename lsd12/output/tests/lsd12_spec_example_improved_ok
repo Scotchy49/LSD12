@@ -8,7 +8,7 @@
 ;|  |  next
 ;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_DECLBLOCK [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  OP_FUNCTION_DECLBLOCK [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  OP_ID (a) [ -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
@@ -69,157 +69,242 @@
 ;|  |  |  |  |  |  |  |  OP_READ [ -> x:i(1,6) -> +ens:a(1,5) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  |  OP_LEXPR (x) [ -> x:i(1,6) -> +ens:a(1,5) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  next
-;|  |  |  OP_FUNCTION [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  OP_ID (equals) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  OP_FUNCTION [ -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ID (equals) [ -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_PARAMS [ -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (1) [ -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_PARAMS [ -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_TYPE (b) [ -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_VAR_DECL [ -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (a) [ -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_ID (ensA) [ -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (a) [ -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (1) [ -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_VAR_DECL [ -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (b) [ -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_ID (ensB) [ -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (a) [ -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_TYPE (b) [ -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_FUNCTION_VAR_DECL [ -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_ID (a) [ -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_FUNCTION_VAR_DECL [ -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_ID (b) [ -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_VAR_DECL [ -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (equal) [ -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (i) [ -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_VAR_TYPE (b) [ -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_FUNCTION_VAR_DECL [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_ID (equal) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (equalsi) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_VAR_TYPE (b) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_BODY [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_AND [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_EQ [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_OR [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_EQ [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_EQ [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_PARAMS [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_IF [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_AND [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_LT [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_TYPE (b) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_FUNCTION_DECLBLOCK [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_FUNCTION_BODY [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_INSTRUCTION_LIST [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_INSTRUCTION_LIST [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_REMOVE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_REMOVE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_FUNCTION_CALL [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_ID (equals) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_AND [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_EQ [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_OR [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_EQ [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_EQ [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_ADD_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_IF [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_AND [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_LT [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_INSTRUCTION_LIST [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_REMOVE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_REMOVE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_FUNCTION_CALL [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_ID (equals) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_ADD_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  OP_ADD_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_ADD_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_RETURN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  next
-;|  |  OP_FUNCTION_BODY [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  OP_INSTRUCTION_LIST [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  OP_FUNCTION_CALL [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_ID (buildEns) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  next
-;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_LEXPR (ensA) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_RETURN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (equal) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_FUNCTION_CALL [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_ID (buildEns) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  next
-;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_LEXPR (ensB) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_BODY [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_RETURN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_FUNCTION_CALL [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_ID (equalsi) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  next
+;|  |  |  OP_FUNCTION [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ID (print) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_IF_ELSE [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_FUNCTION_CALL [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_ID (equals) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_FUNCTION_PARAMS [ -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_PARAM [ -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_FUNCTION_PARAM_VAR (1) [ -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LEXPR (ensA) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (ens) [ -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_VAR_TYPE (a) [ -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_TYPE (v) [ -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_DECLBLOCK [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_VAR_DECL [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_VAR_TYPE (a) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_BODY [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_WHILE [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_LT [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_LEXPR (ensB) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_INSTRUCTION_LIST [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_WRITE [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_ADD_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_REMOVE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_WHILE [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_LT [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_SIZE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  OP_INSTRUCTION_LIST [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_ADD_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  OP_REMOVE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  |  next
+;|  |  |  |  |  |  |  |  |  OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  next
+;|  |  OP_FUNCTION_BODY [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_REMOVE_ISET [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_CONSTANT_INT (1) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_WRITE [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_LEXPR (ensA) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_REMOVE_ISET [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_CONSTANT_INT (2) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_WRITE [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;47: OP_PROGRAM []
+;|  |  |  |  |  OP_LEXPR (ensB) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_ID (buildEns) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_LEXPR (ensA) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_ID (buildEns) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_LEXPR (ensB) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_IF_ELSE [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ID (equals) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  next
+;|  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_WRITE [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_WRITE [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_ID (print) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_LEXPR (ensA) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_ID (print) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_LEXPR (ensB) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;69: OP_PROGRAM []
 ssp 11
 lda i 0 8
 ldc i 0
@@ -563,7 +648,7 @@ add a
 ind i
 sto i
 retf
-;38: OP_FUNCTION_DECLBLOCK [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;56: OP_FUNCTION_DECLBLOCK [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;18: OP_FUNCTION [ -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 define @buildEns_1
 ssp 7
@@ -597,7 +682,7 @@ sto i
 ldc a 0
 lod a 0 5
 sto a
-mst 1
+mst 0
 cup 0 @iset_contains
 not b
 fjp @skip_insert_3
@@ -609,7 +694,7 @@ sto i
 ldc a 0
 lod a 0 5
 sto a
-mst 1
+mst 0
 cup 0 @iset_add
 define @skip_insert_3
 ;16: OP_READ [ -> x:i(1,6) -> +ens:a(1,5) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -619,232 +704,429 @@ sto i
 ujp @while_2
 define @od_2
 retp
-;37: OP_FUNCTION [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;41: OP_FUNCTION [ -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 define @equals_4
-ssp 10
+ssp 8
 ujp @equals_4Body
-;25: OP_FUNCTION_DECLBLOCK [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-define @equals_4Body
-;37: OP_INSTRUCTION_LIST [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;26: OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda b 0 9
-;26: OP_AND [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;26: OP_EQ [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;26: OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lod a 0 5
+;39: OP_FUNCTION_DECLBLOCK [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;38: OP_FUNCTION [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+define @equalsi_5
+ssp 5
+ujp @equalsi_5Body
+;26: OP_FUNCTION_DECLBLOCK [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+define @equalsi_5Body
+;38: OP_INSTRUCTION_LIST [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;27: OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda b 1 7
+;27: OP_AND [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;27: OP_EQ [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;27: OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 7
 ldc a 1
 add a
 ind i
-;26: OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lod a 0 6
-ldc a 1
-add a
-ind i
-equ i
-not b
-fjp @true_5
-ujp @false_5
-define @true_5
-;26: OP_OR [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;26: OP_EQ [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;26: OP_CONSTANT_INT (0) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-ldc i 0
-;26: OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lod a 0 5
+;27: OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 9
 ldc a 1
 add a
 ind i
 equ i
 not b
 fjp @true_6
-;26: OP_EQ [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;26: OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ujp @false_6
+define @true_6
+;27: OP_OR [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;27: OP_EQ [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;27: OP_CONSTANT_INT (0) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc i 0
+;27: OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 7
+ldc a 1
+add a
+ind i
+equ i
+not b
+fjp @true_7
+;27: OP_EQ [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;27: OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 0
-;26: OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lod a 0 5
+;27: OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 7
 ind a
 sto a
-mst 1
+mst 0
 cup 0 @iset_min
-;26: OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;27: OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 0
-;26: OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lod a 0 6
+;27: OP_LEXPR (ensB) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 9
 ind a
 sto a
-mst 1
+mst 0
 cup 0 @iset_min
 equ i
-ujp @end_6
-define @true_6
+ujp @end_7
+define @true_7
 ldc b 1
-define @end_6
-ujp @end_5
-define @false_5
+define @end_7
+ujp @end_6
+define @false_6
 ldc b 0
-define @end_5
+define @end_6
 sto b
-;35: OP_IF [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;27: OP_AND [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;27: OP_LEXPR (equal) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda b 0 9
+;36: OP_IF [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;28: OP_AND [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;28: OP_LEXPR (equal) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda b 1 7
 ind b
 not b
-fjp @true_8
-ujp @false_8
-define @true_8
-;27: OP_LT [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;27: OP_CONSTANT_INT (0) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+fjp @true_9
+ujp @false_9
+define @true_9
+;28: OP_LT [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;28: OP_CONSTANT_INT (0) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 0
-;27: OP_SIZE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;28: OP_SIZE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 7
+ldc a 1
+add a
+ind i
+les i
+ujp @end_9
+define @false_9
+ldc b 0
+define @end_9
+fjp @fi_8
+;36: OP_INSTRUCTION_LIST [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;29: OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 5
+;29: OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 0
+;29: OP_LEXPR (ensA) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 7
+ind a
+sto a
+mst 0
+cup 0 @iset_min
+sto i
+;30: OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 6
+;30: OP_MIN_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 0
+;30: OP_LEXPR (ensB) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 2 9
+ind a
+sto a
+mst 0
+cup 0 @iset_min
+sto i
+;31: OP_REMOVE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;31: OP_LEXPR (a) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 5
+ind i
+sto i
+ldc a 0
+lda a 2 7
+sto a
+mst 0
+cup 0 @iset_remove
+;32: OP_REMOVE_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;32: OP_LEXPR (b) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 6
+ind i
+sto i
+ldc a 0
+lda a 2 9
+sto a
+mst 0
+cup 0 @iset_remove
+;33: OP_ASSIGN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda b 1 7
+;33: OP_FUNCTION_CALL [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+mst 2
+cup 0 @equals_4
+sto b
+;34: OP_ADD_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;34: OP_LEXPR (a) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 5
+ind i
+sto i
+ldc a 0
+lda a 2 7
+sto a
+mst 0
+cup 0 @iset_contains
+not b
+fjp @skip_insert_10
+ldc a 1
+;34: OP_LEXPR (a) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 5
+ind i
+sto i
+ldc a 0
+lda a 2 7
+sto a
+mst 0
+cup 0 @iset_add
+define @skip_insert_10
+;35: OP_ADD_ISET [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;35: OP_LEXPR (b) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 6
+ind i
+sto i
+ldc a 0
+lda a 2 9
+sto a
+mst 0
+cup 0 @iset_contains
+not b
+fjp @skip_insert_11
+ldc a 1
+;35: OP_LEXPR (b) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 1 6
+ind i
+sto i
+ldc a 0
+lda a 2 9
+sto a
+mst 0
+cup 0 @iset_add
+define @skip_insert_11
+define @fi_8
+;37: OP_RETURN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda b 0 0
+;37: OP_LEXPR (equal) [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda b 1 7
+ind b
+sto b
+retf
+retf
+define @equals_4Body
+;41: OP_INSTRUCTION_LIST [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;40: OP_RETURN [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda b 0 0
+;40: OP_FUNCTION_CALL [ -> equalsi():b(1,4) -> equal:b(1,7) -> b:i(1,6) -> a:i(1,5) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+mst 0
+cup 0 @equalsi_5
+sto b
+retf
+retf
+;55: OP_FUNCTION [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+define @print_12
+ssp 8
+lda i 0 7
+ldc i 0
+sto i
+lda a 0 6
+ldc i 1
+new
+lda a 0 6
+ind a
+ldc a 0
+sto a
+ujp @print_12Body
+;45: OP_FUNCTION_DECLBLOCK [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+define @print_12Body
+;55: OP_INSTRUCTION_LIST [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;50: OP_WHILE [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+define @while_13
+;46: OP_LT [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;46: OP_CONSTANT_INT (0) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc i 0
+;46: OP_SIZE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lod a 0 5
 ldc a 1
 add a
 ind i
 les i
-ujp @end_8
-define @false_8
-ldc b 0
-define @end_8
-fjp @fi_7
-;35: OP_INSTRUCTION_LIST [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;28: OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 7
-;28: OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+fjp @od_13
+;50: OP_INSTRUCTION_LIST [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;47: OP_WRITE [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;47: OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 0
-;28: OP_LEXPR (ensA) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;47: OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lod a 0 5
 ind a
 sto a
-mst 1
+mst 0
 cup 0 @iset_min
-sto i
-;29: OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 8
-;29: OP_MIN_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+prin
+;48: OP_ADD_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;48: OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 0
-;29: OP_LEXPR (ensB) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lod a 0 6
+;48: OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lod a 0 5
 ind a
 sto a
-mst 1
+mst 0
 cup 0 @iset_min
 sto i
-;30: OP_REMOVE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-ldc a 1
-;30: OP_LEXPR (a) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 7
-ind i
-sto i
 ldc a 0
-lod a 0 5
+lda a 0 6
 sto a
-mst 1
-cup 0 @iset_remove
-;31: OP_REMOVE_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-ldc a 1
-;31: OP_LEXPR (b) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 8
-ind i
-sto i
-ldc a 0
-lod a 0 6
-sto a
-mst 1
-cup 0 @iset_remove
-;32: OP_ASSIGN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda b 0 9
-;32: OP_FUNCTION_CALL [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-mst 1
-lod a 0 5
-lod a 0 6
-cup 2 @equals_4
-sto b
-;33: OP_ADD_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-ldc a 1
-;33: OP_LEXPR (a) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 7
-ind i
-sto i
-ldc a 0
-lod a 0 5
-sto a
-mst 1
+mst 0
 cup 0 @iset_contains
 not b
-fjp @skip_insert_9
+fjp @skip_insert_14
 ldc a 1
-;33: OP_LEXPR (a) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 7
-ind i
+;48: OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 0
+;48: OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lod a 0 5
+ind a
+sto a
+mst 0
+cup 0 @iset_min
+sto i
+ldc a 0
+lda a 0 6
+sto a
+mst 0
+cup 0 @iset_add
+define @skip_insert_14
+;49: OP_REMOVE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;49: OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 0
+;49: OP_LEXPR (ens) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lod a 0 5
+ind a
+sto a
+mst 0
+cup 0 @iset_min
 sto i
 ldc a 0
 lod a 0 5
 sto a
-mst 1
-cup 0 @iset_add
-define @skip_insert_9
-;34: OP_ADD_ISET [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+mst 0
+cup 0 @iset_remove
+ujp @while_13
+define @od_13
+;54: OP_WHILE [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+define @while_15
+;51: OP_LT [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;51: OP_CONSTANT_INT (0) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc i 0
+;51: OP_SIZE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 0 6
 ldc a 1
-;34: OP_LEXPR (b) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 8
+add a
 ind i
+les i
+fjp @od_15
+;54: OP_INSTRUCTION_LIST [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;52: OP_ADD_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;52: OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 0
+;52: OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 0 6
+ind a
+sto a
+mst 0
+cup 0 @iset_min
 sto i
 ldc a 0
-lod a 0 6
+lod a 0 5
 sto a
-mst 1
+mst 0
 cup 0 @iset_contains
 not b
-fjp @skip_insert_10
+fjp @skip_insert_16
 ldc a 1
-;34: OP_LEXPR (b) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda i 0 8
-ind i
+;52: OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 0
+;52: OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 0 6
+ind a
+sto a
+mst 0
+cup 0 @iset_min
 sto i
 ldc a 0
-lod a 0 6
+lod a 0 5
 sto a
-mst 1
+mst 0
 cup 0 @iset_add
-define @skip_insert_10
-define @fi_7
-;36: OP_RETURN [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda b 0 0
-;36: OP_LEXPR (equal) [ -> equal:b(1,9) -> b:i(1,8) -> a:i(1,7) -> +ensB:a(1,6) -> +ensA:a(1,5) -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-lda b 0 9
-ind b
-sto b
-retf
-retf
+define @skip_insert_16
+;53: OP_REMOVE_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;53: OP_MIN_ISET [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 0
+;53: OP_LEXPR (tmp) [ -> tmp:a(1,6) -> +ens:a(1,5) -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda a 0 6
+ind a
+sto a
+mst 0
+cup 0 @iset_min
+sto i
+ldc a 0
+lda a 0 6
+sto a
+mst 0
+cup 0 @iset_remove
+ujp @while_15
+define @od_15
+retp
 define @begin
-;46: OP_INSTRUCTION_LIST [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;39: OP_FUNCTION_CALL [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;68: OP_INSTRUCTION_LIST [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;57: OP_REMOVE_ISET [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;57: OP_CONSTANT_INT (1) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc i 1
+sto i
+ldc a 0
+lda a 0 7
+sto a
+mst 0
+cup 0 @iset_remove
+;58: OP_REMOVE_ISET [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc a 1
+;58: OP_CONSTANT_INT (2) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ldc i 2
+sto i
+ldc a 0
+lda a 0 9
+sto a
+mst 0
+cup 0 @iset_remove
+;59: OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 mst 0
 lda a 0 7
 cup 1 @buildEns_1
-;40: OP_FUNCTION_CALL [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;60: OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 mst 0
 lda a 0 9
 cup 1 @buildEns_1
-;45: OP_IF_ELSE [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;41: OP_FUNCTION_CALL [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;65: OP_IF_ELSE [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;61: OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 mst 0
-lda a 0 7
-lda a 0 9
-cup 2 @equals_4
-fjp @else_11
-;43: OP_INSTRUCTION_LIST [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;42: OP_WRITE [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;42: OP_CONSTANT_INT (1) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+cup 0 @equals_4
+fjp @else_17
+;63: OP_INSTRUCTION_LIST [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;62: OP_WRITE [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;62: OP_CONSTANT_INT (1) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 1
 prin
-ujp @fi_11
-define @else_11
-;45: OP_INSTRUCTION_LIST [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;44: OP_WRITE [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-;44: OP_CONSTANT_INT (0) [ -> equals(&a,&a):b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+ujp @fi_17
+define @else_17
+;65: OP_INSTRUCTION_LIST [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;64: OP_WRITE [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+;64: OP_CONSTANT_INT (0) [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 0
 prin
-define @fi_11
+define @fi_17
+;66: OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+mst 0
+lda a 0 7
+cup 1 @print_12
+;67: OP_FUNCTION_CALL [ -> print(&a):v(0,4) -> equals():b(0,4) -> buildEns(&a):v(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+mst 0
+lda a 0 9
+cup 1 @print_12
 stp

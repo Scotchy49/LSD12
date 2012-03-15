@@ -2,10 +2,9 @@ program x;
   function main() : void;
     var
       a iset;
-      function addIset( var a : iset, i:int ) : void;
+      function addIset( var ens : iset, i:int ) : void;
       var begin
-        add i to a;
-        write #a;
+        add i to ens;
       end;
       function createset( var a : iset ): void;
       var 
@@ -17,23 +16,23 @@ program x;
           read b;
         od;
       end;
-      function printset( var a : iset ) : void;
+      function printset( var ens : iset ) : void;
       var 
-        b iset;
+        i int;
       begin
-        while(0 < #a) do
-          write min a;
-          add min a to b;
-          remove min a from a;
-        od;
-        while( 0 < #b ) do
-          add min b to a;
-          remove min b from b;
+        i := min ens;
+        while( i <= max ens ) do
+          if( i in ens ) then
+            write i;
+          fi;
+          i := i + 1;
         od;
       end;
     begin
       createset( a );
-      printset( a );
-      printset( a );
+      write #a;
+      write min a;
+      write max a;
+      {printset( a );}
     end;
   end;
