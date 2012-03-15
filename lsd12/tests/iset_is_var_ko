@@ -1,0 +1,12 @@
+program x;
+  function main() : void;
+    var
+      a iset;
+      function addIset( a : iset, i:int ) : void;
+      var begin
+        add i to a;
+      end;
+    begin
+      write 1;
+    end;
+  end;

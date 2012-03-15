@@ -696,7 +696,20 @@ ldc a 0
 lda a 1 7
 sto a
 mst 1
+cup 0 @iset_contains
+not b
+fjp @skip_insert_4
+ldc a 1
+;18: OP_LEXPR (x) [ -> x:i(1,5) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 0 5
+ind i
+sto i
+ldc a 0
+lda a 1 7
+sto a
+mst 1
 cup 0 @iset_add
+define @skip_insert_4
 ;19: OP_READ [ -> x:i(1,5) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda i 0 5
 read
@@ -705,18 +718,18 @@ ujp @while_3
 define @od_3
 retp
 ;32: OP_FUNCTION [ -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-define @buildEnsB_4
+define @buildEnsB_5
 ssp 6
-ujp @buildEnsB_4Body
+ujp @buildEnsB_5Body
 ;26: OP_FUNCTION_DECLBLOCK [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-define @buildEnsB_4Body
+define @buildEnsB_5Body
 ;32: OP_INSTRUCTION_LIST [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;27: OP_READ [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda i 0 5
 read
 sto i
 ;31: OP_WHILE [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-define @while_5
+define @while_6
 ;28: OP_NOT [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;28: OP_EQ [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;28: OP_LEXPR (x) [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -726,7 +739,7 @@ ind i
 ldc i 0
 equ i
 not b
-fjp @od_5
+fjp @od_6
 ;31: OP_INSTRUCTION_LIST [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;29: OP_ADD_ISET [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 1
@@ -738,13 +751,26 @@ ldc a 0
 lda a 1 9
 sto a
 mst 1
+cup 0 @iset_contains
+not b
+fjp @skip_insert_7
+ldc a 1
+;29: OP_LEXPR (x) [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 0 5
+ind i
+sto i
+ldc a 0
+lda a 1 9
+sto a
+mst 1
 cup 0 @iset_add
+define @skip_insert_7
 ;30: OP_READ [ -> x:i(1,5) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda i 0 5
 read
 sto i
-ujp @while_5
-define @od_5
+ujp @while_6
+define @od_6
 retp
 ;64: OP_FUNCTION [ -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 define @equals_1
@@ -789,16 +815,16 @@ ind i
 equ i
 sto b
 ;53: OP_WHILE [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-define @while_6
+define @while_8
 ;43: OP_AND [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;43: OP_AND [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;43: OP_LEXPR (equal) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda b 0 11
 ind b
 not b
-fjp @true_8
-ujp @false_8
-define @true_8
+fjp @true_10
+ujp @false_10
+define @true_10
 ;43: OP_LT [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;43: OP_CONSTANT_INT (0) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 0
@@ -808,14 +834,14 @@ ldc a 1
 add a
 ind i
 les i
-ujp @end_8
-define @false_8
+ujp @end_10
+define @false_10
 ldc b 0
-define @end_8
+define @end_10
 not b
-fjp @true_7
-ujp @false_7
-define @true_7
+fjp @true_9
+ujp @false_9
+define @true_9
 ;43: OP_LT [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;43: OP_CONSTANT_INT (0) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 0
@@ -825,11 +851,11 @@ ldc a 1
 add a
 ind i
 les i
-ujp @end_7
-define @false_7
+ujp @end_9
+define @false_9
 ldc b 0
-define @end_7
-fjp @od_6
+define @end_9
+fjp @od_8
 ;53: OP_INSTRUCTION_LIST [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;44: OP_ASSIGN [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda i 0 9
@@ -868,7 +894,7 @@ sto b
 ;47: OP_LEXPR (equal) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda b 0 11
 ind b
-fjp @fi_9
+fjp @fi_11
 ;52: OP_INSTRUCTION_LIST [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;48: OP_ADD_ISET [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 1
@@ -880,7 +906,20 @@ ldc a 0
 lda a 0 5
 sto a
 mst 1
+cup 0 @iset_contains
+not b
+fjp @skip_insert_12
+ldc a 1
+;48: OP_LEXPR (a) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 0 9
+ind i
+sto i
+ldc a 0
+lda a 0 5
+sto a
+mst 1
 cup 0 @iset_add
+define @skip_insert_12
 ;49: OP_ADD_ISET [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 1
 ;49: OP_LEXPR (b) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -891,7 +930,20 @@ ldc a 0
 lda a 0 7
 sto a
 mst 1
+cup 0 @iset_contains
+not b
+fjp @skip_insert_13
+ldc a 1
+;49: OP_LEXPR (b) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 0 10
+ind i
+sto i
+ldc a 0
+lda a 0 7
+sto a
+mst 1
 cup 0 @iset_add
+define @skip_insert_13
 ;50: OP_REMOVE_ISET [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 1
 ;50: OP_LEXPR (a) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -914,11 +966,11 @@ lda a 1 9
 sto a
 mst 1
 cup 0 @iset_remove
-define @fi_9
-ujp @while_6
-define @od_6
+define @fi_11
+ujp @while_8
+define @od_8
 ;62: OP_WHILE [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
-define @while_10
+define @while_14
 ;55: OP_AND [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;55: OP_LT [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;55: OP_CONSTANT_INT (0) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -930,9 +982,9 @@ add a
 ind i
 les i
 not b
-fjp @true_11
-ujp @false_11
-define @true_11
+fjp @true_15
+ujp @false_15
+define @true_15
 ;55: OP_LT [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;55: OP_CONSTANT_INT (0) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 0
@@ -942,11 +994,11 @@ ldc a 1
 add a
 ind i
 les i
-ujp @end_11
-define @false_11
+ujp @end_15
+define @false_15
 ldc b 0
-define @end_11
-fjp @od_10
+define @end_15
+fjp @od_14
 ;62: OP_INSTRUCTION_LIST [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;56: OP_ASSIGN [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda i 0 9
@@ -980,7 +1032,20 @@ ldc a 0
 lda a 1 7
 sto a
 mst 1
+cup 0 @iset_contains
+not b
+fjp @skip_insert_16
+ldc a 1
+;58: OP_LEXPR (a) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 0 9
+ind i
+sto i
+ldc a 0
+lda a 1 7
+sto a
+mst 1
 cup 0 @iset_add
+define @skip_insert_16
 ;59: OP_ADD_ISET [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 1
 ;59: OP_LEXPR (b) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -991,7 +1056,20 @@ ldc a 0
 lda a 1 9
 sto a
 mst 1
+cup 0 @iset_contains
+not b
+fjp @skip_insert_17
+ldc a 1
+;59: OP_LEXPR (b) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
+lda i 0 10
+ind i
+sto i
+ldc a 0
+lda a 1 9
+sto a
+mst 1
 cup 0 @iset_add
+define @skip_insert_17
 ;60: OP_REMOVE_ISET [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc a 1
 ;60: OP_LEXPR (a) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -1014,8 +1092,8 @@ lda a 0 7
 sto a
 mst 1
 cup 0 @iset_remove
-ujp @while_10
-define @od_10
+ujp @while_14
+define @od_14
 ;63: OP_RETURN [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 lda b 0 0
 ;63: OP_LEXPR (equal) [ -> equal:b(1,11) -> b:i(1,10) -> a:i(1,9) -> tmpB:a(1,7) -> tmpA:a(1,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
@@ -1031,23 +1109,23 @@ mst 0
 cup 0 @buildEnsA_2
 ;70: OP_FUNCTION_CALL [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 mst 0
-cup 0 @buildEnsB_4
+cup 0 @buildEnsB_5
 ;75: OP_IF_ELSE [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;71: OP_FUNCTION_CALL [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 mst 0
 cup 0 @equals_1
-fjp @else_12
+fjp @else_18
 ;73: OP_INSTRUCTION_LIST [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;72: OP_WRITE [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;72: OP_CONSTANT_INT (1) [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 1
 prin
-ujp @fi_12
-define @else_12
+ujp @fi_18
+define @else_18
 ;75: OP_INSTRUCTION_LIST [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;74: OP_WRITE [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ;74: OP_CONSTANT_INT (0) [ -> ens2:a(0,7) -> ens1:a(0,5) -> equals():b(0,4) -> buildEnsB():v(0,4) -> buildEnsA():v(0,4) -> -equals():b(0,4) -> ensB:a(0,9) -> ensA:a(0,7) -> b:i(0,6) -> a:b(0,5) -> main():v(-1,4)]
 ldc i 0
 prin
-define @fi_12
+define @fi_18
 stp

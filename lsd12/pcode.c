@@ -21,11 +21,7 @@ int getFunctionStackSize( AST_TREE fct ) {
     
     AST_TREE params = getNodeOperand(fct, OP_FUNCTION_PARAMS)->operands;
     while( params ) {
-        if( getNodeOperand(params, OP_VAR_TYPE)->intVal == TYPE_ISET ) {
-            i += 2;
-        } else {
-            i++;
-        }
+        i++;
         params = params->next;
     }
     return i;
@@ -396,6 +392,20 @@ void generateAdressPCode( AST_TREE node ) {
     generatePCode(node);
 }
 
+void generateISetContains( AST_TREE node ) {
+    printf("ldc a 1\n");
+    generatePCode(node->operands);
+    printf("sto i\n");
+
+    SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
+    printf("ldc a 0\n");
+    generateAdressPCode(node->operands->next);
+    printf("sto a\n");
+
+    printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
+    printf("cup 0 @iset_contains\n");
+}
+
 void initializeISets(AST_TREE function) {
     AST_TREE decl = getNodeOperand(function, OP_FUNCTION_DECLBLOCK)->operands;
     int paramSize = getNumberOfParams(function->symbols);
@@ -628,7 +638,13 @@ void generatePCode(AST_TREE node) {
             generatePCode(then);
             printf("ujp @while_%d\n", g);
             printf("define @od_%d\n", g);
-        } else if( node->type == OP_ADD_ISET ) {
+        } else if( node->type == OP_ADD_ISET ) {          
+            generateISetContains(node);
+            
+            printf("not b\n");
+            int g = ++gen;
+            printf("fjp @skip_insert_%d\n", g);
+            
             printf("ldc a 1\n");
             generatePCode(node->operands);
             printf("sto i\n");
@@ -640,6 +656,8 @@ void generatePCode(AST_TREE node) {
             
             printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
             printf("cup 0 @iset_add\n");
+            
+            printf("define @skip_insert_%d\n", g);
         } else if(node->type == OP_REMOVE_ISET ) {
             printf("ldc a 1\n");
             generatePCode(node->operands);
@@ -653,17 +671,7 @@ void generatePCode(AST_TREE node) {
             printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
             printf("cup 0 @iset_remove\n");
         } else if( node->type == OP_IN ) {
-            printf("ldc a 1\n");
-            generatePCode(node->operands);
-            printf("sto i\n");
-            
-            SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
-            printf("ldc a 0\n");
-            generateAdressPCode(node->operands->next);
-            printf("sto a\n");
-            
-            printf("mst %d\n", findParentFunctionSymbol(node)->depth + 1);
-            printf("cup 0 @iset_contains\n");
+            generateISetContains(node);
         } else if( node->type == OP_MAX_ISET ) {
             printf("ldc a 0\n");
             generatePCode(node->operands);

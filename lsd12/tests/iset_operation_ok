@@ -5,6 +5,7 @@ program x;
       function addIset( var a : iset, i:int ) : void;
       var begin
         add i to a;
+        write #a;
       end;
       function createset( var a : iset ): void;
       var 
@@ -17,14 +18,22 @@ program x;
         od;
       end;
       function printset( var a : iset ) : void;
-      var begin
+      var 
+        b iset;
+      begin
         while(0 < #a) do
           write min a;
+          add min a to b;
           remove min a from a;
+        od;
+        while( 0 < #b ) do
+          add min b to a;
+          remove min b from b;
         od;
       end;
     begin
       createset( a );
+      printset( a );
       printset( a );
     end;
   end;

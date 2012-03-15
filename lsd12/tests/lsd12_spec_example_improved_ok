@@ -1,0 +1,47 @@
+program exemple;
+  function main(): void;
+    var
+      a bool;
+      b int;
+      ensA iset;
+      ensB iset;
+
+      function buildEns( var ens : iset ) : void;
+        var
+          x int;
+        begin
+          read x;
+          while( !(x = 0) ) do
+            add x to ens;
+            read x;
+          od;
+        end;
+
+      function equals(var ensA: iset, var ensB:iset) : bool;
+        var
+          a int;
+          b int;
+          equal bool;
+        begin
+          equal := #ensA = #ensB && (0 = #ensA || min ensA = min ensB);
+          if( equal && 0 < #ensA ) then
+            a := min ensA;
+            b := min ensB;
+            remove a from ensA;
+            remove b from ensB;
+            equal := equals(ensA, ensB);
+            add a to ensA;
+            add b to ensB;
+          fi;
+          return equal;
+        end;
+  begin
+    buildEns(ensA);
+    buildEns(ensB);
+    if( equals(ensA, ensB) ) then
+      write 1;
+    else
+      write 0;
+    fi;
+  end;
+end;
