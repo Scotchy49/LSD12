@@ -7,7 +7,7 @@ extern void printTree(AST_TREE node, int depth);
 
 void error(int line, const char * msg, ...) {
     fprintf(stderr, "KO\n");
-    fprintf(stderr, "Line %d: type error:", line, msg);
+    fprintf(stderr, "Line %d: type error:", line);
     va_list args;
     va_start(args, msg);
     vfprintf(stderr, msg, args);

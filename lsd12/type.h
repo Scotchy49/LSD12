@@ -11,6 +11,7 @@
 #include "sym.h"
 
 void validateType(AST_TREE node);
+int getType( AST_TREE node );
 
 #endif	/* TYPE_H */
 

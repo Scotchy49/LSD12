@@ -23,6 +23,8 @@ char *getVarTypeName(int val) {
         return "v";
     case TYPE_ISET:
         return "a";
+    default:
+        return "unknown";    
     }
 }
 
@@ -247,7 +249,6 @@ AST_TREE createNode( OP_TYPE type, int opCount, ... ) {
 }
 
 AST_TREE getNodeOperand(AST_TREE node, OP_TYPE operand) {
-    int i;
     AST_TREE node_operand = node->operands;
     while(node_operand) {
         if( node_operand->type == operand ) 

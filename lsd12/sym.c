@@ -210,7 +210,6 @@ SYMLIST getFunctionSymbol(AST_TREE node) {
 }
 
 SYMLIST getSymbol(AST_TREE node) {
-    int i;
     SYMLIST sym = NULL;
 
     if( node->type == OP_FUNCTION_FORWARD || node->type == OP_FUNCTION) {

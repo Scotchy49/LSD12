@@ -374,7 +374,6 @@ void printISetAlgorithms() {
 void generateAdressPCode( AST_TREE node ) {
     if( node->type == OP_LEXPR ) {
         SYMLIST s = findVarSymbol(node->symbols, node->strVal);
-        int paramSize = getNumberOfParams(findParentFunctionSymbol(node));
         
         if( s->isParam == 2 ) {
             printf("lod a ");
@@ -396,8 +395,7 @@ void generateISetContains( AST_TREE node ) {
     printf("ldc a 1\n");
     generatePCode(node->operands);
     printf("sto i\n");
-
-    SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
+    
     printf("ldc a 0\n");
     generateAdressPCode(node->operands->next);
     printf("sto a\n");
@@ -408,7 +406,6 @@ void generateISetContains( AST_TREE node ) {
 
 void initializeISets(AST_TREE function) {
     AST_TREE decl = getNodeOperand(function, OP_FUNCTION_DECLBLOCK)->operands;
-    int paramSize = getNumberOfParams(function->symbols);
     while( decl ) {
         if( decl->type == OP_FUNCTION_VAR_DECL && getNodeOperand(decl, OP_VAR_TYPE)->intVal == TYPE_ISET ){
             // on met la taille à 0 pour cet iset
@@ -649,7 +646,6 @@ void generatePCode(AST_TREE node) {
             generatePCode(node->operands);
             printf("sto i\n");
             
-            SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
             printf("ldc a 0\n");
             generateAdressPCode(node->operands->next);
             printf("sto a\n");
@@ -663,7 +659,6 @@ void generatePCode(AST_TREE node) {
             generatePCode(node->operands);
             printf("sto i\n");
             
-            SYMLIST iset = findVarSymbol(node->symbols, node->operands->next->strVal);
             printf("ldc a 0\n");
             generateAdressPCode(node->operands->next);
             printf("sto a\n");
