@@ -3,7 +3,7 @@ all:
 	flex *.l
 	gcc -ggdb -DYYDEBUG=1 -c *.c
 	gcc -ggdb -o lsd12 *.o
-	./run_tests.sh
+	./run_tests.sh "./lsd12"
 
 profile:
 	bison -dty *.y
