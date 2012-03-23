@@ -1,3 +1,4 @@
+{EXPECT:1}
 program x;
   function main() : void;
     var
@@ -7,21 +8,17 @@ program x;
           function c() : void;
             var 
             begin 
-              a(2, b); 
-              c(); 
+              write 1;
           end;
         begin 
           c(); 
       end;
       function b(a: int) : void;
         var 
- 
         begin 
           a(1, b); 
-          b(1); 
         end;
-      
     begin
-      a(1, b);
+      a(1, b); 
     end;
   end;

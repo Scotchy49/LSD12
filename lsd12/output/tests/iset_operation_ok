@@ -158,7 +158,13 @@
 ;|  |  |  |  OP_WRITE [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  OP_MAX_ISET [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  OP_LEXPR (a) [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;38: OP_PROGRAM []
+;|  |  |  |  next
+;|  |  |  |  OP_FUNCTION_CALL [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_ID (printset) [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_LEXPR (a) [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;50: OP_PROGRAM []
 ssp 7
 lda i 0 6
 ldc i 0
@@ -492,17 +498,17 @@ add a
 ind i
 sto i
 retf
-;31: OP_FUNCTION_DECLBLOCK [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;8: OP_FUNCTION [ -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;43: OP_FUNCTION_DECLBLOCK [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;20: OP_FUNCTION [ -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @addIset_1
 ssp 7
 ujp @addIset_1Body
-;6: OP_FUNCTION_DECLBLOCK [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;18: OP_FUNCTION_DECLBLOCK [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @addIset_1Body
-;8: OP_INSTRUCTION_LIST [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;7: OP_ADD_ISET [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;20: OP_INSTRUCTION_LIST [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;19: OP_ADD_ISET [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc a 1
-;7: OP_LEXPR (i) [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;19: OP_LEXPR (i) [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
 sto i
@@ -514,7 +520,7 @@ cup 0 @iset_contains
 not b
 fjp @skip_insert_2
 ldc a 1
-;7: OP_LEXPR (i) [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;19: OP_LEXPR (i) [ -> +i:i(1,6) -> +ens:a(1,5) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
 sto i
@@ -525,69 +531,69 @@ mst 0
 cup 0 @iset_add
 define @skip_insert_2
 retp
-;18: OP_FUNCTION [ -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;30: OP_FUNCTION [ -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @createset_3
 ssp 7
 ujp @createset_3Body
-;12: OP_FUNCTION_DECLBLOCK [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;24: OP_FUNCTION_DECLBLOCK [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @createset_3Body
-;18: OP_INSTRUCTION_LIST [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;13: OP_READ [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;30: OP_INSTRUCTION_LIST [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;25: OP_READ [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 read
 sto i
-;17: OP_WHILE [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;29: OP_WHILE [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @while_4
-;14: OP_NOT [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;14: OP_EQ [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;14: OP_LEXPR (b) [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;26: OP_NOT [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;26: OP_EQ [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;26: OP_LEXPR (b) [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
-;14: OP_CONSTANT_INT (0) [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;26: OP_CONSTANT_INT (0) [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc i 0
 equ i
 not b
 fjp @od_4
-;17: OP_INSTRUCTION_LIST [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;15: OP_FUNCTION_CALL [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;29: OP_INSTRUCTION_LIST [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;27: OP_FUNCTION_CALL [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 mst 1
 lod a 0 5
-;15: OP_LEXPR (b) [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;27: OP_LEXPR (b) [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
 cup 2 @addIset_1
-;16: OP_READ [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;28: OP_READ [ -> b:i(1,6) -> +a:a(1,5) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 read
 sto i
 ujp @while_4
 define @od_4
 retp
-;30: OP_FUNCTION [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;42: OP_FUNCTION [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @printset_5
 ssp 7
 ujp @printset_5Body
-;22: OP_FUNCTION_DECLBLOCK [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;34: OP_FUNCTION_DECLBLOCK [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @printset_5Body
-;30: OP_INSTRUCTION_LIST [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;23: OP_ASSIGN [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;42: OP_INSTRUCTION_LIST [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;35: OP_ASSIGN [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
-;23: OP_MIN_ISET [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;35: OP_MIN_ISET [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc a 0
-;23: OP_LEXPR (ens) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;35: OP_LEXPR (ens) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lod a 0 5
 ind a
 sto a
 mst 0
 cup 0 @iset_min
 sto i
-;29: OP_WHILE [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;41: OP_WHILE [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 define @while_6
-;24: OP_LTE [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;24: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;36: OP_LTE [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;36: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
-;24: OP_MAX_ISET [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;36: OP_MAX_ISET [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc a 0
 lod a 0 5
 sto a
@@ -595,11 +601,11 @@ mst 0
 cup 0 @iset_max
 leq i
 fjp @od_6
-;29: OP_INSTRUCTION_LIST [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;27: OP_IF [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;25: OP_IN [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;41: OP_INSTRUCTION_LIST [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;39: OP_IF [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;37: OP_IN [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc a 1
-;25: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;37: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
 sto i
@@ -609,20 +615,20 @@ sto a
 mst 0
 cup 0 @iset_contains
 fjp @fi_7
-;27: OP_INSTRUCTION_LIST [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;26: OP_WRITE [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;26: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;39: OP_INSTRUCTION_LIST [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;38: OP_WRITE [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;38: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
 prin
 define @fi_7
-;28: OP_ASSIGN [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;40: OP_ASSIGN [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
-;28: OP_PLUS [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;28: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;40: OP_PLUS [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;40: OP_LEXPR (i) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda i 0 6
 ind i
-;28: OP_CONSTANT_INT (1) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;40: OP_CONSTANT_INT (1) [ -> i:i(1,6) -> +ens:a(1,5) -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc i 1
 add i
 sto i
@@ -630,34 +636,38 @@ ujp @while_6
 define @od_6
 retp
 define @begin
-;37: OP_INSTRUCTION_LIST [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;32: OP_FUNCTION_CALL [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;49: OP_INSTRUCTION_LIST [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;44: OP_FUNCTION_CALL [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 mst 0
 lda a 0 5
 cup 1 @createset_3
-;33: OP_WRITE [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;33: OP_SIZE_ISET [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;45: OP_WRITE [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;45: OP_SIZE_ISET [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda a 0 5
 ldc a 1
 add a
 ind i
 prin
-;34: OP_WRITE [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;34: OP_MIN_ISET [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;46: OP_WRITE [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;46: OP_MIN_ISET [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc a 0
-;34: OP_LEXPR (a) [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;46: OP_LEXPR (a) [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 lda a 0 5
 ind a
 sto a
 mst 0
 cup 0 @iset_min
 prin
-;35: OP_WRITE [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
-;35: OP_MAX_ISET [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;47: OP_WRITE [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+;47: OP_MAX_ISET [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
 ldc a 0
 lda a 0 5
 sto a
 mst 0
 cup 0 @iset_max
 prin
+;48: OP_FUNCTION_CALL [ -> printset(&a):v(0,4) -> createset(&a):v(0,4) -> addIset(&a,i):v(0,4) -> a:a(0,5) -> main():v(-1,4)]
+mst 0
+lda a 0 5
+cup 1 @printset_5
 stp

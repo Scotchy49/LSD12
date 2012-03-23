@@ -13,7 +13,7 @@ program x;
       end;
     begin
       a := 1;
-      write a(a);
-      write a;
+      write a(a); {EXPECT:3}
+      write a; {EXPECT:2}
     end;
   end;

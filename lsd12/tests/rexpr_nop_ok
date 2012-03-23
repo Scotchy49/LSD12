@@ -1,3 +1,4 @@
+{EXPECT:1}
 program rexpr;
   function main(): void;
   var

@@ -40,7 +40,7 @@
 ;|  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_WRITE [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LEXPR (a) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  next
 ;|  |  |  OP_FUNCTION [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  OP_ID (a) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
@@ -73,7 +73,7 @@
 ;|  |  |  |  |  |  |  |  OP_LEXPR (b) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_WRITE [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LEXPR (a) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  next
 ;|  |  OP_FUNCTION_BODY [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  OP_INSTRUCTION_LIST [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
@@ -81,7 +81,7 @@
 ;|  |  |  |  |  OP_ID (a) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  next
 ;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  next
@@ -89,10 +89,10 @@
 ;|  |  |  |  |  OP_ID (a) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  next
 ;|  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_CONSTANT_INT (2) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_CONSTANT_BOOL (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;18: OP_PROGRAM []
+;20: OP_PROGRAM []
 ssp 5
 ujp @begin
 define @iset_contains
@@ -433,9 +433,8 @@ ind b
 not b
 sto b
 ;7: OP_WRITE [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;7: OP_LEXPR (a) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
-lda i 0 5
-ind i
+;7: OP_CONSTANT_INT (1) [ -> +b:b(1,6) -> +a:i(1,5) -> a(i,b):v(0,4) -> main():v(-1,4)]
+ldc i 1
 prin
 retp
 ;13: OP_FUNCTION [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
@@ -454,25 +453,24 @@ ind i
 neg i
 sto i
 ;12: OP_WRITE [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-;12: OP_LEXPR (a) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-lda i 0 5
-ind i
+;12: OP_CONSTANT_INT (2) [ -> +b:i(1,6) -> +a:i(1,5) -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+ldc i 2
 prin
 retp
 define @begin
-;17: OP_INSTRUCTION_LIST [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;19: OP_INSTRUCTION_LIST [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ;15: OP_FUNCTION_CALL [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 mst 0
-;15: OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc i 1
+;15: OP_CONSTANT_INT (0) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+ldc i 0
 ;15: OP_CONSTANT_INT (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ldc i 1
 cup 2 @a_2
-;16: OP_FUNCTION_CALL [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;17: OP_FUNCTION_CALL [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 mst 0
-;16: OP_CONSTANT_INT (2) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
-ldc i 2
-;16: OP_CONSTANT_BOOL (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+;17: OP_CONSTANT_INT (0) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
+ldc i 0
+;17: OP_CONSTANT_BOOL (1) [ -> a(i,i):v(0,4) -> a(i,b):v(0,4) -> main():v(-1,4)]
 ldc b 1
 cup 2 @a_1
 stp

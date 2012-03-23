@@ -20,6 +20,6 @@ program x;
     begin
       a := 1;
       a(true);
-      write a;
+      write a; {EXPECT:2}
     end;
   end;

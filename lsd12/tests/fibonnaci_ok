@@ -1,3 +1,17 @@
+{INPUT:1}
+{EXPECT:1}
+{INPUT:1}
+{EXPECT:1}
+{INPUT:2}
+{EXPECT:2}
+{INPUT:3}
+{EXPECT:3}
+{INPUT:4}
+{EXPECT:5}
+{INPUT:5}
+{EXPECT:8}
+{INPUT:0}
+{EXPECT:1}
 program fib;
   function main() : void;
   var 

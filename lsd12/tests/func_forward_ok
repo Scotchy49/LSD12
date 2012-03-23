@@ -1,3 +1,4 @@
+{EXPECT:2}
 program x;
   function main() : void;
     var
@@ -5,7 +6,9 @@ program x;
         forward;
 
       function a() : void;
-        var begin a(2); end;
+        var begin 
+          a(2); 
+        end;
 
       function a(x:int) : void;
         var begin write x; end;

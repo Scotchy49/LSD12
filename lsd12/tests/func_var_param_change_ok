@@ -9,12 +9,12 @@ program x;
           b := !b;
         end;
     begin
-      a := 1;
+      a := 1; 
       b := false;
       a(a, b);
-      write a;
-      if( b ) then
-        write 1;
+      write a; {EXPECT:2}
+      if( b ) then {EXPECT:1}
+        write 1; 
       else
         write 0;
       fi;

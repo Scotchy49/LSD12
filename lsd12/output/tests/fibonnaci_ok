@@ -84,7 +84,7 @@
 ;|  |  |  |  |  |  |  |  next
 ;|  |  |  |  |  |  |  |  OP_FUNCTION_CALL_PARAMS [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  |  OP_LEXPR (a) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;20: OP_PROGRAM []
+;34: OP_PROGRAM []
 ssp 6
 ujp @begin
 define @iset_contains
@@ -408,51 +408,51 @@ add a
 ind i
 sto i
 retf
-;13: OP_FUNCTION_DECLBLOCK [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;12: OP_FUNCTION [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;27: OP_FUNCTION_DECLBLOCK [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;26: OP_FUNCTION [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 define @fib_1
 ssp 6
 ujp @fib_1Body
-;7: OP_FUNCTION_DECLBLOCK [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;21: OP_FUNCTION_DECLBLOCK [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 define @fib_1Body
-;12: OP_INSTRUCTION_LIST [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;10: OP_IF [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;8: OP_LTE [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;8: OP_LEXPR (i) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;26: OP_INSTRUCTION_LIST [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;24: OP_IF [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;22: OP_LTE [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;22: OP_LEXPR (i) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
-;8: OP_CONSTANT_INT (1) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;22: OP_CONSTANT_INT (1) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ldc i 1
 leq i
 fjp @fi_2
-;10: OP_INSTRUCTION_LIST [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;9: OP_RETURN [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;24: OP_INSTRUCTION_LIST [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;23: OP_RETURN [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 0
-;9: OP_CONSTANT_INT (1) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;23: OP_CONSTANT_INT (1) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ldc i 1
 sto i
 retf
 define @fi_2
-;11: OP_RETURN [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_RETURN [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 0
-;11: OP_PLUS [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;11: OP_FUNCTION_CALL [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_PLUS [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_FUNCTION_CALL [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 mst 1
-;11: OP_MINUS [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;11: OP_LEXPR (i) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_MINUS [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_LEXPR (i) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
-;11: OP_CONSTANT_INT (1) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_CONSTANT_INT (1) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ldc i 1
 sub i
 cup 1 @fib_1
-;11: OP_FUNCTION_CALL [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_FUNCTION_CALL [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 mst 1
-;11: OP_MINUS [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;11: OP_LEXPR (i) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_MINUS [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_LEXPR (i) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
-;11: OP_CONSTANT_INT (2) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;25: OP_CONSTANT_INT (2) [ -> +i:i(1,5) -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ldc i 2
 sub i
 cup 1 @fib_1
@@ -461,31 +461,31 @@ sto i
 retf
 retf
 define @begin
-;19: OP_INSTRUCTION_LIST [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;14: OP_ASSIGN [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;33: OP_INSTRUCTION_LIST [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;28: OP_ASSIGN [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
-;14: OP_CONSTANT_INT (1) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;28: OP_CONSTANT_INT (1) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ldc i 1
 sto i
-;18: OP_WHILE [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;32: OP_WHILE [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 define @while_3
-;15: OP_LT [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;15: OP_CONSTANT_INT (0) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;29: OP_LT [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;29: OP_CONSTANT_INT (0) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 ldc i 0
-;15: OP_LEXPR (a) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;29: OP_LEXPR (a) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
 les i
 fjp @od_3
-;18: OP_INSTRUCTION_LIST [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;16: OP_READ [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;32: OP_INSTRUCTION_LIST [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;30: OP_READ [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 read
 sto i
-;17: OP_WRITE [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
-;17: OP_FUNCTION_CALL [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;31: OP_WRITE [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;31: OP_FUNCTION_CALL [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 mst 0
-;17: OP_LEXPR (a) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
+;31: OP_LEXPR (a) [ -> fib(i):i(0,4) -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
 cup 1 @fib_1

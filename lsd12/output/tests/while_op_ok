@@ -8,71 +8,38 @@
 ;|  |  next
 ;|  |  OP_FUNCTION_TYPE (v) [ -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_DECLBLOCK [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  OP_FUNCTION_DECLBLOCK [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  OP_FUNCTION_VAR_DECL [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  OP_ID (i) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
 ;|  |  |  |  OP_VAR_TYPE (i) [ -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  next
-;|  |  |  OP_FUNCTION_VAR_DECL [ -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  OP_ID (x) [ -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_VAR_TYPE (i) [ -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  next
-;|  |  |  OP_FUNCTION_VAR_DECL [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  OP_ID (a) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_VAR_TYPE (b) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  next
-;|  |  OP_FUNCTION_BODY [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_LEXPR (x) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  OP_FUNCTION_BODY [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  OP_INSTRUCTION_LIST [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ASSIGN [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_CONSTANT_INT (0) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_CONSTANT_INT (0) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
-;|  |  |  |  OP_READ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  next
-;|  |  |  |  |  OP_EQ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_WHILE [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_LT [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  next
-;|  |  |  |  OP_WHILE [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_CONSTANT_INT (3) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  next
-;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  OP_READ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_INSTRUCTION_LIST [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_WRITE [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LEXPR (a) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  OP_ASSIGN [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_EQ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_LEXPR (i) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  OP_PLUS [ -> i:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  |  |  |  OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  next
-;|  |  |  |  |  |  OP_WHILE [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  OP_LT [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (0) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  OP_LEXPR (x) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  OP_INSTRUCTION_LIST [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  OP_LEXPR (x) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  OP_MINUS [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  OP_LEXPR (x) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;|  |  |  |  |  |  |  |  |  |  next
-;|  |  |  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;19: OP_PROGRAM []
-ssp 8
+;|  |  |  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> i:i(0,5) -> main():v(-1,4)]
+;15: OP_PROGRAM []
+ssp 6
 ujp @begin
 define @iset_contains
 ssp 5
@@ -395,72 +362,40 @@ add a
 ind i
 sto i
 retf
-;7: OP_FUNCTION_DECLBLOCK [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;8: OP_FUNCTION_DECLBLOCK [ -> i:i(0,5) -> main():v(-1,4)]
 define @begin
-;18: OP_INSTRUCTION_LIST [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;8: OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda i 0 6
-;8: OP_CONSTANT_INT (0) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;14: OP_INSTRUCTION_LIST [ -> i:i(0,5) -> main():v(-1,4)]
+;9: OP_ASSIGN [ -> i:i(0,5) -> main():v(-1,4)]
+lda i 0 5
+;9: OP_CONSTANT_INT (0) [ -> i:i(0,5) -> main():v(-1,4)]
 ldc i 0
 sto i
-;9: OP_READ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda i 0 5
-read
-sto i
-;10: OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda b 0 7
-;10: OP_EQ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;10: OP_LEXPR (i) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda i 0 5
-ind i
-;10: OP_CONSTANT_INT (1) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-ldc i 1
-equ i
-sto b
-;17: OP_WHILE [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;13: OP_WHILE [ -> i:i(0,5) -> main():v(-1,4)]
 define @while_1
-;11: OP_LEXPR (a) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda b 0 7
-ind b
-fjp @od_1
-;17: OP_INSTRUCTION_LIST [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;12: OP_READ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda i 0 5
-read
-sto i
-;13: OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda b 0 7
-;13: OP_EQ [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;13: OP_LEXPR (i) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+;10: OP_LT [ -> i:i(0,5) -> main():v(-1,4)]
+;10: OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
-;13: OP_CONSTANT_INT (1) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-ldc i 1
-equ i
-sto b
-;16: OP_WHILE [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-define @while_2
-;14: OP_LT [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;14: OP_CONSTANT_INT (0) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-ldc i 0
-;14: OP_LEXPR (x) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda i 0 6
-ind i
+;10: OP_CONSTANT_INT (3) [ -> i:i(0,5) -> main():v(-1,4)]
+ldc i 3
 les i
-fjp @od_2
-;16: OP_INSTRUCTION_LIST [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;15: OP_ASSIGN [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda i 0 6
-;15: OP_MINUS [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-;15: OP_LEXPR (x) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
-lda i 0 6
+fjp @od_1
+;13: OP_INSTRUCTION_LIST [ -> i:i(0,5) -> main():v(-1,4)]
+;11: OP_WRITE [ -> i:i(0,5) -> main():v(-1,4)]
+;11: OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
+lda i 0 5
 ind i
-;15: OP_CONSTANT_INT (1) [ -> a:b(0,7) -> x:i(0,6) -> i:i(0,5) -> main():v(-1,4)]
+prin
+;12: OP_ASSIGN [ -> i:i(0,5) -> main():v(-1,4)]
+lda i 0 5
+;12: OP_PLUS [ -> i:i(0,5) -> main():v(-1,4)]
+;12: OP_LEXPR (i) [ -> i:i(0,5) -> main():v(-1,4)]
+lda i 0 5
+ind i
+;12: OP_CONSTANT_INT (1) [ -> i:i(0,5) -> main():v(-1,4)]
 ldc i 1
-sub i
+add i
 sto i
-ujp @while_2
-define @od_2
 ujp @while_1
 define @od_1
 stp

@@ -1,8 +1,11 @@
+{INPUT:10}
+{EXPECT:15}
 program x;
   function main() : void;
     var
       a int;
     begin
       read a;
+      write a + 5;
     end;
   end;

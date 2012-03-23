@@ -1,3 +1,6 @@
+{INPUT:10}
+{EXPECT:10}
+{EXPECT:17}
 program x;
   function main() : void;
     var

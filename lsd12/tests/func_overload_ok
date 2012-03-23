@@ -4,15 +4,17 @@ program x;
       function a(a: int, b:bool) : void;
         var begin 
             b := !b;
-            write a;
+            write 1;
         end;
       function a(a: int, b:int) : void;
         var begin 
             b := -b;
-            write a;
+            write 2;
         end;
     begin
-      a(1, 1);
-      a(2, true);
+      a(0, 1);    
+      {EXPECT:2}
+      a(0, true); 
+      {EXPECT:1}
     end;
   end;

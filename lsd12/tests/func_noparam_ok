@@ -18,7 +18,7 @@ program x;
         end;
     begin
       a := 1;
-      write a();
-      write b();
+      write a(); {EXPECT:1}
+      write b(); {EXPECT:1}
     end;
   end;

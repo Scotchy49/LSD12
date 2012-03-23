@@ -4,6 +4,7 @@ program x;
       a int;
       b int;
     begin
+      b := 0;
       a := b;
     end;
   end;

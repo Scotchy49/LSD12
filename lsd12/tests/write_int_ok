@@ -1,8 +1,12 @@
+{EXPECT:10}
+{EXPECT:1}
+{EXPECT:11}
 program x;
   function main() : void;
     var
       a int;
     begin
+      a := 10;
       write a;
       write 1;
       write a+1;

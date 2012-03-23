@@ -1,19 +1,15 @@
+{EXPECT:0}
+{EXPECT:1}
+{EXPECT:2}
 program x;
   function main() : void;
     var
       i int;
-      x int;
-      a bool;
     begin
-	  x := 0;
-	  read i;
-	  a := i = 1;
-      while( a ) do
-        read i;
-        a := i = 1;
-        while( 0 < x ) do
-          x := x - 1;
-        od;
+      i := 0;
+      while( i < 3 ) do
+        write i;
+        i := i + 1;
       od;
     end;
   end;

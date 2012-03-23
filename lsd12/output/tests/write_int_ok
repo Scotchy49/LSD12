@@ -16,6 +16,11 @@
 ;|  |  next
 ;|  |  OP_FUNCTION_BODY [ -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  OP_INSTRUCTION_LIST [ -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  OP_ASSIGN [ -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  OP_LEXPR (a) [ -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  |  next
+;|  |  |  |  |  OP_CONSTANT_INT (10) [ -> a:i(0,5) -> main():v(-1,4)]
+;|  |  |  |  next
 ;|  |  |  |  OP_WRITE [ -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  OP_LEXPR (a) [ -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  next
@@ -27,7 +32,7 @@
 ;|  |  |  |  |  |  OP_LEXPR (a) [ -> a:i(0,5) -> main():v(-1,4)]
 ;|  |  |  |  |  |  next
 ;|  |  |  |  |  |  OP_CONSTANT_INT (1) [ -> a:i(0,5) -> main():v(-1,4)]
-;10: OP_PROGRAM []
+;14: OP_PROGRAM []
 ssp 6
 ujp @begin
 define @iset_contains
@@ -351,24 +356,29 @@ add a
 ind i
 sto i
 retf
-;5: OP_FUNCTION_DECLBLOCK [ -> a:i(0,5) -> main():v(-1,4)]
+;8: OP_FUNCTION_DECLBLOCK [ -> a:i(0,5) -> main():v(-1,4)]
 define @begin
-;9: OP_INSTRUCTION_LIST [ -> a:i(0,5) -> main():v(-1,4)]
-;6: OP_WRITE [ -> a:i(0,5) -> main():v(-1,4)]
-;6: OP_LEXPR (a) [ -> a:i(0,5) -> main():v(-1,4)]
+;13: OP_INSTRUCTION_LIST [ -> a:i(0,5) -> main():v(-1,4)]
+;9: OP_ASSIGN [ -> a:i(0,5) -> main():v(-1,4)]
+lda i 0 5
+;9: OP_CONSTANT_INT (10) [ -> a:i(0,5) -> main():v(-1,4)]
+ldc i 10
+sto i
+;10: OP_WRITE [ -> a:i(0,5) -> main():v(-1,4)]
+;10: OP_LEXPR (a) [ -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
 prin
-;7: OP_WRITE [ -> a:i(0,5) -> main():v(-1,4)]
-;7: OP_CONSTANT_INT (1) [ -> a:i(0,5) -> main():v(-1,4)]
+;11: OP_WRITE [ -> a:i(0,5) -> main():v(-1,4)]
+;11: OP_CONSTANT_INT (1) [ -> a:i(0,5) -> main():v(-1,4)]
 ldc i 1
 prin
-;8: OP_WRITE [ -> a:i(0,5) -> main():v(-1,4)]
-;8: OP_PLUS [ -> a:i(0,5) -> main():v(-1,4)]
-;8: OP_LEXPR (a) [ -> a:i(0,5) -> main():v(-1,4)]
+;12: OP_WRITE [ -> a:i(0,5) -> main():v(-1,4)]
+;12: OP_PLUS [ -> a:i(0,5) -> main():v(-1,4)]
+;12: OP_LEXPR (a) [ -> a:i(0,5) -> main():v(-1,4)]
 lda i 0 5
 ind i
-;8: OP_CONSTANT_INT (1) [ -> a:i(0,5) -> main():v(-1,4)]
+;12: OP_CONSTANT_INT (1) [ -> a:i(0,5) -> main():v(-1,4)]
 ldc i 1
 add i
 prin

@@ -15,7 +15,18 @@ while IFS=' ' read -ra TOKENS; do
         then
             echo "${txtgrn}pass${txtrst}: ${TOKENS[1]} KO `${LSD12} < ${TOKENS[1]} 2>&1 | tail -1` "
         else
-            echo "${txtgrn}pass${txtrst}: ${TOKENS[1]} OK"
+            (cat ${TOKENS[1]} | grep "INPUT" | grep -oh "[0-9][0-9]*") > .input
+            (cat ${TOKENS[1]} | grep "EXPECT" | grep -oh "[0-9][0-9]*") > .expected
+            (cat .input | ../statement/gpmachine.jar -nogui -n output/${TOKENS[1]}) | grep -oh "[0-9][0-9]*" > .output
+            DIFF=`diff .output .expected -q`
+            if [ "$DIFF" = "" ]
+            then
+                echo "${txtgrn}pass${txtrst}: ${TOKENS[1]} OK"
+                rm .input .output .expected
+            else
+                echo "${txtred}fail${txtrst}: ${TOKENS[1]} machine output differs from expected"
+                exit 1
+            fi
         fi
     else
     	if [ "$result" = "KO" ] 

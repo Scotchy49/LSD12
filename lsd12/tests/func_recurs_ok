@@ -4,10 +4,12 @@ program x;
       b bool;
       function a(a: int, var b:bool) : void;
         var begin 
-          a(2, b);
+          if( 0 < a ) then
+            a(a-1, b);
+          fi;
         end;
     begin
       b := true;
-      a(1, b);
+      a(3, b);
     end;
   end;
