@@ -17,7 +17,7 @@ while IFS=' ' read -ra TOKENS; do
         else
             (cat ${TOKENS[1]} | grep "INPUT" | grep -oh "[0-9][0-9]*") > .input
             (cat ${TOKENS[1]} | grep "EXPECT" | grep -oh "[0-9][0-9]*") > .expected
-            (cat .input | ../statement/gpmachine.jar -nogui -n output/${TOKENS[1]}) | grep -oh "[0-9][0-9]*" > .output
+            (cat .input | java -jar ../statement/gpmachine.jar -nogui -n output/${TOKENS[1]}) | grep -oh "[0-9][0-9]*" > .output
             DIFF=`diff .output .expected -q`
             if [ "$DIFF" = "" ]
             then
